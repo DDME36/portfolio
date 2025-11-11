@@ -1752,6 +1752,34 @@
                 display: none;
             }
 
+            /* บังคับให้ทุก section แสดงผลในมือถือ */
+            .section h1,
+            .section h2,
+            .section h3,
+            .section p,
+            .section .content {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+
+            /* แก้ไข Section 4 - Education */
+            #section4 h1,
+            #section4 p,
+            #section4 .education-section h3,
+            #section4 .timeline-item {
+                opacity: 1 !important;
+                transform: translateX(0) !important;
+                transform: translateY(0) !important;
+            }
+
+            /* แก้ไข Section 5 - Projects */
+            #section5 h1,
+            #section5 p,
+            #section5 .project-card {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+
             .hero-badges {
                 flex-direction: row;
                 gap: 8px;
