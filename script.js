@@ -1,205 +1,114 @@
-const container = document.getElementById('main-container');
-const sections = document.querySelectorAll('.section');
-const navDots = document.querySelectorAll('.nav-dot');
-let currentSection = 0;
-let isScrolling = false;
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('main-container');
+    const sections = document.querySelectorAll('.section');
+    const navDots = document.querySelectorAll('.nav-dot');
+    
+    // --- Intersection Observer (ติดตามว่าดู Section ไหนอยู่) ---
+    // ใช้ threshold ต่ำลงเพื่อให้ detect ง่ายขึ้นบน iPad
+    const observerOptions = {
+        threshold: 0.2, 
+        root: container // สังเกตเทียบกับ container หลัก
+    };
 
-// Intersection Observer for section activation
-const observerOptions = {
-    threshold: 0.5,
-    rootMargin: '0px'
-};
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // อัปเดตเมนูจุด (Nav Dots)
+                const id = entry.target.getAttribute('id');
+                const index = Array.from(sections).findIndex(section => section.id === id);
+                
+                navDots.forEach(dot => dot.classList.remove('active'));
+                if (navDots[index]) navDots[index].classList.add('active');
 
-const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // Remove active class from all sections
-            sections.forEach(s => s.classList.remove('active'));
-            // Add active class to current section
-            entry.target.classList.add('active');
+                // เพิ่ม class active ให้ section เพื่อเล่น Animation
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
 
-            // Update nav dots
-            const sectionIndex = Array.from(sections).indexOf(entry.target);
-            navDots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === sectionIndex);
-            });
-            currentSection = sectionIndex;
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+
+    // --- Parallax Effect (Effect ขยับตามเมาส์) ---
+    // Optimize: ใช้ requestAnimationFrame เพื่อลดภาระเครื่อง iPad
+    let mouseX = 0, mouseY = 0;
+    let currentX = 0, currentY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function animateParallax() {
+        // Smooth interpolation (Lerp)
+        currentX += (mouseX - currentX) * 0.1;
+        currentY += (mouseY - currentY) * 0.1;
+
+        const x = (currentX / window.innerWidth - 0.5) * 50;
+        const y = (currentY / window.innerHeight - 0.5) * 50;
+
+        const shapes = document.querySelectorAll('.layer-shape');
+        shapes.forEach(shape => {
+            const speed = parseFloat(shape.dataset.speed) || 0.5;
+            // ใช้ translate3d เพื่อเปิด Hardware Acceleration
+            shape.style.transform = `translate3d(${x * speed}px, ${y * speed}px, 0)`;
+        });
+        
+        const spotlight = document.getElementById('spotlight');
+        if (spotlight) {
+            spotlight.style.left = `${currentX - 300}px`;
+            spotlight.style.top = `${currentY - 300}px`;
         }
-    });
-}, observerOptions);
 
-sections.forEach(section => {
-    sectionObserver.observe(section);
-});
-
-// Nav dots click
-navDots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        scrollToSection(index);
-    });
-});
-
-function scrollToSection(index) {
-    if (index >= 0 && index < sections.length) {
-        sections[index].scrollIntoView({ behavior: 'smooth' });
+        requestAnimationFrame(animateParallax);
     }
-}
-
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown' && currentSection < sections.length - 1) {
-        scrollToSection(currentSection + 1);
-    } else if (e.key === 'ArrowUp' && currentSection > 0) {
-        scrollToSection(currentSection - 1);
+    // เริ่ม Animation เฉพาะจอใหญ่ (Desktop) เพื่อประหยัดแบตมือถือ
+    if (window.innerWidth > 1024) {
+        animateParallax();
     }
-});
 
-// Mouse wheel navigation (optional - smoother experience)
-let scrollTimeout;
-container.addEventListener('wheel', (e) => {
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        // Scroll handling is done by CSS scroll-snap
-    }, 100);
-});
-
-// Parallax effect for layered shapes
-container.addEventListener('scroll', () => {
-    const scrolled = container.scrollTop;
-    const layerShapes = document.querySelectorAll('.layer-shape');
-
-    layerShapes.forEach(shape => {
-        const speed = parseFloat(shape.dataset.speed) || 0.5;
-        const yPos = -(scrolled * speed);
-        shape.style.transform = `translateY(${yPos}px)`;
-    });
-});
-
-// Mouse move parallax effect
-document.addEventListener('mousemove', (e) => {
-    const mouseX = e.clientX / window.innerWidth - 0.5;
-    const mouseY = e.clientY / window.innerHeight - 0.5;
-
-    const layerShapes = document.querySelectorAll('.layer-shape');
-    layerShapes.forEach(shape => {
-        const speed = parseFloat(shape.dataset.speed) || 0.5;
-        const x = mouseX * 50 * speed;
-        const y = mouseY * 50 * speed;
-
-        const currentTransform = shape.style.transform || '';
-        const scrollY = container.scrollTop * speed;
-        shape.style.transform = `translate(${x}px, ${y - scrollY}px)`;
-    });
-
-    // Spotlight effect
-    const spotlight = document.getElementById('spotlight');
-    if (spotlight) {
-        spotlight.style.left = `${e.clientX - 300}px`;
-        spotlight.style.top = `${e.clientY - 300}px`;
-    }
-});
-
-// Add grid pattern to all sections
-sections.forEach(section => {
-    if (!section.querySelector('.grid-pattern')) {
-        const grid = document.createElement('div');
-        grid.className = 'grid-pattern';
-        section.insertBefore(grid, section.firstChild);
-    }
-});
-
-// Water fill animation for skills
-const skillsSection = document.getElementById('section3');
-const waterFills = document.querySelectorAll('.water-fill');
-
-const animateWaterFill = () => {
-    waterFills.forEach(fill => {
-        const percentage = fill.getAttribute('data-percentage');
-        if (percentage) {
-            setTimeout(() => {
-                fill.style.height = percentage + '%';
-            }, 300);
+    // --- Scroll Function ---
+    window.scrollToSection = (index) => {
+        if (sections[index]) {
+            sections[index].scrollIntoView({ behavior: 'smooth' });
         }
+    };
+
+    // Add click events to nav dots
+    navDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => window.scrollToSection(index));
     });
-};
 
-// Trigger water fill when skills section is active
-const skillsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && entry.target.id === 'section3') {
-            animateWaterFill();
-            skillsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-if (skillsSection) {
-    skillsObserver.observe(skillsSection);
-}
-
-// Image Lightbox functionality
-const allCertImages = [
-    'images/c1.png',
-    'images/c2.png',
-    'images/c3.png',
-    'images/c4.png',
-    'images/coe.jpg',
-    'images/toeic1.png'
-];
-let currentImageIndex = 0;
-
-function openLightbox(imageSrc) {
+    // --- Lightbox (ดูรูปขยาย) ---
     const lightbox = document.getElementById('imageLightbox');
-    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxImg = document.getElementById('lightboxImage');
+    let currentImgIndex = 0;
+    // เก็บรายการรูปทั้งหมดใน Array ไว้ก่อน
+    const allImages = [
+        'images/c1.png', 'images/c2.png', 'images/c3.png', 'images/c4.png',
+        'images/coe.jpg', 'images/toeic1.png'
+    ];
 
-    currentImageIndex = allCertImages.indexOf(imageSrc);
-    if (currentImageIndex === -1) currentImageIndex = 0;
+    window.openLightbox = (src) => {
+        lightbox.setAttribute('aria-hidden', 'false');
+        lightbox.classList.add('active');
+        lightboxImg.src = src;
+        // หา index ปัจจุบัน
+        currentImgIndex = allImages.findIndex(img => src.includes(img));
+        if (currentImgIndex === -1) currentImgIndex = 0;
+    };
 
-    lightboxImage.src = imageSrc;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeLightbox(event) {
-    if (event.target.id === 'imageLightbox' || event.target.closest('.lightbox-close')) {
-        const lightbox = document.getElementById('imageLightbox');
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-        event.stopPropagation();
-    }
-}
-
-function navigateLightbox(direction, event) {
-    event.stopPropagation();
-    currentImageIndex += direction;
-
-    if (currentImageIndex < 0) {
-        currentImageIndex = allCertImages.length - 1;
-    } else if (currentImageIndex >= allCertImages.length) {
-        currentImageIndex = 0;
-    }
-
-    const lightboxImage = document.getElementById('lightboxImage');
-    lightboxImage.src = allCertImages[currentImageIndex];
-}
-
-// Keyboard navigation for lightbox
-document.addEventListener('keydown', (e) => {
-    const lightbox = document.getElementById('imageLightbox');
-    if (lightbox.classList.contains('active')) {
-        if (e.key === 'Escape') {
+    window.closeLightbox = (e) => {
+        if (e.target === lightbox || e.target.closest('.lightbox-close')) {
             lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        } else if (e.key === 'ArrowLeft') {
-            navigateLightbox(-1, e);
-        } else if (e.key === 'ArrowRight') {
-            navigateLightbox(1, e);
+            lightbox.setAttribute('aria-hidden', 'true');
         }
-    }
+    };
+    
+    window.navigateLightbox = (direction, e) => {
+        e.stopPropagation();
+        currentImgIndex = (currentImgIndex + direction + allImages.length) % allImages.length;
+        lightboxImg.src = allImages[currentImgIndex];
+    };
 });
-
-window.scrollToSection = scrollToSection;
-window.openLightbox = openLightbox;
-window.closeLightbox = closeLightbox;
-window.navigateLightbox = navigateLightbox;
-
