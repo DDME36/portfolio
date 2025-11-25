@@ -1902,41 +1902,46 @@ p {
 
 /* Mobile phones */
 @media (max-width: 480px) {
+    /* ปิด snap scrolling บนมือถือ - ให้เลื่อนแบบปกติ */
     .container {
-        scroll-snap-type: y mandatory;
+        scroll-snap-type: none;
         -webkit-overflow-scrolling: touch;
-        overscroll-behavior: none;
+        overscroll-behavior: auto;
     }
 
     .section {
-        min-height: 100vh;
-        min-height: 100dvh;
-        height: 100vh;
-        height: 100dvh;
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        padding: 20px 0;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
+        min-height: auto;
+        height: auto;
+        scroll-snap-align: none;
+        padding: 40px 0;
+        display: block;
+        overflow: visible;
         background: #000;
     }
 
     #section1 {
         min-height: 100vh;
         min-height: 100dvh;
-        height: 100vh;
-        height: 100dvh;
-        padding: 0;
+        height: auto;
+        padding: 60px 0;
         display: flex;
         align-items: center;
     }
     
     .content {
         padding: 0 20px;
-        max-height: 85vh;
-        max-height: 85dvh;
-        overflow-y: auto;
+        max-height: none;
+        overflow-y: visible;
+    }
+    
+    /* ซ่อน nav dots บนมือถือ */
+    .nav-dots {
+        display: none;
+    }
+    
+    /* ซ่อน scroll hint */
+    .scroll-hint {
+        display: none;
     }
 
     h1 {
@@ -2313,19 +2318,16 @@ p {
 /* Small mobile phones */
 @media (max-width: 375px) {
     .container {
-        scroll-snap-type: y mandatory;
-        overscroll-behavior: none;
+        scroll-snap-type: none;
+        overscroll-behavior: auto;
     }
     
     .section {
-        min-height: 100vh;
-        min-height: 100dvh;
-        height: 100vh;
-        height: 100dvh;
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        padding: 15px 0;
-        overflow: hidden;
+        min-height: auto;
+        height: auto;
+        scroll-snap-align: none;
+        padding: 30px 0;
+        overflow: visible;
         background: #000;
     }
 
