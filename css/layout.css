@@ -1,0 +1,118 @@
+/* ═══════════════════════════════════════
+   Layout & Container
+   ═══════════════════════════════════════ */
+
+.container {
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+    background: #000;
+}
+
+.container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.container::-webkit-scrollbar-thumb {
+    background: rgba(255, 107, 53, 0.5);
+    border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 107, 53, 0.8);
+}
+
+.section {
+    min-height: 100vh;
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 0 50px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Navigation Dots */
+.nav-dots {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 15px 0;
+    cursor: pointer;
+    transition: all 0.4s var(--ease-out-expo);
+    border: 2px solid transparent;
+}
+
+.nav-dot.active {
+    background: var(--primary);
+    transform: scale(1.5);
+    border-color: #fff;
+    box-shadow: 0 0 12px rgba(255, 107, 53, 0.6), 0 0 25px rgba(255, 107, 53, 0.2);
+}
+
+.nav-dot:hover {
+    background: var(--primary);
+    transform: scale(1.3);
+}
+
+/* Scroll Hint */
+.scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    animation: bounce 2s infinite;
+    z-index: 100;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+}
+
+#section7 .scroll-hint {
+    display: none;
+}

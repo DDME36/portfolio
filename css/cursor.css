@@ -1,0 +1,64 @@
+/* ═══════════════════════════════════════
+   Custom Cursor (Desktop Only)
+   ═══════════════════════════════════════ */
+
+.custom-cursor,
+.custom-cursor-dot {
+    display: none;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99990;
+    will-change: transform;
+}
+
+.has-custom-cursor .custom-cursor {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid rgba(255,107,53,0.5);
+    border-radius: 50%;
+    transition: width 0.3s var(--ease-out-expo),
+                height 0.3s var(--ease-out-expo),
+                border-color 0.3s,
+                background 0.3s;
+}
+
+.has-custom-cursor .custom-cursor-dot {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+}
+
+.has-custom-cursor * {
+    cursor: none !important;
+}
+
+.custom-cursor.cursor-hover {
+    width: 60px;
+    height: 60px;
+    border-color: var(--accent);
+    background: rgba(0,212,255,0.05);
+    transform-origin: center;
+}
+
+/* Typed Text Cursor */
+.typed-text::after {
+    content: '|';
+    animation: blink 0.8s step-end infinite;
+    color: var(--primary);
+    font-weight: 300;
+    margin-left: 2px;
+}
+
+.typed-text.typing-done::after {
+    animation: blink 0.8s step-end infinite 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}

@@ -1,0 +1,159 @@
+/* ═══════════════════════════════════════
+   Animated Shapes & Backgrounds
+   ═══════════════════════════════════════ */
+
+/* Morphing Shapes */
+.morph-shape {
+    position: absolute;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: morph 8s ease-in-out infinite;
+    opacity: 0.15;
+    filter: blur(100px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    will-change: transform, border-radius;
+    backface-visibility: hidden;
+    transform: translate3d(0,0,0);
+}
+
+@keyframes morph {
+    0%, 100% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    25% {
+        border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+        transform: translate(50px, -50px) rotate(90deg) scale(1.1);
+    }
+    50% {
+        border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+        transform: translate(-50px, 50px) rotate(180deg) scale(0.9);
+    }
+    75% {
+        border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+        transform: translate(50px, 50px) rotate(270deg) scale(1.05);
+    }
+}
+
+.shape-1 {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    top: -10%;
+    left: -10%;
+    animation-delay: 0s;
+    z-index: 1;
+}
+
+.shape-2 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    bottom: -10%;
+    right: -10%;
+    animation-delay: 2s;
+    z-index: 2;
+}
+
+.shape-3 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    top: 40%;
+    right: 10%;
+    animation-delay: 4s;
+    z-index: 3;
+}
+
+/* Floating Geometric Shapes */
+.geo-shape {
+    position: absolute;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translate3d(0,0,0);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(180deg); }
+}
+
+.geo-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    top: 20%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.geo-square {
+    width: 120px;
+    height: 120px;
+    border: 3px solid var(--accent);
+    transform: rotate(45deg);
+    bottom: 20%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.geo-triangle {
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 100px solid var(--secondary);
+    opacity: 0.1;
+    top: 60%;
+    left: 10%;
+    animation-delay: 4s;
+}
+
+/* Diagonal Cut Shapes */
+.diagonal-shape {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.diagonal-shape::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: linear-gradient(135deg, transparent 40%, rgba(255, 107, 53, 0.1) 50%, transparent 60%);
+    transform: rotate(-15deg);
+    animation: diagonalMove 20s linear infinite;
+}
+
+@keyframes diagonalMove {
+    0% { transform: rotate(-15deg) translateX(-100%); }
+    100% { transform: rotate(-15deg) translateX(100%); }
+}
+
+/* Grid Pattern */
+.grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 40%, transparent 100%);
+}
+
+/* Spotlight Effect */
+.spotlight {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.3) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
