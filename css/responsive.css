@@ -246,8 +246,8 @@
         animation: none !important;
     }
 
-    /* ปิด animation ทั่วไปใน section แต่ยกเว้น cert scroll */
-    .section *:not(.cert-scroll-track):not(.cert-scroll-item):not(.cert-scroll-item img) {
+    /* ปิด transition ทั่วไปใน section แต่ยกเว้น cert scroll */
+    .section *:not(.cert-scroll-track):not(.cert-scroll-item):not(.cert-scroll-container) {
         transition: none !important;
     }
 
@@ -264,10 +264,16 @@
 
     /* เปิด cert scroll animation สำหรับ mobile / Safari iOS */
     .cert-scroll-track {
-        animation: scrollCerts 25s linear infinite !important;
-        transform: translateX(0) !important;
-        will-change: transform;
         -webkit-animation: scrollCerts 25s linear infinite !important;
+        animation: scrollCerts 25s linear infinite !important;
+        will-change: transform;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    .cert-scroll-item {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
 
     /* ปิด timeline pulse */
