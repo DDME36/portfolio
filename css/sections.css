@@ -747,6 +747,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .contact-box {
@@ -757,6 +760,9 @@
     transition: all 1s ease;
     text-align: center;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .section.active .contact-box {

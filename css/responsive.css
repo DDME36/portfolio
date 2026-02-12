@@ -220,8 +220,7 @@
         overflow: visible !important;
     }
 
-    /* Force visibility - remove ALL animations */
-    .section *,
+    /* Force visibility - remove ALL animations (ยกเว้น cert scroll) */
     .section h1,
     .section h2,
     .section h3,
@@ -238,11 +237,18 @@
     .section .education-section h3,
     .section .timeline-item,
     .section .cta-btn,
+    .section .badge-item,
+    .section .hero-badges,
     .section .badge-item {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
         animation: none !important;
+    }
+
+    /* ปิด animation ทั่วไปใน section แต่ยกเว้น cert scroll */
+    .section *:not(.cert-scroll-track):not(.cert-scroll-item):not(.cert-scroll-item img) {
+        transition: none !important;
     }
 
     /* ปิด water fill animation */
@@ -256,9 +262,12 @@
         animation: none !important;
     }
 
-    /* เปิด scroll animation กลับมา */
+    /* เปิด cert scroll animation สำหรับ mobile / Safari iOS */
     .cert-scroll-track {
-        animation: scrollCerts 30s linear infinite !important;
+        animation: scrollCerts 25s linear infinite !important;
+        transform: translateX(0) !important;
+        will-change: transform;
+        -webkit-animation: scrollCerts 25s linear infinite !important;
     }
 
     /* ปิด timeline pulse */
