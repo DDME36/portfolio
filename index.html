@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Preconnect for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon.png" />
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>
+      ศตายุ พ้องพาน - วิศวกรไฟฟ้า | Satayu Pongpan - Electrical Engineer
+    </title>
+    <meta
+      name="title"
+      content="ศตายุ พ้องพาน - วิศวกรไฟฟ้า & ผู้ช่วยนักวิจัย | Satayu Pongpan"
+    />
+    <meta
+      name="description"
+      content="ศตายุ พ้องพาน (Satayu Pongpan) วิศวกรไฟฟ้า กว. และผู้ช่วยนักวิจัย มีประสบการณ์ด้านการจัดการฐานข้อมูลวิจัย Data Cleaning และเครื่องมือ AI มีทักษะด้าน Excel, SAP, Python และ AutoCAD"
+    />
+    <meta
+      name="keywords"
+      content="ศตายุ พ้องพาน, Satayu Pongpan, วิศวกรไฟฟ้า, ผู้ช่วยนักวิจัย, Research Assistant, Electrical Engineer, กว., Data Analysis, Database, AI, Python, AutoCAD, มหาวิทยาลัยราชมงคลล้านนา, RMUTL"
+    />
+    <meta name="author" content="ศตายุ พ้องพาน (Satayu Pongpan)" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://punn.site/" />
+    <meta
+      property="og:title"
+      content="ศตายุ พ้องพาน - วิศวกรไฟฟ้า & ผู้ช่วยนักวิจัย | Satayu Pongpan"
+    />
+    <meta
+      property="og:description"
+      content="วิศวกรไฟฟ้า กว. และผู้ช่วยนักวิจัย มีประสบการณ์ด้านฐานข้อมูลวิจัย การจัดการข้อมูล และเครื่องมือ AI"
+    />
+    <meta property="og:image" content="https://punn.site/images/profile.png" />
+    <meta property="og:locale" content="th_TH" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://punn.site/" />
+    <meta
+      property="twitter:title"
+      content="ศตายุ พ้องพาน - วิศวกรไฟฟ้า & ผู้ช่วยนักวิจัย | Satayu Pongpan"
+    />
+    <meta
+      property="twitter:description"
+      content="วิศวกรไฟฟ้า กว. และผู้ช่วยนักวิจัย มีประสบการณ์ด้านฐานข้อมูลวิจัย การจัดการข้อมูล และเครื่องมือ AI"
+    />
+    <meta
+      property="twitter:image"
+      content="https://punn.site/images/profile.png"
+    />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://punn.site/" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Kanit:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+      <div class="loader-content">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Loading</div>
+      </div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress">
+      <div class="scroll-progress-bar"></div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+      <div class="nav-dot active" data-section="0"></div>
+      <div class="nav-dot" data-section="1"></div>
+      <div class="nav-dot" data-section="2"></div>
+      <div class="nav-dot" data-section="3"></div>
+      <div class="nav-dot" data-section="4"></div>
+      <div class="nav-dot" data-section="5"></div>
+      <div class="nav-dot" data-section="6"></div>
+    </div>
+
+    <div class="container" id="main-container">
+      <!-- Section 1: Hero -->
+      <section class="section active" id="section1">
+        <div class="diagonal-shape"></div>
+        <div class="morph-shape shape-1 layer-shape" data-speed="0.5"></div>
+        <div class="morph-shape shape-2 layer-shape" data-speed="0.3"></div>
+        <div class="morph-shape shape-3 layer-shape" data-speed="0.7"></div>
+        <div class="geo-shape geo-circle layer-shape" data-speed="0.2"></div>
+        <div class="geo-shape geo-square layer-shape" data-speed="0.4"></div>
+        <div class="geo-shape geo-triangle layer-shape" data-speed="0.6"></div>
+        <div class="grid-pattern"></div>
+        <div class="spotlight" id="spotlight"></div>
+        <div class="content">
+          <div class="hero-badges">
+            <div class="badge-item">
+              <i class="fas fa-bolt"></i>
+              <span>วิศวกร กว.</span>
+            </div>
+            <div class="badge-item">
+              <i class="fas fa-database"></i>
+              <span>ผู้ช่วยนักวิจัย</span>
+            </div>
+            <div class="badge-item">
+              <i class="fas fa-robot"></i>
+              <span>AI Enthusiast</span>
+            </div>
+          </div>
+          <h1>ศตายุ พ้องพาน</h1>
+          <div class="subtitle" style="font-size: 1.8rem; margin-bottom: 10px">
+            Satayu Pongpan
+          </div>
+          <div class="subtitle">
+            <span class="typed-text" data-text="วิศวกรไฟฟ้า × Data × AI"
+              >วิศวกรไฟฟ้า × Data × AI</span
+            >
+          </div>
+          <p>
+            วิศวกรไฟฟ้า กว. ผู้มุ่งมั่นพัฒนาตนเองไม่หยุดนิ่ง<br />จากงานระบบไฟฟ้าสู่การจัดการข้อมูลวิจัย
+            และเครื่องมือ AI<br />พร้อมเรียนรู้ ปรับตัว และสร้างคุณค่าในทุกบทบาท
+          </p>
+          <a href="#" class="cta-btn" onclick="scrollToSection(1)"
+            ><span>ดูเรื่องราวของผม →</span></a
+          >
+        </div>
+        <div class="scroll-hint">
+          <i class="fas fa-chevron-down"></i> เลื่อนลงเพื่อดูเรื่องราว
+        </div>
+      </section>
+
+      <!-- Section 2: About -->
+      <section class="section" id="section2">
+        <div class="diagonal-shape"></div>
+        <div class="morph-shape shape-1 layer-shape" data-speed="0.4"></div>
+        <div class="morph-shape shape-2 layer-shape" data-speed="0.6"></div>
+        <div class="geo-shape geo-circle layer-shape" data-speed="0.3"></div>
+        <div class="geo-shape geo-square layer-shape" data-speed="0.5"></div>
+        <div class="content">
+          <div class="about-content-wrapper">
+            <div class="about-image-box">
+              <img
+                src="images/profile.png"
+                alt="ศตายุ พ้องพาน - Satayu Pongpan - วิศวกรไฟฟ้า"
+                class="about-img"
+                loading="lazy"
+                width="2500"
+                height="2500"
+              />
+            </div>
+            <div class="about-text-box">
+              <div class="section-label">เกี่ยวกับผม</div>
+              <h2 class="about-title">
+                จากวิศวกรไฟฟ้า สู่โลกข้อมูลและ AI
+              </h2>
+              <p class="about-desc">
+                สวัสดีครับ ผมศตายุ — วิศวกรไฟฟ้าที่ถือใบ กว.
+                ปัจจุบันทำงานเป็นผู้ช่วยนักวิจัย ดูแลฐานข้อมูลและเตรียมข้อมูลเพื่อการวิเคราะห์เชิงสถิติ
+              </p>
+              <p class="about-desc">
+                ผมมีจุดแข็งด้านการจัดการเอกสาร การทำงานกับข้อมูล
+                และการเรียนรู้เครื่องมือใหม่ๆ ได้อย่างรวดเร็ว
+                ไม่ว่าจะเป็น Excel, SAP, Python หรือ AI Tools
+              </p>
+              <p class="about-desc">
+                ผมเชื่อว่าทักษะแก้ปัญหาจากสายวิศวกรรม
+                เมื่อรวมกับความเข้าใจด้านข้อมูล จะสร้างมุมมองที่แตกต่าง
+                และผมพร้อมเรียนรู้สิ่งใหม่เพื่อพัฒนาตัวเองอยู่เสมอ
+              </p>
+              <div class="tech-list">
+                <div class="tech-list-item">
+                  <i class="fas fa-check-circle"></i> Excel & Data Analysis
+                </div>
+                <div class="tech-list-item">
+                  <i class="fas fa-check-circle"></i> AutoCAD
+                </div>
+                <div class="tech-list-item">
+                  <i class="fas fa-check-circle"></i> Python (เบื้องต้น)
+                </div>
+                <div class="tech-list-item">
+                  <i class="fas fa-check-circle"></i> AI Tools
+                </div>
+                <div class="tech-list-item">
+                  <i class="fas fa-check-circle"></i> PowerPoint & Canva
+                </div>
+                <div class="tech-list-item">
+                  <i class="fas fa-check-circle"></i> SAP System
+                </div>
+                <div class="tech-list-item">
+                  <i class="fas fa-check-circle"></i> Database Management
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-hint">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </section>
+
+      <!-- Section 3: Skills -->
+      <section class="section" id="section3">
+        <div class="diagonal-shape"></div>
+        <div class="morph-shape shape-1 layer-shape" data-speed="0.3"></div>
+        <div class="morph-shape shape-3 layer-shape" data-speed="0.5"></div>
+        <div class="geo-shape geo-triangle layer-shape" data-speed="0.4"></div>
+        <div class="geo-shape geo-circle layer-shape" data-speed="0.6"></div>
+        <div class="content">
+          <h1>ทักษะและความสามารถ</h1>
+          <div class="skills-intro">
+            <p>
+              ทักษะที่สั่งสมมาจากทั้งสายวิศวกรรมและงานวิจัย
+              พัฒนาอย่างต่อเนื่องเพื่อก้าวทันเทคโนโลยี
+            </p>
+          </div>
+          <div class="skills-container">
+            <div class="skill-item">
+              <div class="circle-wrap">
+                <div class="circle-outer">
+                  <div class="circle-inner">
+                    <div class="water-fill" data-percentage="90"></div>
+                    <div class="skill-icon">
+                      <i class="fas fa-file-excel"></i>
+                    </div>
+                  </div>
+                  <div class="skill-percentage">90%</div>
+                </div>
+              </div>
+              <div class="skill-name">Excel</div>
+              <div class="skill-desc">วิเคราะห์ข้อมูลและรายงาน</div>
+            </div>
+            <div class="skill-item">
+              <div class="circle-wrap">
+                <div class="circle-outer">
+                  <div class="circle-inner">
+                    <div class="water-fill" data-percentage="90"></div>
+                    <div class="skill-icon">
+                      <i class="fas fa-file-word"></i>
+                    </div>
+                  </div>
+                  <div class="skill-percentage">90%</div>
+                </div>
+              </div>
+              <div class="skill-name">Word</div>
+              <div class="skill-desc">จัดทำเอกสารและรายงาน</div>
+            </div>
+            <div class="skill-item">
+              <div class="circle-wrap">
+                <div class="circle-outer">
+                  <div class="circle-inner">
+                    <div class="water-fill" data-percentage="85"></div>
+                    <div class="skill-icon">
+                      <i class="fas fa-file-powerpoint"></i>
+                    </div>
+                  </div>
+                  <div class="skill-percentage">85%</div>
+                </div>
+              </div>
+              <div class="skill-name">PowerPoint</div>
+              <div class="skill-desc">นำเสนออย่างมืออาชีพ</div>
+            </div>
+            <div class="skill-item">
+              <div class="circle-wrap">
+                <div class="circle-outer">
+                  <div class="circle-inner">
+                    <div class="water-fill" data-percentage="60"></div>
+                    <div class="skill-icon">
+                      <i class="fas fa-drafting-compass"></i>
+                    </div>
+                  </div>
+                  <div class="skill-percentage">60%</div>
+                </div>
+              </div>
+              <div class="skill-name">AutoCAD</div>
+              <div class="skill-desc">ออกแบบทางวิศวกรรม</div>
+            </div>
+            <div class="skill-item">
+              <div class="circle-wrap">
+                <div class="circle-outer">
+                  <div class="circle-inner">
+                    <div class="water-fill" data-percentage="40"></div>
+                    <div class="skill-icon"><i class="fab fa-python"></i></div>
+                  </div>
+                  <div class="skill-percentage">40%</div>
+                </div>
+              </div>
+              <div class="skill-name">Python</div>
+              <div class="skill-desc">กำลังเรียนรู้</div>
+            </div>
+            <div class="skill-item">
+              <div class="circle-wrap">
+                <div class="circle-outer">
+                  <div class="circle-inner">
+                    <div class="water-fill" data-percentage="80"></div>
+                    <div class="skill-icon"><i class="fas fa-palette"></i></div>
+                  </div>
+                  <div class="skill-percentage">80%</div>
+                </div>
+              </div>
+              <div class="skill-name">Canva</div>
+              <div class="skill-desc">ออกแบบกราฟิกเบื้องต้น</div>
+            </div>
+            <div class="skill-item">
+              <div class="circle-wrap">
+                <div class="circle-outer">
+                  <div class="circle-inner">
+                    <div class="water-fill" data-percentage="50"></div>
+                    <div class="skill-icon">
+                      <i class="fas fa-chart-bar"></i>
+                    </div>
+                  </div>
+                  <div class="skill-percentage">50%</div>
+                </div>
+              </div>
+              <div class="skill-name">Data Analysis</div>
+              <div class="skill-desc">วิเคราะห์ข้อมูลเบื้องต้น</div>
+            </div>
+            <div class="skill-item">
+              <div class="circle-wrap">
+                <div class="circle-outer">
+                  <div class="circle-inner">
+                    <div class="water-fill" data-percentage="85"></div>
+                    <div class="skill-icon"><i class="fas fa-robot"></i></div>
+                  </div>
+                  <div class="skill-percentage">85%</div>
+                </div>
+              </div>
+              <div class="skill-name">AI Tools</div>
+              <div class="skill-desc">ใช้เครื่องมือ AI ช่วยงาน</div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-hint">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </section>
+
+      <!-- Section 4: Education & Work -->
+      <section class="section" id="section4">
+        <div class="diagonal-shape"></div>
+        <div class="morph-shape shape-2 layer-shape" data-speed="0.5"></div>
+        <div class="morph-shape shape-3 layer-shape" data-speed="0.3"></div>
+        <div class="geo-shape geo-square layer-shape" data-speed="0.4"></div>
+        <div class="geo-shape geo-triangle layer-shape" data-speed="0.6"></div>
+        <div class="content">
+          <h1>การศึกษาและประสบการณ์</h1>
+          <p style="margin-bottom: 50px">เส้นทางจากห้องเรียน สู่หน้างานจริง</p>
+          <div class="education-grid">
+            <div class="education-section">
+              <h3>
+                <i class="fas fa-graduation-cap"></i>
+                การศึกษา
+              </h3>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-date">2560 - 2564</div>
+                  <h4 class="timeline-title">
+                    มหาวิทยาลัยราชมงคลล้านนาเชียงใหม่
+                  </h4>
+                  <p class="timeline-subtitle">
+                    วิศวกรรมศาสตรบัณฑิต สาขาวิศวกรรมไฟฟ้า<br />เกรดเฉลี่ย 3.26
+                  </p>
+                  <p class="timeline-description">
+                    เน้นการศึกษาด้านระบบไฟฟ้ากำลัง และระบบควบคุมอัตโนมัติ
+                    มีโปรเจคไฟนัลเกี่ยวกับ High Frequency Tesla Coil (HFSSTC)
+                  </p>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-date">2557 - 2560</div>
+                  <h4 class="timeline-title">วิทยาลัยเทคนิคแพร่</h4>
+                  <p class="timeline-subtitle">
+                    ประกาศนียบัตรวิชาชีพ (ปวช.) สาขาไฟฟ้ากำลัง<br />เกรดเฉลี่ย
+                    3.63
+                  </p>
+                  <p class="timeline-description">
+                    เรียนรู้พื้นฐานด้านไฟฟ้ากำลัง พัฒนาโปรเจค
+                    "ตู้เย็นเคลื่อนที่" และฝึกงานที่โรงพยาบาล ซ่อมบำรุงระบบไฟฟ้า
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="education-section">
+              <h3>
+                <i class="fas fa-briefcase"></i>
+                ประสบการณ์ทำงาน
+              </h3>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-date">2568 (มกราคม) - ปัจจุบัน</div>
+                  <h4 class="timeline-title">ผู้ช่วยนักวิจัย</h4>
+                  <p class="timeline-subtitle">
+                    Research Assistant
+                  </p>
+                  <p class="timeline-description">
+                    สร้างและดูแลฐานข้อมูลวิจัย ลงรหัสข้อมูลจากแบบสอบถามและแบบบันทึก
+                    ทำความสะอาดข้อมูลเพื่อเตรียมส่งต่อให้นักวิจัยวิเคราะห์เชิงสถิติ
+                  </p>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-date">2567 (เมษายน - ธันวาคม)</div>
+                  <h4 class="timeline-title">การไฟฟ้าส่วนภูมิภาค (PEA)</h4>
+                  <p class="timeline-subtitle">
+                    ลูกจ้าง (บริษัท สยามราชธานี จำกัด (มหาชน))
+                  </p>
+                  <p class="timeline-description">
+                    รับผิดชอบงานจัดซื้อจัดจ้าง ใช้ Excel, Word และ SAP
+                    ในการจัดการข้อมูล สนับสนุนงานเอกสารของแผนก
+                  </p>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-date">2563 - 2564</div>
+                  <h4 class="timeline-title">บริษัทรับเหมาไฟฟ้า</h4>
+                  <p class="timeline-subtitle">นักศึกษาฝึกงาน</p>
+                  <p class="timeline-description">
+                    ออกแบบและจัดทำ BOQ (Bill of Quantities)
+                    รวมถึงการเสนอราคางานรับเหมา ไฟฟ้า
+                    ลงพื้นที่หน้างานเพื่อควบคุมและตรวจสอบระบบไฟฟ้า
+                    ฝึกงานระหว่างการศึกษา วิศวกรรมไฟฟ้า
+                  </p>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-date">2558 - 2559</div>
+                  <h4 class="timeline-title">โรงพยาบาล</h4>
+                  <p class="timeline-subtitle">นักศึกษาฝึกงาน (ปวช.)</p>
+                  <p class="timeline-description">
+                    ฝึกงานในแผนกซ่อมบำรุง เปลี่ยนหลอดไฟ ซ่อมพัดลม ติดตั้งปลั๊กไฟ
+                    ดูแลระบบโทรศัพท์สื่อสาร ฝึกงานระหว่างการศึกษาระดับ ปวช.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-hint">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </section>
+
+      <!-- Section 5: Projects -->
+      <section class="section" id="section5">
+        <div class="diagonal-shape"></div>
+        <div class="morph-shape shape-1 layer-shape" data-speed="0.6"></div>
+        <div class="morph-shape shape-2 layer-shape" data-speed="0.4"></div>
+        <div class="morph-shape shape-3 layer-shape" data-speed="0.5"></div>
+        <div class="geo-shape geo-circle layer-shape" data-speed="0.3"></div>
+        <div class="geo-shape geo-square layer-shape" data-speed="0.7"></div>
+        <div class="content">
+          <h1>โปรเจคและผลงาน</h1>
+          <p style="margin-bottom: 50px">
+            โปรเจคที่ได้พัฒนาระหว่างการศึกษาและการทำงาน
+          </p>
+          <div
+            class="projects-container"
+            style="grid-template-columns: repeat(3, 1fr); max-width: 1200px"
+          >
+            <div class="project-card">
+              <img
+                src="images/project-website-placeholder.png"
+                alt="Personal Website - punn.site"
+                class="project-image"
+                style="object-fit: cover"
+                loading="lazy"
+                width="1085"
+                height="944"
+              />
+              <div class="project-content">
+                <div class="project-tags">
+                  <span class="project-tag">Web Development</span>
+                  <span class="project-tag">Portfolio</span>
+                  <span class="project-tag">Live</span>
+                </div>
+                <h3 class="project-title">Personal Website</h3>
+                <p class="project-description">
+                  พัฒนาเว็บไซต์ส่วนตัว punn.site เพื่อแสดงผลงานและประสบการณ์
+                  เรียนรู้การทำโปรเจคและเทคโนโลยีใหม่ต่างๆด้วยกัน
+                </p>
+                <a
+                  href="https://punn.site/"
+                  target="_blank"
+                  class="project-link"
+                >
+                  <i class="fas fa-external-link-alt"></i> เยี่ยมชมเว็บไซต์
+                </a>
+              </div>
+            </div>
+            <div class="project-card">
+              <img
+                src="images/project1-placeholder.jpg"
+                alt="High Frequency Tesla Coil"
+                class="project-image"
+                style="object-fit: cover"
+                loading="lazy"
+                width="899"
+                height="802"
+              />
+              <div class="project-content">
+                <div class="project-tags">
+                  <span class="project-tag">วิศวกรรมไฟฟ้า</span>
+                  <span class="project-tag">แรงดันสูง</span>
+                  <span class="project-tag">ปริญญาตรี</span>
+                </div>
+                <h3 class="project-title">High Frequency Tesla Coil</h3>
+                <p class="project-description">
+                  ศึกษาเครื่องปล่อยประจุแบบเรืองแสงในอากาศด้วยวงจรแรงดันสูงความถี่สูง
+                  โปรเจคไฟนัลระดับปริญญาตรี
+                </p>
+              </div>
+            </div>
+            <div class="project-card">
+              <img
+                src="images/project2-placeholder.jpg"
+                alt="ตู้เย็นเคลื่อนที่"
+                class="project-image"
+                style="object-fit: cover"
+                loading="lazy"
+                width="346"
+                height="259"
+              />
+              <div class="project-content">
+                <div class="project-tags">
+                  <span class="project-tag">ปวช.</span>
+                  <span class="project-tag">ไฟฟ้ากำลัง</span>
+                  <span class="project-tag">นวัตกรรม</span>
+                </div>
+                <h3 class="project-title">ตู้เย็นเคลื่อนที่</h3>
+                <p class="project-description">
+                  พัฒนาตู้เย็นที่สามารถเคลื่อนย้ายได้สะดวก เป็นโปรเจคจบระดับ
+                  ปวช. สาขาไฟฟ้ากำลัง
+                  ออกแบบระบบทำความเย็นและระบบไฟฟ้าให้มีประสิทธิภาพและเหมาะกับการใช้งานเคลื่อนที่
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-hint">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </section>
+
+      <!-- Section 6: Certifications -->
+      <section class="section" id="section6">
+        <div class="diagonal-shape"></div>
+        <div class="morph-shape shape-1 layer-shape" data-speed="0.5"></div>
+        <div class="morph-shape shape-2 layer-shape" data-speed="0.3"></div>
+        <div class="geo-shape geo-circle layer-shape" data-speed="0.4"></div>
+        <div class="geo-shape geo-square layer-shape" data-speed="0.6"></div>
+        <div class="content" style="max-width: 1200px">
+          <h1>ใบรับรองและคุณสมบัติ</h1>
+          <p style="margin-bottom: 30px">
+            ใบประกาศนียบัตรและใบอนุญาตประกอบวิชาชีพ
+          </p>
+
+          <!-- Certificates Scrolling Gallery -->
+          <div class="cert-scroll-section">
+            <h3 class="cert-section-title">Certificates Gallery</h3>
+            <div class="cert-scroll-container">
+              <div class="cert-scroll-track">
+                <div
+                  class="cert-scroll-item"
+                  onclick="openLightbox('images/c1.png')"
+                >
+                  <img
+                    src="images/c1.png"
+                    alt="Certificate 1"
+                    loading="lazy"
+                    width="1382"
+                    height="1021"
+                  />
+                </div>
+                <div
+                  class="cert-scroll-item"
+                  onclick="openLightbox('images/c2.png')"
+                >
+                  <img
+                    src="images/c2.png"
+                    alt="Certificate 2"
+                    loading="lazy"
+                    width="3308"
+                    height="2339"
+                  />
+                </div>
+                <div
+                  class="cert-scroll-item"
+                  onclick="openLightbox('images/c3.png')"
+                >
+                  <img
+                    src="images/c3.png"
+                    alt="Certificate 3"
+                    loading="lazy"
+                    width="2200"
+                    height="1700"
+                  />
+                </div>
+                <div
+                  class="cert-scroll-item"
+                  onclick="openLightbox('images/c4.png')"
+                >
+                  <img
+                    src="images/c4.png"
+                    alt="Certificate 4"
+                    loading="lazy"
+                    width="1603"
+                    height="1200"
+                  />
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div
+                  class="cert-scroll-item"
+                  onclick="openLightbox('images/c1.png')"
+                >
+                  <img
+                    src="images/c1.png"
+                    alt="Certificate 1"
+                    loading="lazy"
+                    width="1382"
+                    height="1021"
+                  />
+                </div>
+                <div
+                  class="cert-scroll-item"
+                  onclick="openLightbox('images/c2.png')"
+                >
+                  <img
+                    src="images/c2.png"
+                    alt="Certificate 2"
+                    loading="lazy"
+                    width="3308"
+                    height="2339"
+                  />
+                </div>
+                <div
+                  class="cert-scroll-item"
+                  onclick="openLightbox('images/c3.png')"
+                >
+                  <img
+                    src="images/c3.png"
+                    alt="Certificate 3"
+                    loading="lazy"
+                    width="2200"
+                    height="1700"
+                  />
+                </div>
+                <div
+                  class="cert-scroll-item"
+                  onclick="openLightbox('images/c4.png')"
+                >
+                  <img
+                    src="images/c4.png"
+                    alt="Certificate 4"
+                    loading="lazy"
+                    width="1603"
+                    height="1200"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Certifications -->
+          <div class="main-certs-section">
+            <h3 class="cert-section-title">Professional Credentials</h3>
+            <div class="main-certs-container">
+              <div class="main-cert-card">
+                <div
+                  class="main-cert-image"
+                  onclick="openLightbox('images/coe.jpg')"
+                >
+                  <img
+                    src="images/coe.jpg"
+                    alt="ใบอนุญาต กว."
+                    loading="lazy"
+                    width="2629"
+                    height="1858"
+                  />
+                  <div class="main-cert-badge">กว.</div>
+                </div>
+                <div class="main-cert-info">
+                  <h4>ใบอนุญาตประกอบวิชาชีพวิศวกรรมควบคุม</h4>
+                  <p>สาขาวิศวกรรมไฟฟ้า • ภาคีวิศวกร • 2567</p>
+                </div>
+              </div>
+              <div class="main-cert-card">
+                <div
+                  class="main-cert-image"
+                  onclick="openLightbox('images/toeic1.png')"
+                >
+                  <img
+                    src="images/toeic1.png"
+                    alt="TOEIC"
+                    loading="lazy"
+                    width="2480"
+                    height="1100"
+                  />
+                  <div class="main-cert-badge toeic">TOEIC</div>
+                </div>
+                <div class="main-cert-info">
+                  <h4>TOEIC SCORE 560</h4>
+                  <p>LISTENING 310 , READING 250 • 2568</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-hint">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </section>
+
+      <!-- Section 7: Contact -->
+      <section class="section" id="section7">
+        <div class="diagonal-shape"></div>
+        <div class="morph-shape shape-1 layer-shape" data-speed="0.6"></div>
+        <div class="morph-shape shape-2 layer-shape" data-speed="0.4"></div>
+        <div class="morph-shape shape-3 layer-shape" data-speed="0.5"></div>
+        <div class="geo-shape geo-circle layer-shape" data-speed="0.3"></div>
+        <div class="geo-shape geo-square layer-shape" data-speed="0.7"></div>
+        <div class="content">
+          <div class="contact-box">
+            <h1>พร้อมสร้างสรรค์สิ่งใหม่</h1>
+            <p>
+              หากคุณมีโปรเจคที่น่าสนใจหรือต้องการปรึกษา<br />ยินดีรับฟังและร่วมงานกับคุณ
+            </p>
+            <a href="mailto:tossapon.suriya@example.com" class="cta-btn"
+              ><span>ติดต่อเลย</span></a
+            >
+            <div class="social-icons">
+              <a
+                href="https://www.facebook.com/satayu.pongpan.2024"
+                target="_blank"
+                class="social-icon"
+                title="Facebook"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/ddme36?igsh=YjltNTY3M29yZzFl&utm_source=qr"
+                target="_blank"
+                class="social-icon"
+                title="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://line.me/ti/p/FY_E24MWyp"
+                target="_blank"
+                class="social-icon"
+                title="Line"
+                ><i class="fab fa-line"></i
+              ></a>
+              <a
+                href="mailto:satayu.pongpan@gmail.com"
+                class="social-icon"
+                title="Email"
+                ><i class="fas fa-envelope"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div
+      class="image-lightbox"
+      id="imageLightbox"
+      onclick="closeLightbox(event)"
+    >
+      <div class="lightbox-content">
+        <button class="lightbox-close" onclick="closeLightbox(event)">
+          <i class="fas fa-times"></i>
+        </button>
+        <button
+          class="lightbox-nav lightbox-prev"
+          onclick="navigateLightbox(-1, event)"
+        >
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <img
+          src=""
+          alt="Certificate"
+          class="lightbox-image"
+          id="lightboxImage"
+        />
+        <button
+          class="lightbox-nav lightbox-next"
+          onclick="navigateLightbox(1, event)"
+        >
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js" defer></script>
+
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "ศตายุ พ้องพาน",
+        "alternateName": "Satayu Pongpan",
+        "url": "https://punn.site",
+        "image": "https://punn.site/images/profile.png",
+        "jobTitle": "วิศวกรไฟฟ้า (Electrical Engineer)",
+        "description": "วิศวกรไฟฟ้าที่มีใบประกอบวิชาชีพวิศวกรรมควบคุม กำลังเรียนรู้การประยุกต์ใช้ AI และเทคโนโลยีใหม่ๆ",
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "มหาวิทยาลัยราชมงคลล้านนา เชียงใหม่",
+          "alternateName": "Rajamangala University of Technology Lanna Chiang Mai"
+        },
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "name": "ใบประกอบวิชาชีพวิศวกรรมควบคุม (กว.)",
+            "credentialCategory": "Professional License",
+            "recognizedBy": {
+              "@type": "Organization",
+              "name": "สภาวิศวกร"
+            }
+          }
+        ],
+        "knowsAbout": [
+          "วิศวกรรมไฟฟ้า",
+          "Electrical Engineering",
+          "AutoCAD",
+          "Excel",
+          "Python",
+          "AI Tools",
+          "Data Analysis"
+        ],
+        "sameAs": ["https://punn.site"]
+      }
+    </script>
+  </body>
+</html>
