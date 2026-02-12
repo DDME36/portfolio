@@ -39,3 +39,24 @@ body {
 body.is-loading {
     overflow: hidden !important;
 }
+
+/* Mobile Body Override */
+@media (max-width: 480px) {
+    html {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        position: static !important;
+        height: auto !important;
+        min-height: 100vh;
+    }
+
+    body.is-loading {
+        overflow: hidden !important;
+        position: fixed !important;
+    }
+}

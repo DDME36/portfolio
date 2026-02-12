@@ -179,19 +179,44 @@
 
 /* Mobile (≤480px) */
 @media (max-width: 480px) {
+    body {
+        position: static !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+    }
+
+    .container {
+        height: auto !important;
+        overflow-y: visible !important;
+        scroll-snap-type: none !important;
+        scroll-behavior: smooth !important;
+    }
+
     .section {
-        padding: 35px 0;
+        padding: 40px 0;
+        min-height: auto !important;
+        height: auto !important;
+        scroll-snap-align: none !important;
+        display: block !important;
     }
 
     #section1 {
-        padding: 50px 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: 60px 0;
+        display: flex !important;
+        align-items: center;
     }
 
     .content {
         padding: 0 20px;
+        max-height: none !important;
+        overflow: visible !important;
     }
 
-    /* Force visibility - remove animations */
+    /* Force visibility - remove ALL animations */
+    .section *,
     .section h1,
     .section h2,
     .section h3,
@@ -206,85 +231,305 @@
     .section .main-certs-section,
     .section .contact-box,
     .section .education-section h3,
-    .section .timeline-item {
+    .section .timeline-item,
+    .section .cta-btn,
+    .section .badge-item {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
+        animation: none !important;
     }
 
-    h1 { font-size: clamp(1.5rem, 5vw, 2rem); }
-    .subtitle { font-size: clamp(0.9rem, 3vw, 1.1rem); }
-    p { font-size: clamp(0.8rem, 2vw, 0.9rem); }
+    /* ปิด water fill animation */
+    .water-fill {
+        height: 75% !important;
+        transition: none !important;
+    }
+
+    .water-fill::before,
+    .water-fill::after {
+        animation: none !important;
+    }
+
+    /* ปิด scroll animation */
+    .cert-scroll-track {
+        animation: none !important;
+    }
+
+    /* ปิด timeline pulse */
+    .timeline-dot {
+        animation: none !important;
+    }
+
+    h1 { 
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        line-height: 1.2;
+        margin-bottom: 15px;
+    }
+    
+    .subtitle { 
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        margin-bottom: 15px;
+    }
+    
+    p { 
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
 
     .skills-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 15px;
+        max-width: 100%;
     }
 
-    .circle-wrap { width: 70px; height: 70px; }
-    .circle-outer { width: 70px; height: 70px; padding: 6px; }
-    .circle-inner { width: 58px; height: 58px; }
-    .skill-icon { font-size: 1.3rem; }
-    .skill-percentage {
-        width: 28px;
-        height: 28px;
-        font-size: 9px;
+    .circle-wrap { 
+        width: 90px; 
+        height: 90px;
+        margin-bottom: 12px;
     }
-    .skill-name { font-size: 0.75rem; }
-    .skill-desc { font-size: 0.6rem; }
+    
+    .circle-outer { 
+        width: 90px; 
+        height: 90px; 
+        padding: 8px;
+    }
+    
+    .circle-inner { 
+        width: 74px; 
+        height: 74px;
+    }
+    
+    .skill-icon { 
+        font-size: 1.8rem;
+    }
+    
+    .skill-percentage {
+        width: 32px;
+        height: 32px;
+        font-size: 10px;
+        top: -5px;
+        right: -5px;
+    }
+    
+    .skill-name { 
+        font-size: 0.85rem;
+        margin-bottom: 3px;
+    }
+    
+    .skill-desc { 
+        font-size: 0.7rem;
+        line-height: 1.3;
+    }
 
     .hero-badges {
-        gap: 6px;
+        gap: 8px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
     }
 
     .badge-item {
-        padding: 5px 10px;
-        font-size: 0.65rem;
+        padding: 6px 12px;
+        font-size: 0.7rem;
+        border-radius: 30px;
     }
 
     .badge-item i {
-        font-size: 0.8rem;
-    }
-
-    .cta-btn {
-        padding: 10px 25px;
         font-size: 0.85rem;
     }
 
-    .about-img { max-width: 150px; }
-    .about-title { font-size: 1.3rem; }
-    .about-desc { font-size: 0.8rem; }
+    .cta-btn {
+        padding: 12px 32px;
+        font-size: 0.9rem;
+        border-radius: 10px;
+    }
+
+    .about-content-wrapper {
+        gap: 25px;
+    }
+
+    .about-img { 
+        max-width: 200px;
+        min-height: auto !important;
+        border-radius: 16px;
+    }
+    
+    .about-title { 
+        font-size: 1.5rem;
+        line-height: 1.3;
+        margin-bottom: 15px;
+    }
+    
+    .about-desc { 
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    
+    .section-label {
+        font-size: 0.75rem;
+        margin-bottom: 10px;
+    }
+    
     .tech-list {
         grid-template-columns: 1fr 1fr;
-        gap: 6px;
+        gap: 8px;
+        margin-top: 20px;
     }
-    .tech-list-item { font-size: 0.7rem; }
+    
+    .tech-list-item { 
+        font-size: 0.75rem;
+    }
+    
+    .tech-list-item i {
+        font-size: 0.65rem;
+        margin-right: 6px;
+    }
 
-    .education-section h3 { font-size: 1.2rem; }
-    .timeline-item { padding-left: 40px; }
-    .timeline-title { font-size: 0.9rem; }
-    .timeline-subtitle { font-size: 0.75rem; }
-    .timeline-description { font-size: 0.7rem; }
+    .education-grid {
+        gap: 30px;
+    }
+
+    .education-section h3 { 
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .education-section h3 i {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        margin-right: 12px;
+    }
+    
+    .timeline::before {
+        left: 18px;
+    }
+    
+    .timeline-item { 
+        padding-left: 50px;
+        margin-bottom: 25px;
+    }
+    
+    .timeline-dot {
+        width: 16px;
+        height: 16px;
+        left: 12px;
+        border-width: 4px;
+    }
+    
+    .timeline-date {
+        font-size: 0.75rem;
+        margin-bottom: 6px;
+    }
+    
+    .timeline-title { 
+        font-size: 1rem;
+        line-height: 1.3;
+        margin-bottom: 5px;
+    }
+    
+    .timeline-subtitle { 
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+    }
+    
+    .timeline-description { 
+        font-size: 0.75rem;
+        line-height: 1.5;
+    }
 
     .projects-container {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 20px;
+        max-width: 100%;
     }
 
-    .project-image { height: 140px; }
-    .project-title { font-size: 1rem; }
-    .project-description { font-size: 0.75rem; }
+    .project-card {
+        border-radius: 16px;
+    }
 
-    .cert-scroll-item { width: 250px; }
+    .project-image { 
+        height: 160px;
+        font-size: 2.5rem;
+    }
+    
+    .project-content {
+        padding: 20px;
+    }
+    
+    .project-title { 
+        font-size: 1.1rem;
+        line-height: 1.3;
+        margin-bottom: 10px;
+    }
+    
+    .project-description { 
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    
+    .project-tags {
+        margin-bottom: 12px;
+        gap: 6px;
+    }
+    
+    .project-tag {
+        font-size: 0.65rem;
+        padding: 4px 10px;
+    }
+    
+    .project-link {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+    }
+
+    .cert-scroll-section {
+        margin-bottom: 40px;
+    }
+
+    .cert-scroll-item { 
+        width: 280px;
+    }
+    
     .main-certs-container {
         grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 100%;
+    }
+    
+    .main-cert-card {
+        border-radius: 16px;
+    }
+    
+    .main-cert-info {
+        padding: 20px;
+    }
+    
+    .main-cert-info h4 {
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+    
+    .main-cert-info p {
+        font-size: 0.8rem;
+    }
+    
+    .main-cert-badge {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+    }
+
+    .social-icons {
         gap: 15px;
+        margin-top: 30px;
     }
 
     .social-icon {
-        width: 45px;
-        height: 45px;
-        font-size: 1.1rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
     }
 }
 
