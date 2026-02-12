@@ -194,7 +194,7 @@
     }
 
     .section {
-        padding: 40px 0;
+        padding: 50px 0;
         min-height: auto !important;
         height: auto !important;
         scroll-snap-align: none !important;
@@ -207,6 +207,11 @@
         padding: 60px 0;
         display: flex !important;
         align-items: center;
+    }
+
+    #section5,
+    #section6 {
+        padding: 60px 0;
     }
 
     .content {
@@ -251,9 +256,9 @@
         animation: none !important;
     }
 
-    /* ปิด scroll animation */
+    /* เปิด scroll animation กลับมา */
     .cert-scroll-track {
-        animation: none !important;
+        animation: scrollCerts 30s linear infinite !important;
     }
 
     /* ปิด timeline pulse */
@@ -262,144 +267,145 @@
     }
 
     h1 { 
-        font-size: clamp(1.5rem, 5vw, 2rem);
+        font-size: clamp(1.6rem, 5vw, 2.2rem);
         line-height: 1.2;
-        margin-bottom: 15px;
+        margin-bottom: 18px;
     }
     
     .subtitle { 
-        font-size: clamp(0.9rem, 3vw, 1.1rem);
-        margin-bottom: 15px;
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        margin-bottom: 18px;
     }
     
     p { 
-        font-size: clamp(0.8rem, 2vw, 0.9rem);
-        line-height: 1.6;
-        margin-bottom: 20px;
+        font-size: clamp(0.85rem, 2vw, 0.95rem);
+        line-height: 1.7;
+        margin-bottom: 25px;
     }
 
     .skills-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        gap: 20px;
         max-width: 100%;
+        padding: 0 10px;
     }
 
     .circle-wrap { 
-        width: 90px; 
-        height: 90px;
-        margin-bottom: 12px;
+        width: 95px; 
+        height: 95px;
+        margin-bottom: 15px;
     }
     
     .circle-outer { 
-        width: 90px; 
-        height: 90px; 
-        padding: 8px;
+        width: 95px; 
+        height: 95px; 
+        padding: 10px;
     }
     
     .circle-inner { 
-        width: 74px; 
-        height: 74px;
+        width: 75px; 
+        height: 75px;
     }
     
     .skill-icon { 
-        font-size: 1.8rem;
+        font-size: 1.9rem;
     }
     
     .skill-percentage {
-        width: 32px;
-        height: 32px;
+        width: 34px;
+        height: 34px;
         font-size: 10px;
         top: -5px;
         right: -5px;
     }
     
     .skill-name { 
-        font-size: 0.85rem;
-        margin-bottom: 3px;
+        font-size: 0.9rem;
+        margin-bottom: 4px;
     }
     
     .skill-desc { 
-        font-size: 0.7rem;
-        line-height: 1.3;
+        font-size: 0.72rem;
+        line-height: 1.4;
     }
 
     .hero-badges {
-        gap: 8px;
-        margin-bottom: 20px;
+        gap: 10px;
+        margin-bottom: 25px;
         flex-wrap: wrap;
     }
 
     .badge-item {
-        padding: 6px 12px;
-        font-size: 0.7rem;
+        padding: 8px 16px;
+        font-size: 0.75rem;
         border-radius: 30px;
     }
 
     .badge-item i {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 
     .cta-btn {
-        padding: 12px 32px;
-        font-size: 0.9rem;
+        padding: 14px 36px;
+        font-size: 0.95rem;
         border-radius: 10px;
     }
 
     .about-content-wrapper {
-        gap: 25px;
+        gap: 30px;
     }
 
     .about-img { 
-        max-width: 200px;
+        max-width: 220px;
         min-height: auto !important;
         border-radius: 16px;
     }
     
     .about-title { 
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         line-height: 1.3;
-        margin-bottom: 15px;
+        margin-bottom: 18px;
     }
     
     .about-desc { 
-        font-size: 0.85rem;
-        line-height: 1.6;
-        margin-bottom: 15px;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 18px;
     }
     
     .section-label {
-        font-size: 0.75rem;
-        margin-bottom: 10px;
+        font-size: 0.8rem;
+        margin-bottom: 12px;
     }
     
     .tech-list {
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        margin-top: 20px;
+        gap: 10px;
+        margin-top: 25px;
     }
     
     .tech-list-item { 
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
     
     .tech-list-item i {
-        font-size: 0.65rem;
-        margin-right: 6px;
+        font-size: 0.7rem;
+        margin-right: 8px;
     }
 
     .education-grid {
-        gap: 30px;
+        gap: 40px;
     }
 
     .education-section h3 { 
-        font-size: 1.3rem;
-        margin-bottom: 20px;
+        font-size: 1.4rem;
+        margin-bottom: 25px;
     }
     
     .education-section h3 i {
-        width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
         margin-right: 12px;
     }
     
@@ -408,128 +414,136 @@
     }
     
     .timeline-item { 
-        padding-left: 50px;
-        margin-bottom: 25px;
+        padding-left: 55px;
+        margin-bottom: 30px;
     }
     
     .timeline-dot {
-        width: 16px;
-        height: 16px;
-        left: 12px;
+        width: 18px;
+        height: 18px;
+        left: 11px;
         border-width: 4px;
     }
     
     .timeline-date {
-        font-size: 0.75rem;
-        margin-bottom: 6px;
-    }
-    
-    .timeline-title { 
-        font-size: 1rem;
-        line-height: 1.3;
-        margin-bottom: 5px;
-    }
-    
-    .timeline-subtitle { 
         font-size: 0.8rem;
         margin-bottom: 8px;
     }
     
+    .timeline-title { 
+        font-size: 1.05rem;
+        line-height: 1.4;
+        margin-bottom: 6px;
+    }
+    
+    .timeline-subtitle { 
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+    
     .timeline-description { 
-        font-size: 0.75rem;
-        line-height: 1.5;
+        font-size: 0.8rem;
+        line-height: 1.6;
     }
 
     .projects-container {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 30px;
         max-width: 100%;
+        padding: 0 10px;
     }
 
     .project-card {
         border-radius: 16px;
+        margin-bottom: 10px;
     }
 
     .project-image { 
-        height: 160px;
+        height: 180px;
         font-size: 2.5rem;
     }
     
     .project-content {
-        padding: 20px;
+        padding: 25px 20px;
     }
     
     .project-title { 
-        font-size: 1.1rem;
-        line-height: 1.3;
-        margin-bottom: 10px;
+        font-size: 1.2rem;
+        line-height: 1.4;
+        margin-bottom: 12px;
     }
     
     .project-description { 
-        font-size: 0.85rem;
-        line-height: 1.5;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
     }
     
     .project-tags {
-        margin-bottom: 12px;
-        gap: 6px;
+        margin-bottom: 15px;
+        gap: 8px;
     }
     
     .project-tag {
-        font-size: 0.65rem;
-        padding: 4px 10px;
+        font-size: 0.7rem;
+        padding: 5px 12px;
     }
     
     .project-link {
-        font-size: 0.8rem;
-        padding: 8px 16px;
+        font-size: 0.85rem;
+        padding: 10px 20px;
+        margin-top: 5px;
     }
 
     .cert-scroll-section {
-        margin-bottom: 40px;
+        margin-bottom: 50px;
     }
 
     .cert-scroll-item { 
-        width: 280px;
+        width: 300px;
     }
     
     .main-certs-container {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 25px;
         max-width: 100%;
+        padding: 0 10px;
     }
     
     .main-cert-card {
         border-radius: 16px;
+        margin-bottom: 5px;
     }
     
     .main-cert-info {
-        padding: 20px;
+        padding: 22px;
     }
     
     .main-cert-info h4 {
-        font-size: 1rem;
-        line-height: 1.3;
+        font-size: 1.05rem;
+        line-height: 1.4;
+        margin-bottom: 8px;
     }
     
     .main-cert-info p {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
+        line-height: 1.5;
     }
     
     .main-cert-badge {
-        padding: 6px 14px;
-        font-size: 0.75rem;
+        padding: 7px 16px;
+        font-size: 0.8rem;
     }
 
     .social-icons {
-        gap: 15px;
-        margin-top: 30px;
+        gap: 18px;
+        margin-top: 35px;
     }
 
     .social-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+        width: 52px;
+        height: 52px;
+        font-size: 1.3rem;
     }
 }
 
