@@ -241,6 +241,7 @@
         overflow-y: auto !important;
         overflow-x: hidden !important;
         height: auto !important;
+        -webkit-overflow-scrolling: touch;
     }
 
     .container {
@@ -258,10 +259,11 @@
         display: block !important;
     }
 
+    /* Hero section - ลดความสูงให้เลื่อนง่าย */
     #section1 {
-        min-height: 100vh;
-        min-height: 100dvh;
-        padding: var(--space-3xl) 0;
+        min-height: 85vh !important;
+        height: auto !important;
+        padding: var(--space-2xl) 0 var(--space-3xl) !important;
         display: flex !important;
         align-items: center;
     }
@@ -354,69 +356,86 @@
     h1 { 
         font-size: clamp(1.8rem, 6vw, 2.4rem);
         line-height: 1.15;
-        margin-bottom: var(--space-md);
+        margin-bottom: var(--space-sm);
         letter-spacing: -0.02em;
     }
     
     .subtitle { 
         font-size: clamp(1rem, 3.5vw, 1.3rem);
-        margin-bottom: var(--space-sm);
+        margin-bottom: var(--space-xs);
         letter-spacing: -0.01em;
     }
     
     p { 
         font-size: clamp(0.9rem, 2.5vw, 1rem);
-        line-height: 1.65;
+        line-height: 1.6;
+        margin-bottom: var(--space-md);
+    }
+
+    /* Hero section - ลด line breaks */
+    #section1 p {
         margin-bottom: var(--space-lg);
     }
 
-    /* Skills - 2 columns mobile */
+    #section1 p br {
+        display: none;
+    }
+
+    /* Skills - ชัดเจนและใหญ่ขึ้น */
     .skills-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-md);
+        gap: var(--space-lg);
         max-width: 100%;
         padding: 0;
     }
 
     .circle-wrap { 
-        width: 100px; 
-        height: 100px;
-        margin-bottom: var(--space-sm);
+        width: 110px; 
+        height: 110px;
+        margin-bottom: var(--space-md);
     }
     
     .circle-outer { 
-        width: 100px; 
-        height: 100px; 
-        padding: 11px;
+        width: 110px; 
+        height: 110px; 
+        padding: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
     
     .circle-inner { 
-        width: 78px; 
-        height: 78px;
+        width: 86px; 
+        height: 86px;
     }
     
     .skill-icon { 
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
     
     .skill-percentage {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
         font-size: 11px;
         top: -6px;
         right: -6px;
         border-width: 2px;
+        font-weight: 700;
     }
     
     .skill-name { 
-        font-size: 0.95rem;
+        font-size: 1rem;
         margin-bottom: var(--space-xs);
-        font-weight: 600;
+        font-weight: 700;
     }
     
     .skill-desc { 
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         line-height: 1.4;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .skills-intro p {
+        font-size: 1rem;
+        margin-bottom: var(--space-xl);
     }
 
     /* Hero Section */
@@ -441,35 +460,66 @@
         font-size: 1rem;
         border-radius: 12px;
         -webkit-tap-highlight-color: transparent;
+        margin-bottom: var(--space-lg);
     }
 
-    /* About Section */
+    /* เพิ่ม scroll indicator สำหรับ mobile */
+    #section1::after {
+        content: '';
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 30px;
+        border-left: 2px solid rgba(255, 107, 53, 0.6);
+        border-bottom: 2px solid rgba(255, 107, 53, 0.6);
+        transform: translateX(-50%) rotate(-45deg);
+        animation: scrollIndicator 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollIndicator {
+        0%, 100% { 
+            opacity: 0.4;
+            transform: translateX(-50%) translateY(0) rotate(-45deg);
+        }
+        50% { 
+            opacity: 1;
+            transform: translateX(-50%) translateY(10px) rotate(-45deg);
+        }
+    }
+
+    /* About Section - ชัดเจนขึ้น */
     .about-content-wrapper {
         gap: var(--space-xl);
     }
 
     .about-img { 
-        max-width: 240px;
+        max-width: 260px;
         min-height: auto !important;
         border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
     
     .about-title { 
-        font-size: 1.7rem;
+        font-size: 1.8rem;
         line-height: 1.25;
         margin-bottom: var(--space-md);
+        font-weight: 700;
     }
     
     .about-desc { 
-        font-size: 0.95rem;
+        font-size: 1rem;
         line-height: 1.7;
         margin-bottom: var(--space-md);
+        color: rgba(255, 255, 255, 0.85);
     }
     
     .section-label {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         margin-bottom: var(--space-sm);
-        letter-spacing: 0.12em;
+        letter-spacing: 0.15em;
+        font-weight: 700;
     }
     
     .tech-list {
@@ -479,176 +529,217 @@
     }
     
     .tech-list-item { 
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         padding: var(--space-xs) 0;
+        color: rgba(255, 255, 255, 0.9);
     }
     
     .tech-list-item i {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         margin-right: 10px;
+        color: var(--primary);
     }
 
-    /* Education & Timeline */
+    /* Education & Timeline - ชัดเจนขึ้น */
     .education-grid {
-        gap: var(--space-2xl);
+        gap: var(--space-3xl);
     }
 
     .education-section h3 { 
-        font-size: 1.5rem;
-        margin-bottom: var(--space-lg);
+        font-size: 1.6rem;
+        margin-bottom: var(--space-xl);
+        font-weight: 700;
     }
     
     .education-section h3 i {
-        width: 44px;
-        height: 44px;
-        font-size: 1.2rem;
+        width: 46px;
+        height: 46px;
+        font-size: 1.3rem;
         margin-right: var(--space-sm);
     }
     
     .timeline::before {
         left: 18px;
+        width: 2px;
+        background: rgba(255, 107, 53, 0.3);
     }
     
     .timeline-item { 
-        padding-left: 56px;
-        margin-bottom: var(--space-lg);
+        padding-left: 58px;
+        margin-bottom: var(--space-xl);
     }
     
     .timeline-dot {
-        width: 18px;
-        height: 18px;
-        left: 11px;
+        width: 20px;
+        height: 20px;
+        left: 10px;
         border-width: 4px;
+        background: var(--primary);
     }
     
     .timeline-date {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         margin-bottom: var(--space-xs);
+        font-weight: 700;
+        color: var(--accent);
     }
     
     .timeline-title { 
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         line-height: 1.35;
         margin-bottom: var(--space-xs);
+        font-weight: 700;
     }
     
     .timeline-subtitle { 
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         margin-bottom: var(--space-sm);
+        color: var(--primary);
+        font-weight: 600;
     }
     
     .timeline-description { 
-        font-size: 0.85rem;
-        line-height: 1.6;
+        font-size: 0.9rem;
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.8);
     }
 
-    /* Projects - 1 column mobile */
+    /* Projects - ชัดเจนและสวยงาม */
     .projects-container {
         grid-template-columns: 1fr;
-        gap: var(--space-lg);
+        gap: var(--space-xl);
         max-width: 100%;
         padding: 0;
     }
 
     .project-card {
-        border-radius: 16px;
+        border-radius: 20px;
         margin-bottom: var(--space-sm);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
 
     .project-image { 
-        height: 200px;
-        font-size: 2.5rem;
+        height: 220px;
+        font-size: 2.8rem;
     }
     
     .project-content {
-        padding: var(--space-lg) var(--space-md);
+        padding: var(--space-xl) var(--space-lg);
     }
     
     .project-title { 
-        font-size: 1.25rem;
+        font-size: 1.35rem;
         line-height: 1.35;
         margin-bottom: var(--space-sm);
+        font-weight: 700;
     }
     
     .project-description { 
-        font-size: 0.95rem;
-        line-height: 1.6;
-        margin-bottom: var(--space-sm);
+        font-size: 1rem;
+        line-height: 1.65;
+        margin-bottom: var(--space-md);
+        color: rgba(255, 255, 255, 0.85);
     }
     
     .project-tags {
-        margin-bottom: var(--space-sm);
+        margin-bottom: var(--space-md);
         gap: var(--space-xs);
     }
     
     .project-tag {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         padding: 6px 14px;
+        font-weight: 600;
     }
     
     .project-link {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         padding: 12px 24px;
-        margin-top: var(--space-xs);
+        margin-top: var(--space-sm);
+        font-weight: 600;
     }
 
-    /* Certificates */
+    /* Certificates - ชัดเจนและสวยงาม */
     .cert-scroll-section {
         margin-bottom: var(--space-3xl);
     }
 
     .cert-scroll-item { 
-        width: 320px;
+        width: 340px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
     
     .cert-section-title {
-        font-size: 1.3rem;
-        margin-bottom: var(--space-lg);
+        font-size: 1.4rem;
+        margin-bottom: var(--space-xl);
+        font-weight: 700;
     }
     
     .main-certs-container {
         grid-template-columns: 1fr;
-        gap: var(--space-lg);
+        gap: var(--space-xl);
         max-width: 100%;
         padding: 0;
     }
     
     .main-cert-card {
-        border-radius: 16px;
-        margin-bottom: var(--space-xs);
+        border-radius: 20px;
+        margin-bottom: var(--space-sm);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
     
     .main-cert-info {
-        padding: var(--space-lg);
+        padding: var(--space-xl);
     }
     
     .main-cert-info h4 {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         line-height: 1.4;
-        margin-bottom: var(--space-xs);
+        margin-bottom: var(--space-sm);
+        font-weight: 700;
     }
     
     .main-cert-info p {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         line-height: 1.5;
+        color: rgba(255, 255, 255, 0.8);
     }
     
     .main-cert-badge {
         padding: 8px 18px;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        font-weight: 700;
     }
 
-    /* Contact */
+    /* Contact - ชัดเจนและเชิญชวน */
     .social-icons {
-        gap: var(--space-md);
-        margin-top: var(--space-xl);
+        gap: var(--space-lg);
+        margin-top: var(--space-2xl);
     }
 
     .social-icon {
-        width: 54px;
-        height: 54px;
-        font-size: 1.35rem;
+        width: 58px;
+        height: 58px;
+        font-size: 1.4rem;
         -webkit-tap-highlight-color: transparent;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-icon:active {
+        transform: scale(0.95);
+    }
+
+    /* Section titles - ชัดเจนทุก section */
+    .section h1 {
+        font-size: clamp(1.9rem, 6vw, 2.5rem);
+        margin-bottom: var(--space-md);
+        font-weight: 700;
+    }
+
+    .section > .content > p {
+        font-size: 1rem;
+        margin-bottom: var(--space-xl);
+        color: rgba(255, 255, 255, 0.85);
     }
 }
 
