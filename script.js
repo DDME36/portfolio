@@ -111,49 +111,43 @@
   //  3. SCROLL PROGRESS BAR
   // ═══════════════════════════════════════════════════
   function initScrollProgress() {
-    if (!progressBar || !container) return;
+    if (!progressBar) return;
 
     let ticking = false;
 
-    container.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            const scrollTop = container.scrollTop;
-            const scrollHeight =
-              container.scrollHeight - container.clientHeight;
-            const progress =
-              scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-            progressBar.style.width = `${progress}%`;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      },
-      { passive: true },
-    );
+    function updateProgress() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          let scrollTop, scrollHeight;
+          
+          // Check if mobile/tablet (no scroll snap)
+          if (window.innerWidth <= 1024) {
+            // Use window scroll for mobile
+            scrollTop = window.scrollY || document.documentElement.scrollTop;
+            scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+          } else {
+            // Use container scroll for desktop
+            if (!container) return;
+            scrollTop = container.scrollTop;
+            scrollHeight = container.scrollHeight - container.clientHeight;
+          }
+          
+          const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+          progressBar.style.width = `${Math.min(progress, 100)}%`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
 
-    // Also handle window scroll for mobile (no snap)
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            const scrollTop =
-              window.scrollY || document.documentElement.scrollTop;
-            const scrollHeight =
-              document.documentElement.scrollHeight - window.innerHeight;
-            const progress =
-              scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-            progressBar.style.width = `${progress}%`;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      },
-      { passive: true },
-    );
+    // Listen to both container and window scroll
+    if (container) {
+      container.addEventListener("scroll", updateProgress, { passive: true });
+    }
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    
+    // Update on resize
+    window.addEventListener("resize", updateProgress, { passive: true });
   }
 
   // ═══════════════════════════════════════════════════
