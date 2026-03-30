@@ -135,11 +135,11 @@
     display: none;
 }
 
-/* Mobile Layout Override */
-@media (max-width: 480px) {
+/* Tablet & Mobile - Disable Scroll Snap */
+@media (max-width: 1024px) {
     .container {
         height: auto !important;
-        overflow-y: visible !important;
+        overflow-y: auto !important;
         overflow-x: hidden !important;
         scroll-snap-type: none !important;
         overscroll-behavior: auto !important;
@@ -164,5 +164,13 @@
 
     .scroll-hint {
         display: none !important;
+    }
+}
+
+/* Mobile Layout Override */
+@media (max-width: 480px) {
+    body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
     }
 }
