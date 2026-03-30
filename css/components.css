@@ -1,0 +1,207 @@
+/* ═══════════════════════════════════════
+   Reusable Components
+   ═══════════════════════════════════════ */
+
+/* Typography - Refined Hierarchy */
+h1 {
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s var(--ease-out-expo);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.section.active h1 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    margin-bottom: var(--space-md);
+    color: rgba(255, 255, 255, 0.95);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s var(--ease-out-expo) 0.1s;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.section.active .subtitle {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+p {
+    font-size: clamp(0.95rem, 1.8vw, 1.125rem);
+    max-width: 680px;
+    margin: 0 auto var(--space-xl);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.75);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s var(--ease-out-expo) 0.2s;
+    font-weight: 400;
+}
+
+.section.active p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-label {
+    font-size: var(--text-xs);
+    color: var(--primary);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    letter-spacing: 0.15em;
+}
+
+/* Buttons - Premium Apple-like */
+.cta-btn {
+    display: inline-block;
+    padding: 18px 48px;
+    background: var(--glass-bg);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: var(--text-lg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s var(--ease-out-expo);
+    transition-delay: 0.3s;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: -0.01em;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-smooth);
+}
+
+.cta-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-btn:hover::before {
+    opacity: 1;
+}
+
+.section.active .cta-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
+    border-color: rgba(255, 107, 53, 0.3);
+}
+
+.cta-btn:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 0.1s;
+}
+
+/* Badges - Refined Glass Effect */
+.hero-badges {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.badge-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-md);
+    animation: fadeInUp 0.8s var(--ease-out-expo);
+    animation-fill-mode: both;
+    transition: all 0.3s var(--ease-smooth);
+}
+
+.badge-item:nth-child(1) { animation-delay: 0.1s; }
+.badge-item:nth-child(2) { animation-delay: 0.2s; }
+.badge-item:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.badge-item i {
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.badge-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 53, 0.4);
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.2);
+}
+
+/* Social Icons - Elegant Hover */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s var(--ease-smooth);
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+    color: #fff;
+}
