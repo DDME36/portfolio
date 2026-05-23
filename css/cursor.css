@@ -1,0 +1,99 @@
+/* ═══════════════════════════════════════
+   Custom Cursor (Desktop Only)
+   ═══════════════════════════════════════ */
+
+.custom-cursor,
+.custom-cursor-dot {
+    display: none;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99990;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+}
+
+.has-custom-cursor .custom-cursor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 107, 53, 0.4);
+    border-radius: 50%;
+    transition: width 0.4s var(--ease-out-expo),
+                height 0.4s var(--ease-out-expo),
+                border-color 0.4s,
+                background-color 0.4s,
+                transform 0.08s linear;
+    mix-blend-mode: difference;
+}
+
+.has-custom-cursor .custom-cursor-dot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    mix-blend-mode: difference;
+}
+
+.has-custom-cursor * {
+    cursor: none !important;
+}
+
+/* Hover Scaling States */
+.custom-cursor.cursor-hover {
+    width: 64px;
+    height: 64px;
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Cursor Badge Text for Cards (Projects, Certificates) */
+.cursor-badge-text {
+    font-size: 9px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #000;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo);
+    pointer-events: none;
+}
+
+.custom-cursor.cursor-view,
+.custom-cursor.cursor-explore {
+    width: 80px;
+    height: 80px;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    mix-blend-mode: normal;
+}
+
+.custom-cursor.cursor-view .cursor-badge-text,
+.custom-cursor.cursor-explore .cursor-badge-text {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Typed Text Cursor */
+.typed-text::after {
+    content: '|';
+    animation: blink 0.8s step-end infinite;
+    color: var(--primary);
+    font-weight: 300;
+    margin-left: 2px;
+}
+
+.typed-text.typing-done::after {
+    animation: blink 0.8s step-end infinite 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}

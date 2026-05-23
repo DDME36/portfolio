@@ -1,0 +1,106 @@
+/* ═══════════════════════════════════════
+   CSS Variables & Root Styles
+   ═══════════════════════════════════════ */
+
+:root {
+    /* Colors - Awwwards High-Voltage Copper & Filament Gold */
+    --primary: #d48c46; /* Metallic Copper */
+    --secondary: #b86f33; /* Burnt Bronze */
+    --dark: #070709; /* Warm Obsidian Dark */
+    --light: #f6f6f9; /* Apple Light Silver */
+    --accent: #ffc04d; /* Glowing Filament Amber */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.75);
+    --text-muted: rgba(255, 255, 255, 0.45);
+    
+    /* Spacing System - 8px base grid */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+    --space-2xl: 64px;
+    --space-3xl: 96px;
+    
+    /* Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 2rem;
+    --text-4xl: 2.75rem;
+    --text-5xl: 3.5rem;
+    
+    /* Premium Easing - Awwwards Motion Curves */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.6, 0.265, 1.55);
+    --ease-reveal: cubic-bezier(0.76, 0, 0.24, 1);
+    
+    /* Shadows - Premium Refined Depth */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.8);
+    
+    /* Glass Effect */
+    --glass-bg: rgba(212, 140, 70, 0.015);
+    --glass-border: rgba(212, 140, 70, 0.05);
+    --glass-blur: blur(24px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+body {
+    font-family: 'Poppins', 'Kanit', sans-serif;
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+    height: 100vh;
+    height: 100dvh;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+body.is-loading {
+    overflow: hidden !important;
+}
+
+/* Mobile Body Override */
+@media (max-width: 480px) {
+    html {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        position: static !important;
+        height: auto !important;
+        min-height: 100vh;
+    }
+
+    body.is-loading {
+        overflow: hidden !important;
+        position: fixed !important;
+    }
+}
