@@ -23,10 +23,9 @@
 
     .container {
         height: auto !important;
-        overflow-y: auto !important;
+        overflow-y: visible !important;
         overflow-x: hidden !important;
         scroll-snap-type: none !important;
-        -webkit-overflow-scrolling: touch;
     }
 
     .section {

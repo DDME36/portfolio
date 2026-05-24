@@ -177,10 +177,9 @@ body {
 
     .container {
         height: auto;
-        overflow-y: auto;
+        overflow-y: visible;
         overflow-x: hidden;
         scroll-snap-type: none;
-        -webkit-overflow-scrolling: touch;
     }
 
     .section {
