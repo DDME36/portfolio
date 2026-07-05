@@ -21,6 +21,19 @@
         height: auto !important;
     }
 
+    /* WebKit mobile optimization: prevent difference blending repaint cycles */
+    .site-logo,
+    .site-index {
+        mix-blend-mode: normal !important;
+        color: #ffffff !important;
+    }
+
+    /* Disable shapes animation on tablets */
+    .morph-shape,
+    .geo-shape {
+        animation: none !important;
+    }
+
     .container {
         height: auto !important;
         overflow-y: visible !important;
@@ -182,6 +195,18 @@
     .spotlight,
     .diagonal-shape {
         display: none;
+    }
+
+    /* WebKit mobile optimization: disable noise overlay & backdrop-filter to prevent heavy GPU compositing */
+    .noise-overlay {
+        display: none !important;
+    }
+    .cta-btn, .badge-item, .social-icon,
+    .hud-social-node .node-icon,
+    .lightbox-close, .lightbox-nav {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(20, 20, 24, 0.9) !important;
     }
 
     /* Typography */
@@ -825,8 +850,14 @@
     .geo-shape,
     .diagonal-shape::before,
     .water-fill::before,
-    .water-fill::after {
-        animation: none;
+    .water-fill::after,
+    .cyber-ring,
+    .cyber-pulse-core,
+    .grid-line,
+    .hud-dot,
+    .timeline-dot {
+        animation: none !important;
+        transition: none !important;
     }
 }
 
@@ -973,6 +1004,12 @@
     .hud-social-nodes {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: var(--space-sm) !important;
+    }
+
+    .hud-social-node .node-icon {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 16px !important;
     }
 }
 

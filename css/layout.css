@@ -176,7 +176,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--space-md) var(--space-xl);
+    padding-top: calc(var(--space-md) + env(safe-area-inset-top));
+    padding-left: calc(var(--space-xl) + env(safe-area-inset-left));
+    padding-right: calc(var(--space-xl) + env(safe-area-inset-right));
+    padding-bottom: var(--space-md);
     z-index: 9999;
     pointer-events: none;
 }

@@ -41,45 +41,64 @@
     document.body.classList.add("is-loading");
     
     let progress = 0;
-    const duration = 1600; // ms
+    let isLoaded = false;
+
+    // Listen to actual page resources loading completion
+    window.addEventListener("load", () => {
+      isLoaded = true;
+    });
+
     const startTime = performance.now();
+    const nominalDuration = 2200; // time to reach 85% nominally
 
     function updateProgress(timestamp) {
       const elapsed = timestamp - startTime;
-      const t = Math.min(elapsed / duration, 1);
       
-      // Beautiful ease-out progress physics
-      const easedT = 1 - Math.pow(1 - t, 3);
-      progress = Math.round(easedT * 100);
+      if (!isLoaded) {
+        // Incrementally approach 85% smoothly
+        const t = Math.min(elapsed / nominalDuration, 1);
+        const easedT = 1 - Math.pow(1 - t, 3); // Cubic ease out
+        progress = Math.round(easedT * 85);
+        
+        loaderNumber.textContent = progress.toString().padStart(2, '0');
+        loaderFill.style.width = `${progress}%`;
 
-      // Render percentage & bar width
-      loaderNumber.textContent = progress.toString().padStart(2, '0');
-      loaderFill.style.width = `${progress}%`;
+        const statusIdx = Math.min(Math.floor(easedT * (techStatuses.length - 1)), techStatuses.length - 2);
+        loaderStatus.textContent = techStatuses[statusIdx];
 
-      // technical logs switcher
-      const statusIdx = Math.min(Math.floor(easedT * techStatuses.length), techStatuses.length - 1);
-      loaderStatus.textContent = techStatuses[statusIdx];
-
-      if (t < 1) {
         requestAnimationFrame(updateProgress);
       } else {
-        // Load finished
-        setTimeout(() => {
-          loader.classList.add("loaded");
-          document.body.classList.remove("is-loading");
+        // Fast-forward from current progress to 100%
+        if (progress < 100) {
+          progress += 2; // Count up quickly by 2% per frame
+          if (progress > 100) progress = 100;
 
-          // Staggered launch animations
-          setTimeout(() => {
-            const hero = document.getElementById("section1");
-            if (hero) hero.classList.add("active");
-            initTypingEffect();
-          }, 400);
+          loaderNumber.textContent = progress.toString().padStart(2, '0');
+          loaderFill.style.width = `${progress}%`;
 
-          // Purge loader from layout
+          // Show final status message
+          loaderStatus.textContent = techStatuses[techStatuses.length - 1];
+
+          requestAnimationFrame(updateProgress);
+        } else {
+          // Launch sequence when progress reaches 100%
           setTimeout(() => {
-            loader.style.display = "none";
-          }, 1400);
-        }, 300);
+            loader.classList.add("loaded");
+            document.body.classList.remove("is-loading");
+
+            // Staggered launch animations
+            setTimeout(() => {
+              const hero = document.getElementById("section1");
+              if (hero) hero.classList.add("active");
+              initTypingEffect();
+            }, 400);
+
+            // Purge loader from layout
+            setTimeout(() => {
+              loader.style.display = "none";
+            }, 1400);
+          }, 300);
+        }
       }
     }
 
@@ -363,9 +382,32 @@
     document.addEventListener("keydown", (e) => {
       const lightbox = document.getElementById("imageLightbox");
       if (lightbox && lightbox.classList.contains("active")) {
-        if (e.key === "Escape") closeLightbox(e);
-        else if (e.key === "ArrowLeft") navigateLightbox(-1, e);
-        else if (e.key === "ArrowRight") navigateLightbox(1, e);
+        if (e.key === "Escape") {
+          closeLightbox(e);
+        } else if (e.key === "ArrowLeft") {
+          navigateLightbox(-1, e);
+        } else if (e.key === "ArrowRight") {
+          navigateLightbox(1, e);
+        } else if (e.key === "Tab") {
+          // Trap focus inside lightbox modal
+          const focusableElements = lightbox.querySelectorAll('button, [tabindex="0"]');
+          if (focusableElements.length > 0) {
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey) {
+              if (document.activeElement === firstElement) {
+                lastElement.focus();
+                e.preventDefault();
+              }
+            } else {
+              if (document.activeElement === lastElement) {
+                firstElement.focus();
+                e.preventDefault();
+              }
+            }
+          }
+        }
         return;
       }
 
@@ -383,6 +425,8 @@
   function initParallax() {
     const layerShapes = document.querySelectorAll(".layer-shape");
     if (layerShapes.length === 0) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let scrollY = 0;
     let targetScrollY = 0;
@@ -551,11 +595,14 @@
     "images/toeic1.png",
   ];
   let currentImageIndex = 0;
+  let lastActiveElement = null;
 
   function openLightbox(imageSrc) {
     const lightbox = document.getElementById("imageLightbox");
     const lightboxImage = document.getElementById("lightboxImage");
     if (!lightbox || !lightboxImage) return;
+
+    lastActiveElement = document.activeElement;
 
     currentImageIndex = allCertImages.indexOf(imageSrc);
     if (currentImageIndex === -1) currentImageIndex = 0;
@@ -565,6 +612,12 @@
     lightbox.offsetHeight; // Force reflow
     lightbox.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    // Set focus to the close button inside the modal
+    const closeBtn = lightbox.querySelector(".lightbox-close");
+    if (closeBtn) {
+      closeBtn.focus();
+    }
   }
 
   function closeLightbox(event) {
@@ -583,6 +636,11 @@
     }, 450);
 
     if (event) event.stopPropagation();
+
+    // Restore focus back to the triggering element
+    if (lastActiveElement && lastActiveElement.focus) {
+      lastActiveElement.focus();
+    }
   }
 
   function navigateLightbox(direction, event) {
@@ -652,6 +710,18 @@
   // ═══════════════════════════════════════════════════
   //  CORE SYSTEM INITIALIZATION
   // ═══════════════════════════════════════════════════
+  function initAccessibility() {
+    const certs = document.querySelectorAll(".cert-scroll-item, .main-cert-image");
+    certs.forEach((el) => {
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          el.click();
+        }
+      });
+    });
+  }
+
   function init() {
     initLoader();
     initGridPatterns();
@@ -667,6 +737,7 @@
     initCounters();
     initWaterFill();
     initLiveClock();
+    initAccessibility();
   }
 
   // Run on DOM ready

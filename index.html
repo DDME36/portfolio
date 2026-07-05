@@ -13,7 +13,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="favicon.png" />
     <link rel="shortcut icon" href="favicon.png" type="image/png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#030305" />
+    <link rel="apple-touch-icon" href="images/profile.png" />
 
     <!-- Primary Meta Tags -->
     <title>
@@ -631,6 +633,9 @@
                   class="cert-scroll-item"
                   onclick="openLightbox('images/c1.png')"
                   data-cursor="ZOOM"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View Certificate 1"
                 >
                   <img
                     src="images/c1.png"
@@ -644,6 +649,9 @@
                   class="cert-scroll-item"
                   onclick="openLightbox('images/c2.png')"
                   data-cursor="ZOOM"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View Certificate 2"
                 >
                   <img
                     src="images/c2.png"
@@ -657,6 +665,9 @@
                   class="cert-scroll-item"
                   onclick="openLightbox('images/c3.png')"
                   data-cursor="ZOOM"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View Certificate 3"
                 >
                   <img
                     src="images/c3.png"
@@ -670,6 +681,9 @@
                   class="cert-scroll-item"
                   onclick="openLightbox('images/c4.png')"
                   data-cursor="ZOOM"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View Certificate 4"
                 >
                   <img
                     src="images/c4.png"
@@ -684,6 +698,9 @@
                   class="cert-scroll-item"
                   onclick="openLightbox('images/c1.png')"
                   data-cursor="ZOOM"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View Certificate 1"
                 >
                   <img
                     src="images/c1.png"
@@ -697,6 +714,9 @@
                   class="cert-scroll-item"
                   onclick="openLightbox('images/c2.png')"
                   data-cursor="ZOOM"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View Certificate 2"
                 >
                   <img
                     src="images/c2.png"
@@ -710,6 +730,9 @@
                   class="cert-scroll-item"
                   onclick="openLightbox('images/c3.png')"
                   data-cursor="ZOOM"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View Certificate 3"
                 >
                   <img
                     src="images/c3.png"
@@ -723,6 +746,9 @@
                   class="cert-scroll-item"
                   onclick="openLightbox('images/c4.png')"
                   data-cursor="ZOOM"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View Certificate 4"
                 >
                   <img
                     src="images/c4.png"
@@ -740,10 +766,13 @@
           <div class="main-certs-section">
             <h3 class="cert-section-title">Professional Credentials</h3>
             <div class="main-certs-container">
-              <div class="main-cert-card" data-cursor="ZOOM">
+               <div class="main-cert-card" data-cursor="ZOOM">
                 <div
                   class="main-cert-image"
                   onclick="openLightbox('images/coe.jpg')"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View ใบอนุญาตประกอบวิชาชีพวิศวกรรมควบคุม"
                 >
                   <img
                     src="images/coe.jpg"
@@ -763,6 +792,9 @@
                 <div
                   class="main-cert-image"
                   onclick="openLightbox('images/toeic1.png')"
+                  role="button"
+                  tabindex="0"
+                  aria-label="View ใบรายงานผลคะแนน TOEIC"
                 >
                   <img
                     src="images/toeic1.png"
@@ -868,6 +900,9 @@
       class="image-lightbox"
       id="imageLightbox"
       onclick="closeLightbox(event)"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Certificate Image Lightbox"
     >
       <div class="lightbox-content">
         <button class="lightbox-close" onclick="closeLightbox(event)">
