@@ -276,7 +276,6 @@
         overflow-y: visible !important;
         scroll-snap-type: none !important;
         scroll-behavior: smooth !important;
-        overscroll-behavior-y: none;
     }
 
     .section {
@@ -285,7 +284,7 @@
         height: auto !important;
         scroll-snap-align: none !important;
         display: block !important;
-        touch-action: pan-y;
+        touch-action: auto !important;
     }
 
     /* Hero section - ลดความสูงให้เลื่อนง่าย */
