@@ -1319,3 +1319,146 @@
     0%, 100% { box-shadow: 0 0 4px var(--accent); }
     50% { box-shadow: 0 0 12px var(--accent), 0 0 20px var(--accent); }
 }
+/* Awwwards-grade depth and proof surfaces */
+.section::after {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.035);
+    border-radius: 10px;
+    pointer-events: none;
+    z-index: 2;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045), transparent 18%, transparent 82%, rgba(255, 255, 255, 0.045)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 22%, transparent 78%, rgba(255, 255, 255, 0.025));
+    mask-image: linear-gradient(180deg, black, transparent 92%);
+    -webkit-mask-image: linear-gradient(180deg, black, transparent 92%);
+}
+
+.hero-proof-grid {
+    width: min(100%, 760px);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 var(--space-lg) 0;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.75s var(--ease-out-expo) 0.22s, transform 0.75s var(--ease-out-expo) 0.22s;
+}
+
+.section.active .hero-proof-grid {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-proof-card {
+    position: relative;
+    min-height: 92px;
+    padding: 14px;
+    border-radius: 10px;
+    text-align: left;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.hero-proof-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--accent), transparent);
+    opacity: 0.8;
+}
+
+.hero-proof-card span,
+.hero-proof-card small {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero-proof-card span {
+    margin-bottom: 8px;
+    color: var(--accent);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+}
+
+.hero-proof-card strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    line-height: 1.15;
+}
+
+.hero-proof-card small {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.72rem;
+    line-height: 1.35;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent 32%, rgba(255,255,255,0.04));
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    z-index: 1;
+}
+
+.project-card::after {
+    content: 'CASE // VIEW';
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    z-index: 4;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: rgba(7, 7, 10, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.35s ease, transform 0.35s var(--ease-out-expo);
+}
+
+.project-card:hover::before,
+.project-card:hover::after {
+    opacity: 1;
+}
+
+.project-card:hover::after {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .section::after {
+        inset: 10px;
+        border-radius: 8px;
+        opacity: 0.7;
+    }
+
+    .hero-proof-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-bottom: var(--space-md);
+    }
+
+    .hero-proof-card {
+        min-height: auto;
+        padding: 12px 14px;
+    }
+}

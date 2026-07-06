@@ -9,6 +9,7 @@
   const container = document.getElementById("main-container");
   const sections = document.querySelectorAll(".section");
   const navDots = document.querySelectorAll(".nav-dot");
+  const mobileNavLinks = document.querySelectorAll(".mobile-quick-nav a");
   const cursor = document.querySelector(".custom-cursor");
   const cursorDot = document.querySelector(".custom-cursor-dot");
   const cursorText = document.querySelector(".cursor-badge-text");
@@ -41,15 +42,16 @@
     document.body.classList.add("is-loading");
     
     let progress = 0;
-    let isLoaded = false;
+    let isLoaded = document.readyState === "complete";
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
 
     // Listen to actual page resources loading completion
     window.addEventListener("load", () => {
       isLoaded = true;
-    });
+    }, { once: true });
 
     const startTime = performance.now();
-    const nominalDuration = 2200; // time to reach 85% nominally
+    const nominalDuration = isTouchDevice ? 900 : 2200; // faster first interaction on mobile
 
     function updateProgress(timestamp) {
       const elapsed = timestamp - startTime;
@@ -70,7 +72,7 @@
       } else {
         // Fast-forward from current progress to 100%
         if (progress < 100) {
-          progress += 2; // Count up quickly by 2% per frame
+          progress += isTouchDevice ? 5 : 2; // Count up quickly once resources are ready
           if (progress > 100) progress = 100;
 
           loaderNumber.textContent = progress.toString().padStart(2, '0');
@@ -91,12 +93,12 @@
               const hero = document.getElementById("section1");
               if (hero) hero.classList.add("active");
               initTypingEffect();
-            }, 400);
+            }, isTouchDevice ? 180 : 400);
 
             // Purge loader from layout
             setTimeout(() => {
               loader.style.display = "none";
-            }, 1400);
+            }, isTouchDevice ? 900 : 1400);
           }, 300);
         }
       }
@@ -342,8 +344,18 @@
           activeSection.classList.add("active");
 
           navDots.forEach((dot, i) => {
-            dot.classList.toggle("active", i === idx);
+            const isActive = i === idx;
+            dot.classList.toggle("active", isActive);
+            if (isActive) dot.setAttribute("aria-current", "true");
+            else dot.removeAttribute("aria-current");
           });
+
+          mobileNavLinks.forEach((link, i) => {
+            const isActive = i === idx;
+            if (isActive) link.setAttribute("aria-current", "page");
+            else link.removeAttribute("aria-current");
+          });
+
           currentSection = idx;
 
           // Update wayfinding current index label
@@ -363,6 +375,23 @@
       dot.addEventListener("click", () => scrollToSection(index));
     });
 
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const index = parseInt(link.dataset.section, 10);
+        if (Number.isNaN(index)) return;
+        e.preventDefault();
+        scrollToSection(index);
+      });
+    });
+
+    const siteLogo = document.querySelector(".site-logo");
+    if (siteLogo) {
+      siteLogo.addEventListener("click", (e) => {
+        e.preventDefault();
+        scrollToSection(0);
+      });
+    }
+
     const ctaBtn = document.querySelector(".cta-btn");
     if (ctaBtn) {
       ctaBtn.addEventListener("click", (e) => {
@@ -374,10 +403,66 @@
 
   function scrollToSection(index) {
     if (index >= 0 && index < sections.length) {
-      sections[index].scrollIntoView({ behavior: "smooth" });
+      const target = sections[index];
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const isPageScroll = window.innerWidth <= 1024;
+      const behavior = reduceMotion ? "auto" : "smooth";
+
+      if (isPageScroll) {
+        const top = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top, behavior });
+      } else if (container) {
+        container.scrollTo({ top: target.offsetTop, behavior });
+      } else {
+        target.scrollIntoView({ behavior });
+      }
     }
   }
 
+
+  function initHeroScrollHandoff() {
+    const hero = document.getElementById("section1");
+    if (!hero) return;
+
+    let touchStartY = 0;
+    let lastHandoff = 0;
+
+    const isResponsiveScroll = () => window.innerWidth <= 1024;
+    const heroBottom = () => hero.getBoundingClientRect().bottom + window.pageYOffset;
+    const isInsideHero = () => isResponsiveScroll() && window.pageYOffset < heroBottom() - 24;
+    const canHandoff = () => performance.now() - lastHandoff > 900;
+
+    const handoffToStory = (event) => {
+      if (!isInsideHero() || !canHandoff()) return false;
+      if (event && event.cancelable) event.preventDefault();
+      lastHandoff = performance.now();
+      scrollToSection(1);
+      return true;
+    };
+
+    window.addEventListener("wheel", (e) => {
+      if (e.deltaY > 18) handoffToStory(e);
+    }, { passive: false });
+
+    window.addEventListener("touchstart", (e) => {
+      if (!isResponsiveScroll() || e.touches.length !== 1) return;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener("touchmove", (e) => {
+      if (!isResponsiveScroll() || e.touches.length !== 1) return;
+      const deltaY = touchStartY - e.touches[0].clientY;
+      if (deltaY > 32) handoffToStory(e);
+    }, { passive: false });
+
+    window.addEventListener("scroll", () => {
+      if (!isInsideHero() || !canHandoff()) return;
+      if (window.pageYOffset > 24) {
+        lastHandoff = performance.now();
+        scrollToSection(1);
+      }
+    }, { passive: true });
+  }
   function initKeyboard() {
     document.addEventListener("keydown", (e) => {
       const lightbox = document.getElementById("imageLightbox");
@@ -729,6 +814,7 @@
     initSectionObserver();
     initNavDots();
     initKeyboard();
+    initHeroScrollHandoff();
     initParallax();
     initScrollProgress();
     initCursor();
