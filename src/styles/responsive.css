@@ -45,7 +45,8 @@
     }
 
     .section {
-        min-height: auto !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
         height: auto !important;
         scroll-snap-align: none !important;
         overflow: visible !important;
@@ -143,7 +144,7 @@
     .skill-percentage {
         width: auto;
         height: auto;
-        font-size: 8px;
+        font-size: 10px;
         top: auto;
         bottom: -6px;
         right: -6px;
@@ -241,7 +242,7 @@
     .skill-percentage {
         width: auto;
         height: auto;
-        font-size: 7px;
+        font-size: 10px;
         top: auto;
         bottom: -5px;
         right: -5px;
@@ -249,7 +250,7 @@
         border-radius: 3px;
     }
     .skill-name { font-size: 0.85rem; }
-    .skill-desc { font-size: 0.7rem; }
+    .skill-desc { font-size: 0.8rem; }
 
     /* Projects - 2 columns */
     .projects-container {
@@ -309,10 +310,14 @@
 
     .section {
         padding: var(--space-3xl) 0;
-        min-height: auto !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
         height: auto !important;
         scroll-snap-align: none !important;
-        display: block !important;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         touch-action: auto !important;
     }
 
@@ -486,7 +491,7 @@
     .skill-percentage {
         width: auto;
         height: auto;
-        font-size: 8px;
+        font-size: 10px;
         top: auto;
         bottom: -6px;
         right: -6px;
@@ -1047,7 +1052,8 @@
     }
 
     .section {
-        min-height: auto !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
         height: auto !important;
         overflow: visible !important;
         transform: none !important;

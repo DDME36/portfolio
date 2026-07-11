@@ -1,0 +1,84 @@
+/* Award refresh — preserves every original section and its content. */
+:root{--award-paper:#ece8df;--award-ink:#090907;--award-muted:#9c9991;--award-orange:#ff9d2e;--award-line:rgba(236,232,223,.14)}
+body{background:var(--award-ink);color:var(--award-paper)}
+.award-refresh.container{background:var(--award-ink)}
+.award-refresh .section{background:transparent;border-bottom:1px solid var(--award-line)}
+.award-refresh .section>.diagonal-shape,.award-refresh .section>.morph-shape,.award-refresh .section>.geo-shape{opacity:.13;filter:saturate(.45)}
+.award-refresh .content{width:min(100% - 68px,1440px);max-width:1440px;margin-inline:auto;padding-inline:0}
+.award-refresh .section-label{display:flex;align-items:center;gap:12px;margin-bottom:24px;color:var(--award-orange);font-family:monospace;font-size:10px;letter-spacing:.16em}
+.award-refresh .section-label:before{content:"";width:26px;height:1px;background:currentColor}
+.award-refresh .section h1,.award-refresh .section h2{letter-spacing:-.055em}
+.award-refresh .section-subtitle{max-width:620px;color:var(--award-muted);font-weight:300;line-height:1.8}
+
+/* Hero: remove dashboard clutter and make the personal statement dominant. */
+.award-refresh #section1{position:relative;background:radial-gradient(circle at 82% 34%,rgba(255,157,46,.1),transparent 27%),var(--award-ink)}
+.award-refresh #section1:before{content:"";position:absolute;inset:0;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(90deg,#000,transparent 85%)}
+.award-refresh .hero-split-container{position:relative;grid-template-columns:minmax(0,1.4fr) minmax(300px,.6fr);gap:7vw;align-items:center}
+.award-refresh .hero-left-col{max-width:980px}
+.award-refresh .hero-tech-details{margin-bottom:36px;font-family:monospace;font-size:11px;letter-spacing:.1em;color:var(--award-muted)}
+.award-refresh #section1 h1{max-width:1050px;margin:0 0 10px;font-size:clamp(58px,8.4vw,142px);font-weight:600;line-height:1.15;letter-spacing:-.075em}
+.award-refresh #section1 .subtitle{font-size:clamp(19px,2vw,31px)!important;color:var(--award-orange)}
+.award-refresh #section1 p{max-width:700px;margin:22px 0 26px;font-size:clamp(15px,1.2vw,19px);font-weight:300;line-height:1.75;color:#bbb7ae}
+.award-refresh .hero-badge-wrap{gap:8px;margin-bottom:18px}
+.award-refresh .hero-badge-wrap .badge-item{padding:8px 13px;border:1px solid var(--award-line);border-radius:999px;background:transparent;color:var(--award-paper);font-family:monospace;font-size:11px;letter-spacing:.05em;box-shadow:none}
+.award-refresh .hero-badge-wrap .badge-item i{color:var(--award-orange)}
+.award-refresh .hero-proof-grid{grid-template-columns:repeat(3,1fr);gap:1px;margin:0 0 28px;background:var(--award-line);border:1px solid var(--award-line)}
+.award-refresh .hero-proof-card{min-height:100px;padding:17px;background:rgba(9,9,7,.82);border:0;border-radius:0;box-shadow:none}
+.award-refresh .hero-proof-card span{font-family:monospace;font-size:10px;letter-spacing:.15em;color:var(--award-orange)}
+.award-refresh .hero-proof-card strong{font-size:15px;font-weight:500}.award-refresh .hero-proof-card small{color:var(--award-muted)}
+.award-refresh .cta-btn{border-radius:999px;background:var(--award-orange);color:var(--award-ink);border:0;box-shadow:none;text-transform:uppercase;font-family:monospace;font-size:11px;letter-spacing:.1em}
+.award-refresh .hero-right-col{opacity:.8}.award-refresh .tech-wireframe-container{filter:saturate(.55)}
+
+/* Story */
+.award-refresh #section2 .about-content-wrapper{grid-template-columns:minmax(330px,.72fr) minmax(0,1.28fr);gap:7vw;align-items:start}
+.award-refresh .about-image-box{position:sticky;top:11vh;border-radius:0;overflow:hidden;background:#171713}
+.award-refresh .about-img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.05);clip-path:none;transition:filter .6s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+.award-refresh .about-image-box:hover .about-img{filter:grayscale(.15);transform:scale(1.02)}
+.award-refresh .about-title{font-size:clamp(42px,5.3vw,80px);line-height:1.02}
+.award-refresh .about-desc{font-size:clamp(15px,1.15vw,18px);line-height:1.9;color:#aaa79f}
+.award-refresh .tech-list{gap:1px;background:var(--award-line);border:1px solid var(--award-line)}
+.award-refresh .tech-list-item{padding:14px 16px;background:var(--award-ink);font-family:monospace;font-size:12px}
+
+/* Capability matrix */
+.award-refresh #section3 h1,.award-refresh #section4 h1,.award-refresh #section5 h1,.award-refresh #section6 h1{font-size:clamp(54px,8vw,122px);line-height:.9}
+.award-refresh .skills-container{gap:1px;background:var(--award-line);border:1px solid var(--award-line)}
+.award-refresh .skill-card{background:var(--award-ink);border:0;border-radius:0;box-shadow:none}
+.award-refresh .skill-card:hover{background:#11110e;transform:translateY(-5px)}
+.award-refresh .skill-icon,.award-refresh .skill-percentage{color:var(--award-orange)}
+
+/* Timeline */
+.award-refresh .education-grid{gap:7vw}.award-refresh .education-section h3{font-size:clamp(25px,2.7vw,42px)}
+.award-refresh .timeline::before{background:var(--award-line)}
+.award-refresh .timeline-item{padding-bottom:26px;border-bottom:1px solid var(--award-line);margin-bottom:16px!important}
+.award-refresh .timeline-date{font-family:monospace;font-size:11px;letter-spacing:.12em;color:var(--award-orange)}
+.award-refresh .timeline-title{font-size:clamp(19px,1.8vw,28px)}
+.award-refresh .timeline-description{color:var(--award-muted);line-height:1.75}
+
+/* Work: images lead, interface recedes. */
+.award-refresh .projects-container{gap:1px;background:var(--award-line);border:1px solid var(--award-line);perspective:none}
+.award-refresh .project-card{position:relative;background:var(--award-ink);border:0;border-radius:0;box-shadow:none;overflow:hidden;transform:none!important}
+.award-refresh .project-card:first-child{grid-column:1/-1;display:grid;grid-template-columns:1.28fr .72fr}
+.award-refresh .project-card:first-child .project-image-wrapper{height:100%;min-height:570px}
+.award-refresh .project-image-wrapper{overflow:hidden;background:#151512}
+.award-refresh .project-image{width:100%;height:320px;object-fit:cover;filter:grayscale(.82);transition:filter .65s ease,transform 1s cubic-bezier(.16,1,.3,1)}
+.award-refresh .project-card:hover .project-image{filter:grayscale(0);transform:scale(1.025)}
+.award-refresh .project-content{padding:32px}.award-refresh .project-title{font-size:clamp(29px,3.2vw,52px);line-height:1;letter-spacing:-.05em}
+.award-refresh .project-description{color:var(--award-muted);line-height:1.75}.award-refresh .project-tag{border:1px solid var(--award-line);background:transparent;color:#bbb;font-family:monospace;font-size:8px}
+.award-refresh .project-tech-badge{font-family:monospace;color:var(--award-orange)}
+
+/* Credentials remain complete, with quieter gallery chrome. */
+.award-refresh .cert-scroll-item,.award-refresh .main-cert-card{border:1px solid var(--award-line);border-radius:0;background:var(--award-ink);box-shadow:none}
+.award-refresh .cert-scroll-item img,.award-refresh .main-cert-image img{filter:grayscale(.75);transition:filter .5s ease,transform .7s ease}
+.award-refresh .cert-scroll-item:hover img,.award-refresh .main-cert-card:hover img{filter:grayscale(0);transform:scale(1.015)}
+.award-refresh .cert-section-title{font-family:monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--award-orange)}
+
+/* Contact */
+.award-refresh #section7{background:radial-gradient(circle at 75% 50%,rgba(255,157,46,.09),transparent 30%)}
+.award-refresh .contact-title{font-size:clamp(58px,8vw,130px);line-height:.82;letter-spacing:-.07em}
+.award-refresh .contact-email-link{font-size:clamp(18px,2.1vw,34px);color:var(--award-orange)}
+.award-refresh .contact-hud-panel{border:1px solid var(--award-line);border-radius:0;background:rgba(9,9,7,.74);box-shadow:none;backdrop-filter:blur(16px)}
+.award-refresh .hud-telemetry-item,.award-refresh .hud-social-node{border-color:var(--award-line);background:transparent}
+
+@media(max-width:1024px){.award-refresh .content{width:min(100% - 40px,900px)}.award-refresh #section2 .about-content-wrapper{grid-template-columns:1fr}.award-refresh .about-image-box{position:relative;top:0;max-width:620px;margin-inline:auto}.award-refresh .project-card:first-child{grid-template-columns:1fr}.award-refresh .project-card:first-child .project-image-wrapper{min-height:0}.award-refresh .project-image{height:auto;aspect-ratio:16/10}.award-refresh .section>.diagonal-shape,.award-refresh .section>.morph-shape,.award-refresh .section>.geo-shape{opacity:.07}}
+@media(max-width:600px){.award-refresh .content{width:calc(100% - 30px)}.award-refresh #section1 h1{font-size:clamp(42px,15vw,68px)}.award-refresh .hero-proof-grid{grid-template-columns:1fr}.award-refresh .hero-proof-card{min-height:74px}.award-refresh .about-title{font-size:38px}.award-refresh #section3 h1,.award-refresh #section4 h1,.award-refresh #section5 h1,.award-refresh #section6 h1{font-size:clamp(42px,13vw,66px)}.award-refresh .project-content{padding:22px}}
+@media(prefers-reduced-motion:reduce){.award-refresh *{scroll-behavior:auto!important}.award-refresh .about-img,.award-refresh .project-image,.award-refresh .cert-scroll-item img,.award-refresh .main-cert-image img{transition:none!important}}

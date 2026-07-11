@@ -1,0 +1,38 @@
+.award-refresh #section7.contact-editorial{position:relative;min-height:100svh!important;padding:clamp(100px,12vh,150px) var(--award-gutter) 34px!important;display:flex!important;align-items:stretch!important;background:radial-gradient(circle at 85% 25%,rgba(255,157,46,.11),transparent 26%),#090907!important;overflow:hidden!important}
+.award-refresh #section7.contact-editorial:before{content:"";position:absolute;inset:0;width:auto;height:auto;border:0;border-radius:0;transform:none;opacity:.15;background-image:linear-gradient(rgba(236,232,223,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(236,232,223,.08) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(90deg,transparent,#000 45%,transparent)}
+.award-refresh #section7.contact-editorial:after{display:none}
+.contact-editorial-inner{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:space-between;min-height:calc(100svh - clamp(134px,15vh,184px))}
+.contact-editorial-head{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.contact-editorial-head .section-label{margin:0}
+.contact-availability{display:flex;align-items:center;gap:10px;font:11px/1.4 monospace;letter-spacing:.1em;text-transform:uppercase;color:#aaa79f}
+.contact-availability i{width:7px;height:7px;border-radius:50%;background:#7ff18c;box-shadow:0 0 16px rgba(127,241,140,.7);animation:contact-pulse 2.2s ease-in-out infinite}
+.contact-editorial-copy{margin-block:clamp(70px,10vh,130px) clamp(55px,8vh,100px)}
+.award-refresh .contact-editorial-title{margin:0!important;font-size:clamp(56px,9.6vw,148px)!important;font-weight:500!important;line-height:.78!important;letter-spacing:-.075em!important;text-align:left!important}
+.contact-editorial-title span{display:block}
+.contact-editorial-title span:last-child{text-align:right;color:var(--award-orange)}
+.contact-outline{color:transparent;-webkit-text-stroke:1px rgba(236,232,223,.65);padding-left:8vw}
+.contact-editorial-intro{display:grid;grid-template-columns:minmax(0,560px) auto;justify-content:space-between;align-items:end;gap:40px;margin-top:clamp(45px,6vw,85px)}
+.contact-editorial-intro p{margin:0!important;font:300 clamp(15px,1.3vw,19px)/1.8 "Kanit",sans-serif!important;color:#aaa79f!important;text-align:left!important}
+.contact-signature{font:11px/1.65 monospace;letter-spacing:.09em;text-align:right;text-transform:uppercase;color:#aaa79f}
+.contact-mail-row{display:grid;grid-template-columns:180px 1fr auto;align-items:center;gap:30px;padding:24px 4px;border-top:1px solid rgba(236,232,223,.22);border-bottom:1px solid rgba(236,232,223,.22);transition:padding .45s cubic-bezier(.16,1,.3,1),background .45s ease}
+.contact-mail-row:before{content:"";position:absolute;inset:0;background:var(--award-orange);transform:scaleY(0);transform-origin:bottom;transition:transform .45s cubic-bezier(.16,1,.3,1);z-index:-1}
+.contact-mail-row{position:relative;isolation:isolate}
+.contact-mail-row:hover{padding-inline:20px;color:#090907}
+.contact-mail-row:hover:before{transform:scaleY(1)}
+.mail-label{font:11px monospace;letter-spacing:.11em;text-transform:uppercase;color:#aaa79f}.contact-mail-row:hover .mail-label{color:#090907}
+.contact-mail-row strong{font-size:clamp(20px,3.2vw,50px);font-weight:400;letter-spacing:-.045em;overflow-wrap:anywhere}
+.mail-arrow{font-size:clamp(24px,3vw,42px);color:var(--award-orange)}.contact-mail-row:hover .mail-arrow{color:#090907;transform:rotate(45deg)}
+.contact-editorial-footer{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;padding-top:clamp(50px,7vh,90px)}
+.contact-social-list{display:flex;gap:clamp(18px,3vw,50px)}
+.contact-social-list a{display:flex;gap:9px;padding-bottom:5px;border-bottom:1px solid transparent;font:12px monospace;letter-spacing:.06em;text-transform:uppercase;transition:border-color .35s ease,color .35s ease}
+.contact-social-list a span{font-size:10px;color:var(--award-orange)}
+.contact-social-list a:hover{border-color:var(--award-orange);color:var(--award-orange)}
+.contact-meta{display:flex;gap:34px;font:11px monospace;letter-spacing:.1em;text-transform:uppercase;color:#77746e}
+.contact-orbit{position:absolute;border:1px solid rgba(255,157,46,.19);border-radius:50%;pointer-events:none}
+.orbit-one{width:clamp(330px,46vw,740px);aspect-ratio:1;right:-18vw;top:-25vw;box-shadow:0 0 0 8vw rgba(255,157,46,.018),0 0 0 16vw rgba(255,157,46,.012)}
+.orbit-two{width:180px;height:180px;left:-90px;bottom:12%;border-style:dashed;animation:contact-spin 28s linear infinite}
+.contact-edge-note{position:absolute;right:15px;top:50%;font:11px monospace;letter-spacing:.16em;color:rgba(236,232,223,.24);writing-mode:vertical-rl}
+@keyframes contact-spin{to{transform:rotate(360deg)}}@keyframes contact-pulse{50%{opacity:.4;transform:scale(.7)}}
+@media(max-width:900px){.award-refresh #section7.contact-editorial{padding:100px var(--award-gutter) 28px!important}.contact-editorial-inner{min-height:auto}.contact-editorial-copy{margin-block:85px 65px}.award-refresh .contact-editorial-title{font-size:clamp(52px,12vw,96px)!important}.contact-editorial-intro{grid-template-columns:1fr}.contact-signature{text-align:left}.contact-mail-row{grid-template-columns:1fr auto}.mail-label{grid-column:1/-1}.contact-editorial-footer{align-items:flex-start;flex-direction:column}.contact-meta{width:100%;justify-content:space-between}.contact-edge-note{display:none}}
+@media(max-width:600px){.award-refresh #section7.contact-editorial{padding:84px 16px 24px!important}.contact-editorial-head{align-items:flex-start;flex-direction:column}.contact-editorial-copy{margin-block:65px 52px}.award-refresh .contact-editorial-title{font-size:clamp(42px,13.2vw,67px)!important;line-height:.84!important}.contact-outline{padding-left:0}.contact-editorial-title span:last-child{text-align:left}.contact-editorial-intro{margin-top:42px}.contact-mail-row{gap:12px;padding-block:19px}.contact-mail-row strong{font-size:clamp(17px,5vw,24px)}.contact-social-list{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:18px}.contact-meta{align-items:flex-start;flex-direction:column;gap:10px}.orbit-two{display:none}}
+@media(prefers-reduced-motion:reduce){.contact-availability i,.orbit-two{animation:none}.contact-mail-row,.contact-mail-row:before,.contact-social-list a{transition:none}}

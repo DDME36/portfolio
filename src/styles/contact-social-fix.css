@@ -1,0 +1,101 @@
+/* Layout improvements to prevent overflow on desktop */
+.award-refresh #section7.contact-editorial {
+  padding-top: 95px !important;
+  padding-bottom: 24px !important;
+}
+
+.award-refresh .contact-editorial-copy {
+  margin-block: 25px 25px !important;
+}
+
+.award-refresh .contact-editorial-footer {
+  padding-top: 25px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 15px !important;
+}
+
+.contact-social-heading {
+  font: 11px/1.4 monospace;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--award-orange);
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+/* Beautiful row of social brand icon buttons */
+.contact-social-grid {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.contact-social-grid .social-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #aaa79f !important;
+  font-size: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.contact-social-grid .social-button:hover {
+  transform: translateY(-6px) scale(1.1) !important;
+  color: #fff !important;
+}
+
+.contact-social-grid .social-button.facebook:hover {
+  background: #1877F2 !important;
+  border-color: #1877F2 !important;
+  box-shadow: 0 8px 25px rgba(24, 119, 242, 0.4) !important;
+}
+
+.contact-social-grid .social-button.instagram:hover {
+  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7) !important;
+  border-color: #ee2a7b !important;
+  box-shadow: 0 8px 25px rgba(238, 42, 123, 0.4) !important;
+}
+
+.contact-social-grid .social-button.line:hover {
+  background: #06c755 !important;
+  border-color: #06c755 !important;
+  box-shadow: 0 8px 25px rgba(6, 199, 85, 0.4) !important;
+}
+
+.contact-meta {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 11px monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #77746e;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 15px;
+  margin-top: 10px;
+}
+
+/* Mobile responsive fixes */
+@media(max-width: 720px) {
+  .award-refresh #section7.contact-editorial {
+    padding-top: 80px !important;
+  }
+  .award-refresh .contact-editorial-copy {
+    margin-block: 40px 30px !important;
+  }
+  .contact-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+}

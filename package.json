@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-astro",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "aria-query": "^5.3.2",
+    "axobject-query": "^4.1.0"
+  }
+}

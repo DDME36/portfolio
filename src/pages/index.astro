@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Loader from '../components/Loader.astro';
+import Header from '../components/Header.astro';
+import Navigation from '../components/Navigation.astro';
+import Cursor from '../components/Cursor.astro';
+import Lightbox from '../components/Lightbox.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Capabilities from '../components/Capabilities.astro';
+import Chronology from '../components/Chronology.astro';
+import Specifications from '../components/Specifications.astro';
+import Credentials from '../components/Credentials.astro';
+import Contact from '../components/Contact.astro';
+import '../styles/award-refresh.css';
+---
+
+<Layout>
+  <Loader />
+  <div class="scroll-progress"><div class="scroll-progress-bar"></div></div>
+  <Header />
+  <div class="noise-overlay"></div>
+  <div class="global-grid"><div class="grid-line line-1"></div><div class="grid-line line-2"></div><div class="grid-line line-3"></div><div class="grid-line line-4"></div></div>
+  <Cursor />
+  <Navigation />
+  <div class="container award-refresh" id="main-container" role="main">
+    <Hero />
+    <About />
+    <Capabilities />
+    <Chronology />
+    <Specifications />
+    <Credentials />
+    <Contact />
+  </div>
+  <Lightbox />
+</Layout>
