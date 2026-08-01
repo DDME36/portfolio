@@ -44,6 +44,17 @@
     let progress = 0;
     let isLoaded = document.readyState === "complete";
     const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion) {
+      loaderNumber.textContent = "100";
+      loaderFill.style.width = "100%";
+      loaderStatus.textContent = techStatuses[techStatuses.length - 1];
+      loader.classList.add("loaded");
+      loader.style.display = "none";
+      document.body.classList.remove("is-loading");
+      return;
+    }
 
     // Listen to actual page resources loading completion
     window.addEventListener("load", () => {
@@ -51,7 +62,13 @@
     }, { once: true });
 
     const startTime = performance.now();
-    const nominalDuration = isTouchDevice ? 900 : 2200; // faster first interaction on mobile
+    const nominalDuration = isTouchDevice ? 650 : 1050;
+    const maxResourceWait = isTouchDevice ? 1200 : 1800;
+
+    // External fonts/icons should never be able to trap visitors behind the loader.
+    const loadFailsafe = window.setTimeout(() => {
+      isLoaded = true;
+    }, maxResourceWait);
 
     function updateProgress(timestamp) {
       const elapsed = timestamp - startTime;
@@ -83,6 +100,7 @@
 
           requestAnimationFrame(updateProgress);
         } else {
+          window.clearTimeout(loadFailsafe);
           // Launch sequence when progress reaches 100%
           setTimeout(() => {
             loader.classList.add("loaded");
@@ -93,13 +111,13 @@
               const hero = document.getElementById("section1");
               if (hero) hero.classList.add("active");
               initTypingEffect();
-            }, isTouchDevice ? 180 : 400);
+            }, isTouchDevice ? 120 : 220);
 
             // Purge loader from layout
             setTimeout(() => {
               loader.style.display = "none";
-            }, isTouchDevice ? 900 : 1400);
-          }, 300);
+            }, isTouchDevice ? 650 : 900);
+          }, 160);
         }
       }
     }
@@ -112,6 +130,7 @@
   // ═══════════════════════════════════════════════════
   function initCursor() {
     if (!cursor || !cursorDot) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
       document.body.classList.add("has-custom-cursor");
@@ -180,6 +199,7 @@
   function initMagnetics() {
     // Disable magnetics on mobile
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const magneticElements = document.querySelectorAll(".cta-btn, .social-icon, .nav-dot");
 
@@ -214,6 +234,7 @@
   // ═══════════════════════════════════════════════════
   function initCardTilt() {
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const cards = document.querySelectorAll(".project-card, .main-cert-card");
 
@@ -223,11 +244,11 @@
         const mouseX = e.clientX - bound.left;
         const mouseY = e.clientY - bound.top;
         
-        const xPercent = (mouseX / bound.width - 0.5) * 15; // Max 15 degree rotate
-        const yPercent = (mouseY / bound.height - 0.5) * -15;
+        const xPercent = (mouseX / bound.width - 0.5) * 7;
+        const yPercent = (mouseY / bound.height - 0.5) * -7;
 
-        card.style.transform = `perspective(1000px) rotateX(${yPercent}px) rotateY(${xPercent}px) scale3d(1.02, 1.02, 1.02)`;
-        card.style.transition = "transform 0.08s ease-out";
+        card.style.transform = `perspective(1000px) rotateX(${yPercent}deg) rotateY(${xPercent}deg) scale3d(1.012, 1.012, 1.012)`;
+        card.style.transition = "transform 0.16s ease-out";
       });
 
       card.addEventListener("mouseleave", () => {
@@ -420,49 +441,6 @@
   }
 
 
-  function initHeroScrollHandoff() {
-    const hero = document.getElementById("section1");
-    if (!hero) return;
-
-    let touchStartY = 0;
-    let lastHandoff = 0;
-
-    const isResponsiveScroll = () => window.innerWidth <= 1024;
-    const heroBottom = () => hero.getBoundingClientRect().bottom + window.pageYOffset;
-    const isInsideHero = () => isResponsiveScroll() && window.pageYOffset < heroBottom() - 24;
-    const canHandoff = () => performance.now() - lastHandoff > 900;
-
-    const handoffToStory = (event) => {
-      if (!isInsideHero() || !canHandoff()) return false;
-      if (event && event.cancelable) event.preventDefault();
-      lastHandoff = performance.now();
-      scrollToSection(1);
-      return true;
-    };
-
-    window.addEventListener("wheel", (e) => {
-      if (e.deltaY > 18) handoffToStory(e);
-    }, { passive: false });
-
-    window.addEventListener("touchstart", (e) => {
-      if (!isResponsiveScroll() || e.touches.length !== 1) return;
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    window.addEventListener("touchmove", (e) => {
-      if (!isResponsiveScroll() || e.touches.length !== 1) return;
-      const deltaY = touchStartY - e.touches[0].clientY;
-      if (deltaY > 32) handoffToStory(e);
-    }, { passive: false });
-
-    window.addEventListener("scroll", () => {
-      if (!isInsideHero() || !canHandoff()) return;
-      if (window.pageYOffset > 24) {
-        lastHandoff = performance.now();
-        scrollToSection(1);
-      }
-    }, { passive: true });
-  }
   function initKeyboard() {
     document.addEventListener("keydown", (e) => {
       const lightbox = document.getElementById("imageLightbox");
@@ -574,6 +552,14 @@
     if (!typedEl) return;
 
     const text = typedEl.dataset.text || typedEl.textContent;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      typedEl.textContent = text;
+      typedEl.style.visibility = "visible";
+      typedEl.classList.add("typing-done");
+      return;
+    }
+
     typedEl.textContent = "";
     typedEl.style.visibility = "visible";
 
@@ -814,13 +800,11 @@
     initSectionObserver();
     initNavDots();
     initKeyboard();
-    initHeroScrollHandoff();
     initParallax();
     initScrollProgress();
     initCursor();
     initMagnetics();
     initCardTilt();
-    initCounters();
     initWaterFill();
     initLiveClock();
     initAccessibility();
