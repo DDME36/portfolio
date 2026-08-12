@@ -722,7 +722,7 @@
 #section5.active .project-card:nth-child(2) { transition-delay: 0.25s !important; }
 #section5.active .project-card:nth-child(3) { transition-delay: 0.4s !important; }
 
-/* Section 7: Clean Editorial Typography Entrance (Guaranteed 100% Visible) */
+/* Section 7: Clean Editorial Typography Entrance (Full Mobile Safari WebKit Compatibility) */
 #section7 .contact-editorial-title span,
 #section7 .contact-editorial-title span:nth-child(1),
 #section7 .contact-editorial-title span:nth-child(2),
@@ -734,17 +734,26 @@
   translate: 0 0 !important;
 }
 
+/* Line 1: LET'S MAKE - Solid White */
 #section7 .contact-editorial-title span:nth-child(1) {
   color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-text-stroke: 0 !important;
 }
 
-#section7 .contact-editorial-title span:nth-child(2) {
+/* Line 2: SOMETHING - Outlined Glass Text */
+#section7 .contact-editorial-title span:nth-child(2),
+#section7 .contact-editorial-title .contact-outline {
   color: transparent !important;
-  -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.65) !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.85) !important;
 }
 
+/* Line 3: MEANINGFUL. - Glowing Solid Orange */
 #section7 .contact-editorial-title span:nth-child(3) {
-  color: var(--award-orange, #ff9d2e) !important;
+  color: #ff9d2e !important;
+  -webkit-text-fill-color: #ff9d2e !important;
+  -webkit-text-stroke: 0 !important;
 }
 
 @keyframes awardRevealUp {
