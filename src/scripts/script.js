@@ -804,7 +804,7 @@
   }
 
   function initScrollReveals() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerWidth <= 1024) {
       sections.forEach((section) => section.classList.add("active"));
       return;
     }

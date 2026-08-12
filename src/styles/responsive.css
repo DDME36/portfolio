@@ -8,61 +8,68 @@
 
 /* iPad & Tablets (≤1024px) */
 @media (max-width: 1024px) {
-    /* Fix scroll issues */
+    /* Fix Mobile Safari scroll & compositing issues */
     html {
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        height: auto !important;
     }
 
-    body {
+    body,
+    body.is-loading {
         overflow-y: visible !important;
         overflow-x: hidden !important;
         position: static !important;
         height: auto !important;
-    }
-
-    /* WebKit mobile optimization: prevent difference blending repaint cycles */
-    .site-logo,
-    .site-index {
-        mix-blend-mode: normal !important;
-        color: #ffffff !important;
-    }
-
-    /* Disable shapes animation on tablets */
-    .morph-shape,
-    .geo-shape {
-        animation: none !important;
+        touch-action: auto !important;
+        -webkit-overflow-scrolling: touch !important;
     }
 
     .container {
         height: auto !important;
-        min-height: 100%;
-        overflow-y: visible !important;
-        overflow-x: hidden !important;
+        min-height: 100% !important;
+        overflow: visible !important;
         scroll-snap-type: none !important;
         scroll-behavior: auto !important;
-        -webkit-overflow-scrolling: auto !important;
     }
 
     .section {
-        min-height: 100vh !important;
-        min-height: 100svh !important;
+        min-height: auto !important;
         height: auto !important;
         scroll-snap-align: none !important;
         overflow: visible !important;
-        padding: var(--space-3xl) 0;
+        padding: var(--space-2xl) 0 !important;
+    }
+
+    /* Force 100% visibility on iOS Safari for all elements */
+    .section .about-image-box,
+    .section .about-text-box,
+    .section .about-img,
+    .section .skill-item,
+    .section .timeline-item,
+    .section .project-card,
+    .section .contact-editorial-head,
+    .section .contact-editorial-title,
+    .section .contact-editorial-title span,
+    .section .contact-mail-row,
+    .motion-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        translate: 0 0 !important;
+        clip-path: none !important;
+        visibility: visible !important;
+        animation: none !important;
     }
 
     #section1 {
-        min-height: 100vh;
-        min-height: 100dvh;
-        padding: var(--space-3xl) 0;
+        min-height: auto !important;
+        padding: var(--space-2xl) 0 !important;
         display: flex;
         align-items: center;
     }
 
     .content {
-        padding: 0 var(--space-xl);
+        padding: 0 var(--space-lg) !important;
     }
 
     .nav-dots,
