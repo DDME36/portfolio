@@ -41,17 +41,25 @@
         padding: var(--space-2xl) 0 !important;
     }
 
-    /* Force 100% visibility on iOS Safari for all elements */
-    .section .about-image-box,
-    .section .about-text-box,
-    .section .about-img,
-    .section .skill-item,
-    .section .timeline-item,
-    .section .project-card,
-    .section .contact-editorial-head,
-    .section .contact-editorial-title,
-    .section .contact-editorial-title span,
-    .section .contact-mail-row,
+    /* Force 100% visibility on mobile / mobile emulation for ALL elements */
+    .section *,
+    .section *::before,
+    .section *::after,
+    .section-label,
+    .section-subtitle,
+    .about-image-box,
+    .about-text-box,
+    .about-img,
+    .about-desc,
+    .timeline-subtitle,
+    .timeline-description,
+    .skill-item,
+    .timeline-item,
+    .project-card,
+    .contact-editorial-head,
+    .contact-editorial-title,
+    .contact-editorial-title span,
+    .contact-mail-row,
     .motion-reveal {
         opacity: 1 !important;
         transform: none !important;

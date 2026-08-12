@@ -55,7 +55,7 @@
  
 /* Hero balance */
 .award-refresh #section1{padding-inline:var(--award-gutter)!important}
-.award-refresh #section1:before{inset:auto -8vw -22vw auto!important;width:52vw;min-width:520px;border-radius:50%;opacity:.7}
+.award-refresh #section1:before{inset:auto -8vw -22vw auto!important;width:52vw;min-width:520px;border-radius:50%;opacity:.18;pointer-events:none}
 .award-refresh #section1 .content{margin-inline:auto!important}
 .award-refresh .hero-split-container{width:100%;min-height:100svh;padding-block:clamp(100px,12vh,150px) 80px!important}
 .award-refresh .hero-left-col{width:100%;max-width:860px!important;justify-self:start}
@@ -729,6 +729,14 @@
 }
 
 @media (max-width: 768px) {
+  /* Eliminate blurry background fog on mobile */
+  .award-refresh #section1:before,
+  .morph-shape,
+  .geo-shape,
+  .spotlight {
+    display: none !important;
+  }
+
   /* Flatten 3D perspective transforms for hardware performance on mobile */
   #section2 .about-image-box {
     transform: translateY(24px) !important;

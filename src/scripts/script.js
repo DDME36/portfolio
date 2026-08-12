@@ -335,13 +335,14 @@
   // ═══════════════════════════════════════════════════
   function initSectionObserver() {
     const scrollContainer = document.getElementById("main-container");
-    const observerRoot = (scrollContainer && getComputedStyle(scrollContainer).overflowY === "scroll")
+    const isMobile = window.innerWidth <= 1024;
+    const observerRoot = (!isMobile && scrollContainer && getComputedStyle(scrollContainer).overflowY === "scroll")
       ? scrollContainer
       : null;
 
     const observerOptions = {
       root: observerRoot,
-      threshold: [0.35, 0.55, 0.75, 0.9],
+      threshold: isMobile ? [0.05, 0.15, 0.3, 0.5] : [0.35, 0.55, 0.75, 0.9],
       rootMargin: "0px",
     };
 
@@ -363,11 +364,11 @@
         }
       });
 
-      if (activeSection && maxRatio >= 0.4) {
+      if (activeSection) {
         const idx = Array.from(sections).indexOf(activeSection);
         
         sections.forEach((s, i) => {
-          if (i === idx) {
+          if (i === idx || isMobile) {
             s.classList.add("active");
           } else {
             s.classList.remove("active");
