@@ -53,6 +53,9 @@
       loader.classList.add("loaded");
       loader.style.display = "none";
       document.body.classList.remove("is-loading");
+      const hero = document.getElementById("section1");
+      if (hero) hero.classList.add("active");
+      initTypingEffect();
       return;
     }
 
@@ -331,13 +334,17 @@
   //  7. INTERSECTION OBSERVER — Section Active states
   // ═══════════════════════════════════════════════════
   function initSectionObserver() {
+    const scrollContainer = document.getElementById("main-container");
+    const observerRoot = (scrollContainer && getComputedStyle(scrollContainer).overflowY === "scroll")
+      ? scrollContainer
+      : null;
+
     const observerOptions = {
-      // Use multiple thresholds to handle sections of different heights
-      threshold: [0.15, 0.35, 0.55],
-      rootMargin: "-5% 0px -5% 0px",
+      root: observerRoot,
+      threshold: [0.35, 0.55, 0.75, 0.9],
+      rootMargin: "0px",
     };
 
-    // Keep track of the ratio of each section
     const sectionRatios = {};
 
     const sectionObserver = new IntersectionObserver((entries) => {
@@ -345,7 +352,6 @@
         sectionRatios[entry.target.id] = entry.isIntersecting ? entry.intersectionRatio : 0;
       });
 
-      // Find section with the highest intersection ratio
       let maxRatio = 0;
       let activeSection = null;
 
@@ -357,13 +363,18 @@
         }
       });
 
-      // Update active state if we found a section with visibility > 0
-      if (activeSection) {
+      if (activeSection && maxRatio >= 0.4) {
         const idx = Array.from(sections).indexOf(activeSection);
-        if (idx !== currentSection) {
-          sections.forEach((s) => s.classList.remove("active"));
-          activeSection.classList.add("active");
+        
+        sections.forEach((s, i) => {
+          if (i === idx) {
+            s.classList.add("active");
+          } else {
+            s.classList.remove("active");
+          }
+        });
 
+        if (idx !== currentSection) {
           navDots.forEach((dot, i) => {
             const isActive = i === idx;
             dot.classList.toggle("active", isActive);
@@ -379,7 +390,6 @@
 
           currentSection = idx;
 
-          // Update wayfinding current index label
           const indexCurrent = document.querySelector(".index-current");
           if (indexCurrent) {
             indexCurrent.textContent = (idx + 1).toString().padStart(2, '0');
@@ -793,10 +803,70 @@
     });
   }
 
+  function initScrollReveals() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      sections.forEach((section) => section.classList.add("active"));
+      return;
+    }
+
+    const motionGroups = [
+      { section: "#section1", selector: ".section-label, h1, .subtitle, p, .hero-badge-wrap, .hero-proof-grid, .cta-btn, .hero-right-col" },
+      { section: "#section2", selector: ".about-image-box, .about-text-box" },
+      { section: "#section3", selector: ".section-label, h1, .section-subtitle, .skill-item" },
+      { section: "#section4", selector: ".section-label, h1, .section-subtitle, .education-section h3, .timeline-item" },
+      { section: "#section5", selector: ".section-label, h1, .section-subtitle, .project-card" },
+      { section: "#section6", selector: ".section-label, h1, .section-subtitle, .cert-scroll-section, .main-cert-card" },
+      { section: "#section7", selector: ".contact-editorial-head, .contact-editorial-title span, .contact-editorial-intro, .contact-mail-row, .contact-editorial-footer" },
+    ];
+
+    const revealElements = [];
+
+    motionGroups.forEach(({ section, selector }) => {
+      const root = document.querySelector(section);
+      if (!root) return;
+
+      root.querySelectorAll(selector).forEach((element, index) => {
+        element.classList.add("motion-reveal");
+        element.style.setProperty("--motion-order", String(index % 6));
+
+        if (element.matches(".about-image-box")) element.dataset.motion = "left";
+        if (element.matches(".about-text-box")) element.dataset.motion = "right";
+
+        revealElements.push(element);
+      });
+    });
+
+    if (revealElements.length === 0) return;
+
+    document.documentElement.classList.add("motion-enhanced");
+
+    const scrollContainer = document.getElementById("main-container");
+    const observerRoot = (scrollContainer && getComputedStyle(scrollContainer).overflowY === "scroll")
+      ? scrollContainer
+      : null;
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-revealed");
+        observer.unobserve(entry.target);
+      });
+    }, {
+      root: observerRoot,
+      threshold: 0.15,
+      rootMargin: "-30% 0px -30% 0px",
+    });
+
+    requestAnimationFrame(() => {
+      revealElements.forEach((element) => revealObserver.observe(element));
+    });
+  }
+
   function init() {
     initLoader();
     initGridPatterns();
     initTextSplitting();
+    initScrollReveals();
     initSectionObserver();
     initNavDots();
     initKeyboard();
@@ -808,6 +878,27 @@
     initWaterFill();
     initLiveClock();
     initAccessibility();
+    initCertSlider();
+  }
+
+  function initCertSlider() {
+    const track = document.querySelector(".cert-scroll-track");
+    if (!track) return;
+
+    let x = 0;
+    const speed = 0.9; // Smooth continuous 60fps movement speed
+
+    function animate() {
+      x += speed;
+      const limit = track.scrollWidth > 0 ? track.scrollWidth / 2 : 0;
+      if (limit > 0 && x >= limit) {
+        x -= limit;
+      }
+      track.style.setProperty("transform", `translate3d(-${x}px, 0, 0)`, "important");
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
   }
 
   // Run on DOM ready

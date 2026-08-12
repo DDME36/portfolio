@@ -345,44 +345,8 @@
         overflow: visible !important;
     }
 
-    /* Smooth fade-in for mobile (keep simple) */
-    .section h1,
-    .section h2,
-    .section h3,
-    .section p,
-    .section .content,
-    .section .about-image-box,
-    .section .about-text-box,
-    .section .skills-intro,
-    .section .skill-item,
-    .section .project-card,
-    .section .cert-scroll-section,
-    .section .main-certs-section,
-    .section .contact-box,
-    .section .education-section h3,
-    .section .timeline-item,
-    .section .cta-btn,
-    .section .badge-item,
-    .section .hero-badges {
-        opacity: 1 !important;
-        transform: none !important;
-        animation: none !important;
-    }
-
-    /* Keep hover effects but remove complex transitions */
-    .section *:not(.cert-scroll-track):not(.cert-scroll-item):not(.cert-scroll-container):not(.cta-btn):not(.project-card):not(.social-icon) {
-        transition: none !important;
-    }
-
-    /* Keep smooth transitions for interactive elements */
-    .cta-btn,
-    .project-card,
-    .social-icon,
-    .badge-item,
-    .skill-item,
-    .main-cert-card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-    }
+    /* Motion is now managed by the shared reveal system. Keeping these
+       elements out of a blanket reset preserves stagger and section depth. */
 
     /* Disable water animation on mobile */
     .water-fill {
@@ -401,8 +365,6 @@
 
     /* Keep cert scroll animation - optimized for mobile */
     .cert-scroll-track {
-        -webkit-animation: scrollCerts 30s linear infinite !important;
-        animation: scrollCerts 30s linear infinite !important;
         will-change: transform;
         display: flex !important;
         flex-wrap: nowrap !important;

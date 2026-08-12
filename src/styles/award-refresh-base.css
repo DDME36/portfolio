@@ -67,7 +67,7 @@ body{background:var(--award-ink);color:var(--award-paper)}
 .award-refresh .project-tech-badge{font-family:monospace;color:var(--award-orange)}
 
 /* Credentials remain complete, with quieter gallery chrome. */
-.award-refresh .cert-scroll-item,.award-refresh .main-cert-card{border:1px solid var(--award-line);border-radius:0;background:var(--award-ink);box-shadow:none}
+.award-refresh .cert-scroll-item,.award-refresh .main-cert-card{border:1px solid var(--award-line);border-radius:18px;background:var(--award-ink);box-shadow:0 12px 35px rgba(0,0,0,0.4)}
 .award-refresh .cert-scroll-item img,.award-refresh .main-cert-image img{filter:grayscale(.75);transition:filter .5s ease,transform .7s ease}
 .award-refresh .cert-scroll-item:hover img,.award-refresh .main-cert-card:hover img{filter:grayscale(0);transform:scale(1.015)}
 .award-refresh .cert-section-title{font-family:monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--award-orange)}
