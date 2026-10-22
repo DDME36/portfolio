@@ -6,6 +6,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { createParticles } from "./particles.js";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -220,6 +221,107 @@ function initMorph() {
 
   // Let the hero portrait finish its own reveal before handing over to the morph layer
   Promise.all(slots[0].getAnimations().map((a) => a.finished)).then(enable, enable);
+}
+
+// ─── Particle field: one cloud of light that changes shape per chapter ─
+// shape, desktop [x, y, scale, tilt], phone [x, y, scale, tilt], paper?, strength
+const FIELD = {
+  intro:       ["sphere",  [0.35, 0.05, 1.55, 0],   [0.2, 0.55, 0.8, 0],   0, 1],
+  story:       ["bolt",    [1.6, 0.0, 1.3, 0.15],   [0.35, 0.7, 0.6, 0.15], 1, 0.9],
+  statement:   ["waves",   [0, -1.1, 1.9, 0],       [0, -1.2, 0.55, 0],   1, 1],
+  glance:      ["lattice", [1.9, 0.95, 0.75, 0.3],  [0.4, 1.2, 0.38, 0.3], 1, 0.95],
+  journey:     ["helix",   [0.7, 1.3, 1.4, -0.08],  [0, 1.3, 0.5, 0],     0, 0.9],
+  work:        ["torus",   [2.0, 0.9, 0.95, 0.5],   [0.4, 1.2, 0.42, 0.5], 1, 0.95],
+  credentials: ["plane",   [0.5, -1.25, 1.9, 0],    [0, -1.3, 0.7, 0],    1, 0.95],
+  contact:     ["ring",    [1.45, 0.2, 1.25, 0],    [0.25, 0.9, 0.6, 0],  0, 1],
+};
+
+function initField() {
+  const canvas = document.querySelector(".field");
+  const phone = () => window.innerWidth < 768;
+  let engine;
+  try {
+    engine = createParticles(canvas, { count: phone() ? 3500 : 9000 });
+  } catch (e) {
+    engine = null;
+  }
+  if (!engine) { canvas.remove(); return; }
+  document.documentElement.classList.add("has-field");
+
+  let stops = [];
+  const measure = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    stops = chapters.map((section) => {
+      const box = section.parentElement.classList.contains("pin-spacer") ? section.parentElement : section;
+      const r = box.getBoundingClientRect();
+      const focus = r.top + window.scrollY + Math.min(r.height, window.innerHeight * 1.5) / 2 - window.innerHeight / 2;
+      return { at: gsap.utils.clamp(0, max, focus), conf: FIELD[section.id] };
+    });
+  };
+  ScrollTrigger.addEventListener("refresh", () => { engine.resize(); measure(); });
+  measure();
+
+  const mouse = [9, 9];
+  const target = [9, 9];
+  if (fine) {
+    window.addEventListener("pointermove", (e) => {
+      target[0] = (e.clientX / window.innerWidth) * 2 - 1;
+      target[1] = -((e.clientY / window.innerHeight) * 2 - 1);
+    }, { passive: true });
+  }
+
+  // Load-in: the cloud gathers from a scatter into the plasma ball
+  const intro = { v: 0 };
+  gsap.to(intro, { v: 1, duration: 2.6, ease: "power3.out", delay: 0.2 });
+
+  const pick = (conf) => (phone() ? conf[2] : conf[1]);
+  const total = phone() ? 3500 : 9000;
+  // Adaptive quality: watch real frame times and shed particles on slow devices
+  let limit = total, slow = 0, last = performance.now(), alive = true;
+  const tick = (time) => {
+    if (!alive || document.hidden) return;
+    const now = performance.now();
+    const frame = now - last;
+    last = now;
+    if (frame > 28 && frame < 500) slow++;
+    else slow = Math.max(0, slow - 1);
+    if (slow > 30) {
+      slow = 0;
+      limit = Math.floor(limit * 0.6);
+      if (limit < total * 0.2) {
+        alive = false;
+        gsap.ticker.remove(tick);
+        canvas.remove();
+        document.documentElement.classList.remove("has-field");
+        return;
+      }
+    }
+    const y = window.scrollY;
+    let i = 0;
+    while (i < stops.length - 1 && y >= stops[i + 1].at) i++;
+    const A = stops[i];
+    const B = stops[Math.min(i + 1, stops.length - 1)];
+    const local = B.at > A.at ? gsap.utils.clamp(0, 1, (y - A.at) / (B.at - A.at)) : 0;
+    const mix = gsap.utils.clamp(0, 1, (local - 0.2) / 0.6);
+    mouse[0] += (target[0] - mouse[0]) * 0.08;
+    mouse[1] += (target[1] - mouse[1]) * 0.08;
+
+    const state = {
+      a: A.conf[0], b: B.conf[0], mix,
+      xa: pick(A.conf), xb: pick(B.conf),
+      paper: A.conf[3] + (B.conf[3] - A.conf[3]) * mix,
+      fade: A.conf[4] + (B.conf[4] - A.conf[4]) * mix,
+      size: phone() ? 5 : 6.5,
+      time, mouse, limit,
+    };
+    if (i === 0 && intro.v < 1 && mix === 0) {
+      Object.assign(state, { a: "scatter", b: "sphere", mix: intro.v, xa: state.xa, xb: state.xa });
+      state.fade = Math.min(1, intro.v * 1.5);
+    }
+    engine.render(state);
+  };
+  gsap.ticker.add(tick);
+  window.addEventListener("resize", () => engine.resize());
 }
 
 // ─── Chapter panels grow over the previous chapter ────
@@ -469,6 +571,10 @@ function initChapters() {
   const activate = (chapter) => {
     const idx = names.indexOf(chapter.dataset.chapter);
     document.documentElement.classList.toggle("theme-dark", chapter.dataset.theme === "dark");
+    // The page takes the chapter's colour so its own panel can turn see-through
+    // and the particle field behind it shows
+    document.body.style.backgroundColor = getComputedStyle(chapter).getPropertyValue("--bg-s").trim();
+    chapters.forEach((c) => c.classList.toggle("is-active", c.dataset.chapter === chapter.dataset.chapter && c === chapter));
     if (nameEl.textContent !== chapter.dataset.chapter) {
       const swap = () => {
         nameEl.textContent = chapter.dataset.chapter;
@@ -603,6 +709,7 @@ async function boot() {
     await whenIdle();
     await initHero();
     initMorph();
+    initField();
   }
   await yieldToMain();
   initChapters();
