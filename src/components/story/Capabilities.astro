@@ -1,32 +1,56 @@
 ---
-const skills = [
-  { name: 'Excel', desc: 'วิเคราะห์ข้อมูลและรายงาน', level: 'Advanced', value: 90 },
-  { name: 'Word', desc: 'จัดทำเอกสารและรายงาน', level: 'Advanced', value: 90 },
-  { name: 'PowerPoint', desc: 'นำเสนออย่างมืออาชีพ', level: 'Advanced', value: 85 },
-  { name: 'AI Tools', desc: 'ใช้เครื่องมือ AI ช่วยงาน', level: 'Advanced', value: 85 },
-  { name: 'Canva', desc: 'ออกแบบกราฟิกเบื้องต้น', level: 'Proficient', value: 80 },
-  { name: 'AutoCAD', desc: 'ออกแบบทางวิศวกรรม', level: 'Proficient', value: 60 },
-  { name: 'Data Analysis', desc: 'วิเคราะห์ข้อมูลเบื้องต้น', level: 'Intermediate', value: 50 },
-  { name: 'Python', desc: 'กำลังเรียนรู้', level: 'Learning', value: 40 },
+const groups = [
+  {
+    th: 'วิศวกรรมไฟฟ้า',
+    en: 'Electrical engineering',
+    items: [
+      'อ่านและตรวจสอบแบบไฟฟ้าเพื่อควบคุมงานหน้างาน',
+      'ถอดแบบประมาณราคา (BOQ)',
+      'ควบคุมงานติดตั้งระบบไฟฟ้าแสงสว่างและเดินสาย',
+      'เขียนแบบทางวิศวกรรม',
+    ],
+    tools: 'AutoCAD',
+  },
+  {
+    th: 'ข้อมูลและงานวิจัย',
+    en: 'Research data',
+    items: [
+      'ลงรหัสข้อมูลจากแบบสอบถาม (Data coding)',
+      'ตรวจสอบและทำความสะอาดข้อมูล (Data cleansing)',
+      'จัดโครงสร้างฐานข้อมูลให้พร้อมวิเคราะห์ทางสถิติ',
+      'วิเคราะห์และสรุปผลข้อมูล',
+    ],
+    tools: 'Excel, Python (กำลังพัฒนา), Database',
+  },
+  {
+    th: 'เอกสารและระบบองค์กร',
+    en: 'Operations',
+    items: [
+      'เอกสารจัดซื้อจัดจ้างและงานพัสดุ',
+      'ติดตามงบประมาณค่าใช้จ่ายของแผนก',
+      'จัดทำรายงานและสไลด์นำเสนอ',
+      'ประสานงานระหว่างแผนก',
+    ],
+    tools: 'SAP, Microsoft Office, Canva',
+  },
 ];
 ---
-<section class="chapter skills" id="skills" data-chapter="ทักษะ" data-tone="#05080c">
+<section class="chapter skills" id="skills" data-chapter="ความสามารถ" data-tone="#e9eef1">
   <header class="chapter-head">
-    <h2 class="chapter-title" data-node data-lines>ทักษะที่ใช้ทำงานจริง</h2>
+    <h2 class="chapter-title" data-node data-lines>ความสามารถ</h2>
     <p class="chapter-lead" data-lines>
-      การผสานตรรกะเชิงวิศวกรรมเข้ากับการจัดการข้อมูลและเทคโนโลยี AI เพื่อสร้างชุดทักษะประยุกต์ยุคใหม่ ที่พร้อมยกระดับประสิทธิภาพการทำงานในอุตสาหกรรมยุคดิจิทัล
+      ทักษะที่ได้ใช้จริงจากงานวิศวกรรม งานวิจัย และงานในองค์กร
     </p>
   </header>
-  <ul class="skill-table">
-    {skills.map((s) => (
-      <li class="skill-row" data-reveal>
-        <span class="skill-name" translate="no">{s.name}</span>
-        <span class="skill-desc">{s.desc}</span>
-        <span class="skill-level">{s.level}</span>
-        <span class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow={s.value} aria-label={`${s.name} ${s.level}`} style={`--value:${s.value / 100}`}>
-          <span class="meter-fill"></span>
-        </span>
-      </li>
+  <div class="skill-groups">
+    {groups.map((g) => (
+      <section class="skill-group" data-reveal>
+        <h3>{g.th}<span class="skill-group-en">{g.en}</span></h3>
+        <ul>
+          {g.items.map((it) => <li>{it}</li>)}
+        </ul>
+        <p class="skill-tools"><strong>เครื่องมือ</strong> {g.tools}</p>
+      </section>
     ))}
-  </ul>
+  </div>
 </section>

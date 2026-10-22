@@ -192,9 +192,9 @@ function initParallax() {
     const d = parseFloat(line.dataset.drift);
     gsap.fromTo(
       line,
-      { xPercent: d * 10 },
+      { xPercent: d * 8 },
       {
-        xPercent: d * -2,
+        xPercent: 0,
         ease: "none",
         scrollTrigger: { trigger: ".contact-title", start: "top bottom", end: "bottom 40%", scrub: true },
       }
@@ -353,6 +353,7 @@ function initChapters() {
   const activate = (chapter) => {
     const idx = names.indexOf(chapter.dataset.chapter);
     document.documentElement.style.setProperty("--bg", chapter.dataset.tone);
+    document.documentElement.classList.toggle("theme-dark", chapter.dataset.theme === "dark");
     if (nameEl.textContent !== chapter.dataset.chapter) {
       const swap = () => {
         nameEl.textContent = chapter.dataset.chapter;
@@ -449,28 +450,47 @@ function initClock() {
 }
 
 // ─── Boot ─────────────────────────────────────────────
-initAnchors();
-initLightbox();
-initClock();
+// The hero intro is pure CSS, so scroll scenes can wait until the first paint
+// is done; yielding between steps keeps every task short on slow phones.
+const yieldToMain = () => new Promise((resolve) => setTimeout(resolve, 0));
+const whenIdle = () => new Promise((resolve) =>
+  "requestIdleCallback" in window ? requestIdleCallback(resolve, { timeout: 800 }) : setTimeout(resolve, 200)
+);
 
-// Pinned scenes first: later triggers must measure positions with their pin spacing
-if (!reduce) {
-  initStatement();
-  initGallery();
+async function boot() {
+  initAnchors();
+  initLightbox();
+  initClock();
+  await whenIdle();
+
+  // Pinned scenes first: later triggers must measure positions with their pin spacing
+  if (!reduce) {
+    initStatement();
+    await yieldToMain();
+    initGallery();
+    await yieldToMain();
+  }
+  initChapters();
+  initWire();
+  await yieldToMain();
+
+  if (!reduce) {
+    initCursor();
+    initLineReveals();
+    await yieldToMain();
+    initBlockReveals();
+    await yieldToMain();
+    initParallax();
+    initTimeline();
+  } else {
+    document.querySelectorAll(".timeline-item").forEach((el) => el.classList.add("is-live"));
+  }
+
+  await yieldToMain();
+  buildWire();
+  document.fonts.ready.then(() => ScrollTrigger.refresh());
+  if (document.readyState === "complete") ScrollTrigger.refresh();
+  else window.addEventListener("load", () => ScrollTrigger.refresh());
 }
-initChapters();
-initWire();
 
-if (!reduce) {
-  initCursor();
-  initLineReveals();
-  initBlockReveals();
-  initParallax();
-  initTimeline();
-} else {
-  document.querySelectorAll(".timeline-item").forEach((el) => el.classList.add("is-live"));
-}
-
-buildWire();
-document.fonts.ready.then(() => ScrollTrigger.refresh());
-window.addEventListener("load", () => ScrollTrigger.refresh());
+boot();
