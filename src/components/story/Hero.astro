@@ -1,41 +1,41 @@
-<section class="chapter hero" id="intro" data-chapter="บทนำ" data-tone="#edeff0">
-  <div class="hero-inner">
-    <h1 class="hero-name" data-node>
-      <span class="mask" data-depth="0.18"><span class="hero-line">ศตายุ</span></span>
-      <span class="mask" data-depth="0.32"><span class="hero-line hero-line--indent">พ้องพาน</span></span>
-    </h1>
-    <div class="hero-meta" data-depth="0.5">
-      <p class="hero-en" translate="no">Satayu Pongpan</p>
-      <p class="hero-role">วิศวกรไฟฟ้ากำลัง และผู้ช่วยนักวิจัยด้านข้อมูล</p>
+---
+// Split the name into graphemes at build time so Thai marks stay attached
+const seg = new Intl.Segmenter('th', { granularity: 'grapheme' });
+const words = ['ศตายุ', 'พ้องพาน'].map((w) => [...seg.segment(w)].map((s) => s.segment));
+let i = 0;
+const marquee = ['วิศวกรไฟฟ้ากำลัง', 'Research Data', 'AutoCAD', 'Data Cleansing', 'Excel', 'BOQ', 'SAP', 'ใบอนุญาต กว.'];
+---
+<section class="chapter hero theme-navy" id="intro" data-chapter="บทนำ" data-theme="dark">
+  <div class="chapter-bg blueprint"><div class="hero-glow" aria-hidden="true"></div></div>
+  <div class="hero-grid">
+    <div class="hero-text">
+      <h1 class="hero-name" data-node aria-label="ศตายุ พ้องพาน">
+        {words.map((chars, w) => (
+          <span class={`hero-word ${w === 1 ? 'hero-word--indent' : ''}`} aria-hidden="true">
+            {chars.map((c) => <span class="ch-mask"><span class="ch" style={`--i:${i++}`}>{c}</span></span>)}
+          </span>
+        ))}
+      </h1>
+      <div class="hero-meta">
+        <p class="hero-en" translate="no">Satayu Pongpan</p>
+        <p class="hero-role">วิศวกรไฟฟ้ากำลัง และผู้ช่วยนักวิจัยด้านข้อมูล</p>
+      </div>
+      <div class="hero-foot">
+        <a href="#story" class="button" data-scroll-to>ดูเรื่องราวของผม</a>
+        <span class="scroll-hint"><span class="scroll-hint-line" aria-hidden="true"></span>เลื่อนลงเพื่อดูเรื่องราว</span>
+      </div>
     </div>
-    <div class="hero-foot" data-depth="0.6">
-      <a href="#story" class="button" data-scroll-to>ดูเรื่องราวของผม</a>
-      <span class="scroll-hint"><span class="scroll-hint-line" aria-hidden="true"></span>เลื่อนลงเพื่อดูเรื่องราว</span>
-    </div>
+    <figure class="morph-slot hero-photo" data-morph-slot>
+      <img src="/images/profile.webp" alt="ศตายุ พ้องพาน - Satayu Pongpan - วิศวกรไฟฟ้า" width="768" height="768" decoding="async" fetchpriority="high" />
+    </figure>
   </div>
-</section>
-
-<section class="chapter statement" id="statement" data-chapter="บทนำ" data-tone="#eceeee">
-  <div class="statement-inner">
-    <p class="statement-text" data-scrub-words>
-      วิศวกรไฟฟ้ากำลังที่ถือใบอนุญาต กว. ปัจจุบันดูแลฐานข้อมูลงานวิจัย ตั้งแต่การลงรหัส ตรวจสอบ ไปจนถึงทำความสะอาดข้อมูลให้พร้อมวิเคราะห์ ด้วยวิธีคิดเชิงระบบแบบเดียวกับงานไฟฟ้า
-    </p>
-    <ul class="proof" aria-label="จุดเด่น">
-      <li data-reveal>
-        <span class="proof-th">ใบอนุญาต กว.</span>
-        <strong>ภาคีวิศวกรไฟฟ้ากำลัง</strong>
-        <small>ออกโดยสภาวิศวกร</small>
-      </li>
-      <li data-reveal>
-        <span class="proof-th">งานปัจจุบัน</span>
-        <strong>ผู้ช่วยนักวิจัย</strong>
-        <small>Data coding และ data cleansing</small>
-      </li>
-      <li data-reveal>
-        <span class="proof-th">ประสบการณ์หน้างาน</span>
-        <strong>Site Engineer (ฝึกงาน)</strong>
-        <small>ควบคุมงานติดตั้งและถอดแบบ BOQ</small>
-      </li>
-    </ul>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {[0, 1].map(() => (
+        <div class="marquee-group">
+          {marquee.map((m) => <span class="marquee-item">{m}<i class="marquee-node"></i></span>)}
+        </div>
+      ))}
+    </div>
   </div>
 </section>

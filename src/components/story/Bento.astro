@@ -1,0 +1,75 @@
+---
+import Icon from './Icon.astro';
+const groups = [
+  { th: 'วิศวกรรมไฟฟ้า', en: 'Electrical engineering', items: ['อ่านและตรวจสอบแบบไฟฟ้าเพื่อควบคุมงานหน้างาน', 'ถอดแบบประมาณราคา (BOQ)', 'ควบคุมงานติดตั้งระบบไฟฟ้าแสงสว่างและเดินสาย', 'เขียนแบบทางวิศวกรรม'] },
+  { th: 'ข้อมูลและงานวิจัย', en: 'Research data', items: ['ลงรหัสข้อมูลจากแบบสอบถาม (Data coding)', 'ตรวจสอบและทำความสะอาดข้อมูล (Data cleansing)', 'จัดโครงสร้างฐานข้อมูลให้พร้อมวิเคราะห์ทางสถิติ', 'วิเคราะห์และสรุปผลข้อมูล'] },
+  { th: 'เอกสารและระบบองค์กร', en: 'Operations', items: ['เอกสารจัดซื้อจัดจ้างและงานพัสดุ', 'ติดตามงบประมาณค่าใช้จ่ายของแผนก', 'จัดทำรายงานและสไลด์นำเสนอ', 'ประสานงานระหว่างแผนก'] },
+];
+const tools = ['AutoCAD', 'Excel', 'SAP', 'Python', 'Microsoft Office', 'Canva', 'Database'];
+---
+<section class="chapter glance theme-paper" id="glance" data-chapter="ภาพรวม">
+  <div class="chapter-bg"></div>
+  <header class="chapter-head">
+    <h2 class="chapter-title" data-node data-lines>ภาพรวม</h2>
+    <p class="chapter-lead" data-lines>ใบอนุญาต ผลสอบ งานปัจจุบัน และความสามารถที่ได้ใช้จริงจากงานวิศวกรรม งานวิจัย และงานในองค์กร</p>
+  </header>
+
+  <div class="bento">
+    <article class="tile tile--lic theme-navy" data-tile data-from="-140,40,-5">
+      <button type="button" class="tile-media" data-lightbox="/images/coe.webp" data-cursor="ขยายภาพ" aria-label="ขยายภาพใบอนุญาตประกอบวิชาชีพวิศวกรรมควบคุม">
+        <img src="/images/coe.webp" alt="ใบอนุญาต กว." width="1600" height="1131" loading="lazy" decoding="async" />
+      </button>
+      <div class="tile-body">
+        <span class="tile-tag">ใบอนุญาต กว.</span>
+        <h3>ใบอนุญาตประกอบวิชาชีพวิศวกรรมควบคุม</h3>
+        <p>สาขาวิศวกรรมไฟฟ้ากำลัง / ภาคีวิศวกร / ออกโดยสภาวิศวกร</p>
+      </div>
+    </article>
+
+    <article class="tile tile--toeic theme-orange" data-tile data-from="40,160,6">
+      <span class="tile-tag">TOEIC 2568</span>
+      <p class="score"><span data-count="560">560</span><small>/ 990</small></p>
+      <div class="score-bars">
+        <div class="score-row"><span>Listening</span><span class="bar"><i style="--v:0.626"></i></span><b data-count="310">310</b></div>
+        <div class="score-row"><span>Reading</span><span class="bar"><i style="--v:0.505"></i></span><b data-count="250">250</b></div>
+      </div>
+      <button type="button" class="tile-link" data-lightbox="/images/toeic1.webp" data-cursor="ขยายภาพ">ดูใบรายงานผล <Icon name="arrow" /></button>
+    </article>
+
+    <article class="tile tile--now" data-tile data-from="160,-40,4">
+      <span class="tile-tag"><span class="live-dot" aria-hidden="true"></span>งานปัจจุบัน</span>
+      <h3>ผู้ช่วยนักวิจัย</h3>
+      <p>Research Assistant</p>
+      <p class="tile-foot">2568 (มกราคม) - ปัจจุบัน</p>
+    </article>
+
+    <article class="tile tile--clock theme-navy blueprint" data-tile data-from="60,180,-4">
+      <span class="tile-tag">Chiang Mai, Thailand</span>
+      <p class="clock-big"><time class="clock" translate="no"></time></p>
+      <p class="tile-foot" translate="no">18.796° N, 98.979° E</p>
+    </article>
+
+    <article class="tile tile--edu" data-tile data-from="180,120,5">
+      <span class="tile-tag">การศึกษา</span>
+      <h3>วิศวกรรมศาสตรบัณฑิต</h3>
+      <p>สาขาวิศวกรรมไฟฟ้า (ไฟฟ้ากำลัง) มหาวิทยาลัยราชมงคลล้านนาเชียงใหม่</p>
+      <p class="tile-foot">2563 - 2567</p>
+    </article>
+
+    {groups.map((g, n) => (
+      <article class={`tile tile--skill tile--g${n + 1}`} data-tile data-from={`${(n - 1) * 80},${200 + n * 40},${(n - 1) * 3}`}>
+        <h3>{g.th}<span class="tile-en">{g.en}</span></h3>
+        <ul>{g.items.map((it) => <li>{it}</li>)}</ul>
+      </article>
+    ))}
+
+    <article class="tile tile--tools theme-navy" data-tile data-from="200,220,6">
+      <span class="tile-tag">เครื่องมือ</span>
+      <div class="tools-marquee" aria-label={tools.join(', ')}>
+        <div class="tools-track">
+          {[0, 1].map(() => tools.map((t) => <span translate="no">{t}</span>))}
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

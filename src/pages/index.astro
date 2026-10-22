@@ -4,7 +4,7 @@ import Header from '../components/story/Header.astro';
 import Cursor from '../components/story/Cursor.astro';
 import Hero from '../components/story/Hero.astro';
 import About from '../components/story/About.astro';
-import Capabilities from '../components/story/Capabilities.astro';
+import Bento from '../components/story/Bento.astro';
 import Chronology from '../components/story/Chronology.astro';
 import Projects from '../components/story/Projects.astro';
 import Credentials from '../components/story/Credentials.astro';
@@ -14,7 +14,6 @@ import Lightbox from '../components/story/Lightbox.astro';
 
 <Layout>
   <Header />
-  <div class="backdrop" aria-hidden="true"><div class="backdrop-glow"></div></div>
   <main id="main" class="story">
     <svg class="wire" aria-hidden="true" focusable="false">
       <path class="wire-base" />
@@ -22,9 +21,11 @@ import Lightbox from '../components/story/Lightbox.astro';
       <g class="wire-nodes"></g>
       <circle class="wire-tip" r="4" />
     </svg>
+    <!-- The portrait that morphs between its slots as you scroll -->
+    <div class="morph" aria-hidden="true"><img src="/images/profile.webp" alt="" width="768" height="768" decoding="async" /></div>
     <Hero />
     <About />
-    <Capabilities />
+    <Bento />
     <Chronology />
     <Projects />
     <Credentials />

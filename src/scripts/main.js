@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-//  Single-Line Diagram — scroll storytelling engine
+//  Blueprint × Paper — scroll storytelling engine
 //  Lenis (desktop wheel only) + GSAP ScrollTrigger
 // ═══════════════════════════════════════════════════════
 
@@ -11,9 +11,8 @@ gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 const reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-const fineQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
 const reduce = reduceQuery.matches;
-const fine = fineQuery.matches;
+const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 const EASE = "expo.out";
 
 // Motion choice changed mid-visit: rebuild from scratch rather than patch every tween
@@ -21,6 +20,7 @@ reduceQuery.addEventListener("change", () => window.location.reload());
 
 const main = document.querySelector(".story");
 const chapters = [...document.querySelectorAll(".chapter")];
+const wide = () => window.innerWidth >= 768;
 
 // ─── Smooth wheel scroll (never hijack touch) ─────────
 let lenis = null;
@@ -100,21 +100,22 @@ function splitLines(el) {
   });
 }
 
-// ─── Reveals ──────────────────────────────────────────
 function initLineReveals() {
   document.querySelectorAll("[data-lines]").forEach((el) => {
     const original = el.innerHTML.trim();
     el.innerHTML = original;
-    gsap.set(el, { autoAlpha: 0 });
+    // opacity, not visibility: hidden headings would vanish from the outline
+    gsap.set(el, { opacity: 0 });
     ScrollTrigger.create({
       trigger: el,
       start: "top 88%",
       once: true,
       onEnter: () => {
         const lines = splitLines(el);
-        gsap.set(el, { autoAlpha: 1 });
+        gsap.set(el, { opacity: 1 });
         gsap.from(lines, {
           yPercent: 110,
+          rotation: 3,
           duration: 1.2,
           ease: EASE,
           stagger: 0.09,
@@ -126,77 +127,113 @@ function initLineReveals() {
   });
 }
 
-function initBlockReveals() {
-  gsap.set("[data-reveal]", { autoAlpha: 0, y: 36 });
-  ScrollTrigger.batch("[data-reveal]", {
-    start: "top 90%",
-    once: true,
-    onEnter: (batch) => {
-      batch.forEach((el) => el.classList.add("is-in"));
-      gsap.to(batch, { autoAlpha: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.08, overwrite: true });
+// ─── Hero: name scatters upward, glow drifts ──────────
+async function initHero() {
+  const hero = document.querySelector(".hero");
+  const chars = gsap.utils.toArray(".hero .ch");
+  // GSAP must read the letters at rest, not halfway through the CSS intro
+  await Promise.allSettled(chars.flatMap((c) => c.getAnimations()).map((a) => a.finished));
+  const scroll = { trigger: hero, start: "top top", end: "bottom 20%", scrub: true };
+  gsap.fromTo(chars, { y: 0, rotation: 0, opacity: 1 }, {
+    y: (i) => -(90 + (i % 4) * 55),
+    rotation: (i) => (i % 2 ? 9 : -7),
+    opacity: 0,
+    ease: "none",
+    stagger: { each: 0.015, from: "start" },
+    scrollTrigger: scroll,
+  });
+  gsap.fromTo([".hero-meta", ".hero-foot"], { y: 0, opacity: 1 }, { y: -120, opacity: 0, ease: "none", scrollTrigger: scroll });
+  gsap.to(".hero-glow", { yPercent: 25, scale: 1.2, ease: "none", scrollTrigger: { ...scroll, end: "bottom top" } });
+}
+
+// Orange band drifts on its own, reverses and skews with scroll speed
+function initMarquee() {
+  const band = document.querySelector(".marquee");
+  const track = band.querySelector(".marquee-track");
+  let x = 0, skew = 0, velocity = 0, dir = -1, visible = true;
+  ScrollTrigger.create({
+    trigger: band,
+    start: "top bottom",
+    end: "bottom top",
+    onToggle: (self) => { visible = self.isActive; },
+    onUpdate: (self) => {
+      velocity = self.getVelocity();
+      if (Math.abs(velocity) > 50) dir = velocity > 0 ? -1 : 1;
     },
   });
-
-  document.querySelectorAll("[data-reveal-clip]").forEach((frame) => {
-    gsap.fromTo(
-      frame,
-      { clipPath: "inset(100% 0% 0% 0%)" },
-      {
-        clipPath: "inset(0% 0% 0% 0%)",
-        duration: 1.6,
-        ease: "power4.inOut",
-        scrollTrigger: { trigger: frame, start: "top 85%", once: true },
-      }
-    );
+  gsap.ticker.add((time, delta) => {
+    if (!visible) return;
+    const half = track.scrollWidth / 2;
+    const boost = 1 + Math.min(Math.abs(velocity) / 400, 5);
+    x = gsap.utils.wrap(-half, 0, x + dir * 0.05 * delta * boost);
+    skew += (gsap.utils.clamp(-14, 14, -velocity / 180) - skew) * 0.12;
+    velocity *= 0.92;
+    track.style.transform = `translate3d(${x}px,0,0) skewX(${skew}deg)`;
   });
 }
 
-// ─── Parallax: images drift inside their frames, hero layers peel apart ─
-function initParallax() {
-  document.querySelectorAll("[data-parallax-img]").forEach((img) => {
-    gsap.fromTo(
-      img,
-      { yPercent: -15 },
-      {
-        yPercent: 0,
-        ease: "none",
-        scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true },
-      }
-    );
-  });
+// ─── Morph: the portrait flies from the hero into the story, like a slide morph ─
+function initMorph() {
+  const el = document.querySelector(".morph");
+  const slots = [...document.querySelectorAll("[data-morph-slot]")];
+  let A, B;
 
-  const hero = document.querySelector(".hero");
-  hero.querySelectorAll("[data-depth]").forEach((layer) => {
-    const depth = parseFloat(layer.dataset.depth);
-    gsap.to(layer, {
-      y: () => -window.innerHeight * depth,
-      ease: "none",
-      scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true },
+  const measure = () => {
+    const mainRect = main.getBoundingClientRect();
+    [A, B] = slots.map((slot) => {
+      const r = slot.getBoundingClientRect();
+      const cs = getComputedStyle(slot);
+      const w = slot.offsetWidth;
+      const h = slot.offsetHeight;
+      return {
+        x: r.left - mainRect.left + r.width / 2 - w / 2,
+        y: r.top - mainRect.top + r.height / 2 - h / 2,
+        w, h,
+        rot: parseFloat(cs.rotate) || 0,
+        rad: parseFloat(cs.borderTopLeftRadius) || 0,
+      };
     });
-  });
-  gsap.to(".hero-inner", {
-    autoAlpha: 0.15,
-    ease: "none",
-    scrollTrigger: { trigger: hero, start: "center top", end: "bottom top", scrub: true },
-  });
+  };
 
-  // Ambient glow floats slower than the content for the whole read
-  gsap.to(".backdrop-glow", {
-    yPercent: -18,
-    rotate: 8,
-    ease: "none",
-    scrollTrigger: { trigger: main, start: "top top", end: "bottom bottom", scrub: 1.5 },
-  });
+  const render = (p) => {
+    const t = gsap.parseEase("power2.inOut")(p);
+    const lerp = (a, b) => a + (b - a) * t;
+    el.style.width = `${lerp(A.w, B.w)}px`;
+    el.style.height = `${lerp(A.h, B.h)}px`;
+    el.style.borderRadius = `${lerp(A.rad, B.rad)}px`;
+    el.style.transform = `translate3d(${lerp(A.x, B.x)}px, ${lerp(A.y, B.y)}px, 0) rotate(${lerp(A.rot, B.rot)}deg)`;
+  };
 
-  document.querySelectorAll("[data-drift]").forEach((line) => {
-    const d = parseFloat(line.dataset.drift);
+  const enable = () => {
+    main.classList.add("has-morph");
+    const mainTop = () => main.getBoundingClientRect().top + window.scrollY;
+    ScrollTrigger.create({
+      // From "portrait centred in the hero" to "portrait centred in the story"
+      start: () => { measure(); return Math.max(0, mainTop() + A.y + A.h / 2 - window.innerHeight / 2); },
+      end: () => mainTop() + B.y + B.h / 2 - window.innerHeight / 2,
+      onUpdate: (self) => render(self.progress),
+      onRefresh: (self) => render(self.progress),
+    });
+    measure();
+    render(0);
+  };
+
+  // Let the hero portrait finish its own reveal before handing over to the morph layer
+  Promise.all(slots[0].getAnimations().map((a) => a.finished)).then(enable, enable);
+}
+
+// ─── Chapter panels grow over the previous chapter ────
+function initGrow() {
+  document.querySelectorAll(".grow").forEach((section) => {
+    const bg = section.querySelector(".chapter-bg");
+    const circle = section.classList.contains("grow--circle");
     gsap.fromTo(
-      line,
-      { xPercent: d * 8 },
+      bg,
+      { clipPath: circle ? "circle(6% at 50% 100%)" : "inset(5% 5% 0% 5% round 56px)" },
       {
-        xPercent: 0,
+        clipPath: circle ? "circle(150% at 50% 100%)" : "inset(0% 0% 0% 0% round 0px)",
         ease: "none",
-        scrollTrigger: { trigger: ".contact-title", start: "top bottom", end: "bottom 40%", scrub: true },
+        scrollTrigger: { trigger: section, start: "top bottom", end: circle ? "top top" : "top 15%", scrub: true },
       }
     );
   });
@@ -209,9 +246,10 @@ function initStatement() {
   const pin = fine && window.innerWidth > 1024;
   gsap.fromTo(
     words,
-    { opacity: 0.14 },
+    { opacity: 0.12, y: 12 },
     {
       opacity: 1,
+      y: 0,
       stagger: 0.1,
       ease: "none",
       scrollTrigger: pin
@@ -221,49 +259,130 @@ function initStatement() {
   );
 }
 
-// ─── Journey: the active entry carries current ────────
-function initTimeline() {
-  document.querySelectorAll("[data-live]").forEach((item) => {
-    ScrollTrigger.create({ trigger: item, start: "top 62%", end: "bottom 38%", toggleClass: "is-live" });
+// ─── Bento: tiles fly in and assemble with scroll ─────
+function initBento() {
+  const tiles = gsap.utils.toArray("[data-tile]");
+  const counters = gsap.utils.toArray("[data-count]");
+  counters.forEach((el) => { el.textContent = "0"; });
+
+  const light = () => {
+    tiles.forEach((t) => t.classList.add("is-in"));
+    counters.forEach((el) => {
+      const obj = { v: 0 };
+      gsap.to(obj, { v: Number(el.dataset.count), duration: 1.8, ease: "power3.out", onUpdate: () => { el.textContent = Math.round(obj.v); } });
+    });
+  };
+
+  if (wide()) {
+    const tl = gsap.timeline({ scrollTrigger: { trigger: ".bento", start: "top 92%", end: "top 30%", scrub: 0.8 } });
+    tiles.forEach((tile, i) => {
+      const [x, y, r] = tile.dataset.from.split(",").map(Number);
+      tl.from(tile, { x, y, rotation: r, scale: 0.86, opacity: 0, ease: "power3.out", duration: 1 }, i * 0.07);
+    });
+  } else {
+    tiles.forEach((tile) => {
+      gsap.from(tile, { y: 70, scale: 0.94, opacity: 0, duration: 1, ease: EASE, scrollTrigger: { trigger: tile, start: "top 92%", once: true } });
+    });
+  }
+  ScrollTrigger.create({ trigger: ".tile--toeic", start: "top 75%", once: true, onEnter: light });
+
+  // Spotlight that follows the pointer inside each tile
+  document.querySelector(".bento").addEventListener("pointermove", (e) => {
+    const tile = e.target.closest(".tile");
+    if (!tile) return;
+    const r = tile.getBoundingClientRect();
+    tile.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    tile.style.setProperty("--my", `${e.clientY - r.top}px`);
   });
 }
 
-// ─── Credentials gallery: vertical scroll → horizontal travel ─
-function initGallery() {
-  const gallery = document.querySelector("[data-horizontal]");
-  const viewport = gallery.querySelector(".gallery-viewport");
-  const track = gallery.querySelector(".gallery-track");
-  if (!fine || window.innerWidth <= 1024) return;
+// ─── Journey: vertical scroll rides a horizontal timeline ─
+function initJourney() {
+  const section = document.querySelector(".journey");
+  const viewport = section.querySelector(".journey-viewport");
+  const track = section.querySelector(".journey-track");
+  const progress = section.querySelector(".journey-progress");
+  const cards = [...track.children];
 
-  gallery.closest(".chapter").classList.add("is-pinned-gallery");
+  if (!wide()) {
+    gsap.fromTo(progress, { scaleY: 0 }, { scaleY: 1, ease: "none", scrollTrigger: { trigger: track, start: "top 70%", end: "bottom 70%", scrub: true } });
+    cards.forEach((card) => {
+      ScrollTrigger.create({ trigger: card, start: "top 70%", end: "bottom 70%", toggleClass: "is-live" });
+      gsap.from(card, { x: 40, opacity: 0, duration: 1, ease: EASE, scrollTrigger: { trigger: card, start: "top 90%", once: true } });
+    });
+    return;
+  }
+
   const distance = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
-  gsap.to(track, {
-    x: () => -distance(),
-    ease: "none",
-    scrollTrigger: {
-      trigger: gallery,
-      start: "center center",
-      end: () => "+=" + distance(),
-      pin: true,
-      scrub: 0.8,
-      invalidateOnRefresh: true,
-    },
+  const ride = { trigger: section, start: "top top", end: () => "+=" + distance(), scrub: 0.8, invalidateOnRefresh: true };
+  const move = gsap.to(track, { x: () => -distance(), ease: "none", scrollTrigger: { ...ride, pin: true } });
+  gsap.fromTo(progress, { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: ride });
+
+  cards.forEach((card) => {
+    gsap.from(card, {
+      y: 80, rotation: 4, opacity: 0.2, ease: "none",
+      scrollTrigger: { trigger: card, containerAnimation: move, start: "left 100%", end: "left 65%", scrub: true },
+    });
+    ScrollTrigger.create({ trigger: card, containerAnimation: move, start: "left 55%", end: "right 45%", toggleClass: "is-live" });
+  });
+}
+
+// ─── Work: each project card sinks back as the next stacks over it ─
+function initStack() {
+  const cards = gsap.utils.toArray(".stack-card");
+  cards.forEach((card, i) => {
+    const next = cards[i + 1];
+    if (!next) return;
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: next,
+        start: "top bottom",
+        end: () => `top ${parseFloat(getComputedStyle(next).top)}px`,
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    })
+      .to(card, { scale: 0.9, ease: "none" }, 0)
+      .to(card.querySelector(".stack-shade"), { opacity: 0.5, ease: "none" }, 0);
+  });
+  cards.forEach((card) => {
+    gsap.from(card.querySelector(".stack-copy"), { y: 60, opacity: 0, duration: 1.1, ease: EASE, scrollTrigger: { trigger: card, start: "top 70%", once: true } });
+  });
+}
+
+// ─── Parallax: images drift inside their frames ───────
+function initParallax() {
+  document.querySelectorAll("[data-parallax-img]").forEach((img) => {
+    gsap.fromTo(img, { yPercent: -15 }, {
+      yPercent: 0, ease: "none",
+      scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true },
+    });
+  });
+
+  // Certificates tip up from a drawing-table angle
+  document.querySelectorAll("[data-tilt-in]").forEach((el, i) => {
+    gsap.fromTo(el, { rotationX: 32, y: 140, opacity: 0.15 }, {
+      rotationX: 0, y: 0, opacity: 1, ease: "none",
+      scrollTrigger: { trigger: el, start: "top bottom", end: `top ${55 - (i % 2) * 8}%`, scrub: true },
+    });
+  });
+
+  document.querySelectorAll("[data-drift]").forEach((line) => {
+    const d = parseFloat(line.dataset.drift);
+    gsap.fromTo(line, { xPercent: d * 12 }, {
+      xPercent: 0, ease: "none",
+      scrollTrigger: { trigger: ".contact-title", start: "top bottom", end: "bottom 45%", scrub: true },
+    });
   });
 }
 
 // ─── The wire ─────────────────────────────────────────
-const wire = {
-  svg: document.querySelector(".wire"),
-  startY: 0,
-  length: 0,
-  nodes: [],
-};
+const wire = { svg: document.querySelector(".wire"), startY: 0, length: 0, x: 0, nodes: [] };
 
 function buildWire() {
   const { svg } = wire;
   const header = document.querySelector(".site-header");
-  const mainTop = main.getBoundingClientRect().top + window.scrollY;
-  const mainLeft = main.getBoundingClientRect().left;
+  const mainRect = main.getBoundingClientRect();
   const x = parseFloat(getComputedStyle(header).paddingLeft) + 6;
 
   const nodes = [...document.querySelectorAll("[data-node], [data-wire-end]")].map((el) => {
@@ -271,8 +390,8 @@ function buildWire() {
     const fontSize = parseFloat(getComputedStyle(el).fontSize);
     const isEnd = el.hasAttribute("data-wire-end");
     return {
-      y: r.top + window.scrollY - mainTop + (isEnd ? r.height / 2 : Math.min(r.height / 2, fontSize * 0.62)),
-      to: r.left - mainLeft - 14,
+      y: r.top - mainRect.top + (isEnd ? r.height / 2 : Math.min(r.height / 2, fontSize * 0.62)),
+      to: r.left - mainRect.left - 14,
     };
   });
 
@@ -282,8 +401,7 @@ function buildWire() {
   svg.querySelector(".wire-base").setAttribute("d", d);
   const live = svg.querySelector(".wire-live");
   live.setAttribute("d", d);
-  wire.startY = startY;
-  wire.length = endY - startY;
+  Object.assign(wire, { startY, x, length: endY - startY });
   live.style.strokeDasharray = `${wire.length} ${wire.length}`;
 
   const group = svg.querySelector(".wire-nodes");
@@ -302,12 +420,11 @@ function buildWire() {
     const dot = document.createElementNS(ns, "circle");
     dot.setAttribute("cx", x);
     dot.setAttribute("cy", n.y);
-    dot.setAttribute("r", 4.5);
+    dot.setAttribute("r", 3.5);
     dot.setAttribute("class", "wire-node");
     group.append(base, branch, dot);
     return { y: n.y, len, branch, dot, live: false };
   });
-
   drawWire();
 }
 
@@ -321,12 +438,11 @@ function drawWire() {
   }
   const max = document.documentElement.scrollHeight - window.innerHeight;
   const progress = max > 0 ? window.scrollY / max : 0;
-  const mainTop = main.offsetTop;
   // Tip sits at 60% of the viewport, easing to the bottom edge as the read ends
-  const tipY = window.scrollY + window.innerHeight * (0.6 + 0.4 * progress) - mainTop;
+  const tipY = window.scrollY + window.innerHeight * (0.6 + 0.4 * progress) - main.offsetTop;
   const drawn = gsap.utils.clamp(0, wire.length, tipY - wire.startY);
   live.style.strokeDashoffset = wire.length - drawn;
-  tip.setAttribute("cx", live.getAttribute("d").split(" ")[1]);
+  tip.setAttribute("cx", wire.x);
   tip.setAttribute("cy", wire.startY + drawn);
 
   wire.nodes.forEach((n) => {
@@ -343,7 +459,7 @@ function initWire() {
   ScrollTrigger.create({ trigger: main, start: "top top", end: "bottom bottom", onUpdate: drawWire });
 }
 
-// ─── Chapter index + background tone ──────────────────
+// ─── Chapter index + header theme ─────────────────────
 function initChapters() {
   const names = [...new Set(chapters.map((c) => c.dataset.chapter))];
   const nameEl = document.querySelector(".chapter-name");
@@ -352,7 +468,6 @@ function initChapters() {
 
   const activate = (chapter) => {
     const idx = names.indexOf(chapter.dataset.chapter);
-    document.documentElement.style.setProperty("--bg", chapter.dataset.tone);
     document.documentElement.classList.toggle("theme-dark", chapter.dataset.theme === "dark");
     if (nameEl.textContent !== chapter.dataset.chapter) {
       const swap = () => {
@@ -367,19 +482,20 @@ function initChapters() {
     }
     navLinks.forEach((a) => {
       const target = document.querySelector(a.getAttribute("href"));
-      a.toggleAttribute("aria-current", target?.dataset.chapter === chapter.dataset.chapter);
-      if (a.hasAttribute("aria-current")) a.setAttribute("aria-current", "true");
+      if (target?.dataset.chapter === chapter.dataset.chapter) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
     });
   };
 
   chapters.forEach((chapter) => {
     ScrollTrigger.create({
       trigger: chapter,
-      start: "top 55%",
-      end: "bottom 55%",
+      start: "top 40px",
+      end: "bottom 40px",
       onToggle: (self) => self.isActive && activate(chapter),
     });
   });
+  activate(chapters[0]);
 }
 
 // ─── Cursor ───────────────────────────────────────────
@@ -417,7 +533,7 @@ function initLightbox() {
     index = (i + triggers.length) % triggers.length;
     const source = triggers[index].querySelector("img");
     img.src = triggers[index].dataset.lightbox;
-    img.alt = source ? source.alt : "";
+    img.alt = source?.alt || triggers[index].getAttribute("aria-label") || triggers[index].textContent.trim();
   };
 
   triggers.forEach((btn, i) => btn.addEventListener("click", () => {
@@ -438,12 +554,14 @@ function initLightbox() {
 
 // ─── Local time (Chiang Mai) ──────────────────────────
 function initClock() {
-  const el = document.querySelector(".clock");
+  const clocks = document.querySelectorAll(".clock");
   const fmt = new Intl.DateTimeFormat("th-TH", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Bangkok" });
   const tick = () => {
     const now = new Date();
-    el.textContent = `${fmt.format(now)} น.`;
-    el.dateTime = now.toISOString();
+    clocks.forEach((el) => {
+      el.textContent = `${fmt.format(now)} น.`;
+      el.dateTime = now.toISOString();
+    });
   };
   tick();
   setInterval(tick, 30000);
@@ -463,34 +581,35 @@ async function boot() {
   initClock();
   await whenIdle();
 
-  // Pinned scenes first: later triggers must measure positions with their pin spacing
-  if (!reduce) {
+  if (reduce) {
+    document.querySelectorAll(".journey-card").forEach((el) => el.classList.add("is-live"));
+  } else {
+    // Pinned scenes first: later triggers must measure positions with their pin spacing
     initStatement();
     await yieldToMain();
-    initGallery();
+    initJourney();
+    await whenIdle();
+    initGrow();
+    initMarquee();
     await yieldToMain();
-  }
-  initChapters();
-  initWire();
-  await yieldToMain();
-
-  if (!reduce) {
-    initCursor();
-    initLineReveals();
-    await yieldToMain();
-    initBlockReveals();
+    initBento();
+    await whenIdle();
+    initStack();
     await yieldToMain();
     initParallax();
-    initTimeline();
-  } else {
-    document.querySelectorAll(".timeline-item").forEach((el) => el.classList.add("is-live"));
+    await yieldToMain();
+    initLineReveals();
+    initCursor();
+    await whenIdle();
+    await initHero();
+    initMorph();
   }
-
   await yieldToMain();
+  initChapters();
+  initWire();
   buildWire();
+  // ScrollTrigger refreshes itself on load; fonts can land later and shift layout
   document.fonts.ready.then(() => ScrollTrigger.refresh());
-  if (document.readyState === "complete") ScrollTrigger.refresh();
-  else window.addEventListener("load", () => ScrollTrigger.refresh());
 }
 
 boot();

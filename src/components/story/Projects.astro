@@ -2,56 +2,49 @@
 import Icon from './Icon.astro';
 const projects = [
   {
-    title: 'Personal Website',
+    title: 'Personal Website', theme: 'theme-navy',
     tags: ['Web Development', 'Portfolio', 'Live'],
     desc: 'เว็บพอร์ตโฟลิโอส่วนตัวที่สร้างขึ้นเพื่อรวบรวมผลงาน โปรเจกต์บน GitHub บทความ (Blog) และลิงก์เว็บไซต์ต่าง ๆ ที่พัฒนาขึ้น เพื่อให้ผู้ที่สนใจเข้ามารับชม',
     img: '/images/project-website-placeholder.webp', alt: 'Personal Website - punn.site', w: 1200, h: 800,
     link: 'https://punn.site/',
   },
   {
-    title: 'High Frequency Tesla Coil',
+    title: 'High Frequency Tesla Coil', theme: 'theme-white',
     tags: ['วิศวกรรมไฟฟ้า', 'แรงดันสูง', 'ปริญญาตรี'],
     desc: 'โครงงานศึกษาคำนวณวงจรไฟฟ้าความถี่สูงของเครื่อง HFSSTC ทดลองปรับเปลี่ยนขดลวดเหนี่ยวนำ และทดสอบหัวอิเล็กโทรดหลากหลายรูปแบบเพื่อเปรียบเทียบและวิเคราะห์คุณลักษณะของเปลวไฟพลาสมาที่ดีที่สุด',
     img: '/images/project1-placeholder.webp', alt: 'High Frequency Tesla Coil', w: 899, h: 802,
   },
   {
-    title: 'ตู้เย็นเคลื่อนที่',
+    title: 'ตู้เย็นเคลื่อนที่', theme: 'theme-orange',
     tags: ['ปวช.', 'ไฟฟ้ากำลัง', 'นวัตกรรม'],
     desc: 'โครงงานสิ่งประดิษฐ์ ปวช. ดัดแปลงรถเข็นติดตั้งถังแช่เก็บความเย็น พร้อมติดตั้งระบบกลไกทำความเย็นตู้เย็นทั่วไปไว้บริเวณท้ายรถเข็นใกล้ด้ามจับ เพื่อสร้างตู้เย็นเคลื่อนย้ายสะดวกแบบเข็นลาก',
     img: '/images/project2-placeholder.jpg', alt: 'ตู้เย็นเคลื่อนที่ประหยัดพลังงาน', w: 346, h: 259,
   },
 ];
 ---
-<section class="chapter work" id="work" data-chapter="ผลงาน" data-tone="#f0eeea">
+<section class="chapter work theme-paper grow" id="work" data-chapter="ผลงาน" style="--outer: var(--navy)">
+  <div class="chapter-bg"></div>
   <header class="chapter-head">
     <h2 class="chapter-title" data-node data-lines>ผลงานที่ลงมือทำ</h2>
     <p class="chapter-lead" data-lines>ผลงานนวัตกรรมที่ออกแบบและพัฒนาระหว่างการศึกษาและการทำงาน</p>
   </header>
-  <div class="project-list">
-    {projects.map((p) => (
-      <article class="project">
-        <button
-          type="button"
-          class="project-media"
-          data-reveal-clip
-          data-lightbox={p.img}
-          data-cursor="ขยายภาพ"
-          aria-label={`ขยายภาพ ${p.title}`}
-        >
+  <div class="stack">
+    {projects.map((p, i) => (
+      <article class={`stack-card ${p.theme}`} style={`--i:${i}`}>
+        <button type="button" class="stack-media" data-lightbox={p.img} data-cursor="ขยายภาพ" aria-label={`ขยายภาพ ${p.title}`}>
           <img src={p.img} alt={p.alt} loading="lazy" decoding="async" width={p.w} height={p.h} data-parallax-img />
         </button>
-        <div class="project-copy">
-          <ul class="project-tags" aria-label="หมวดหมู่">
-            {p.tags.map((t) => <li>{t}</li>)}
-          </ul>
-          <h3 class="project-title" data-lines>{p.title}</h3>
-          <p class="project-desc" data-lines>{p.desc}</p>
+        <div class="stack-copy">
+          <ul class="project-tags" aria-label="หมวดหมู่">{p.tags.map((t) => <li>{t}</li>)}</ul>
+          <h3 class="project-title">{p.title}</h3>
+          <p class="project-desc">{p.desc}</p>
           {p.link && (
             <a href={p.link} target="_blank" rel="noopener noreferrer" class="text-link" data-cursor="เปิดเว็บ">
               เยี่ยมชมเว็บไซต์ <Icon name="external" />
             </a>
           )}
         </div>
+        <span class="stack-shade" aria-hidden="true"></span>
       </article>
     ))}
   </div>
