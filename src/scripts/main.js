@@ -410,7 +410,7 @@ function initJourney() {
     gsap.fromTo(progress, { scaleY: 0 }, { scaleY: 1, ease: "none", scrollTrigger: { trigger: track, start: "top 70%", end: "bottom 70%", scrub: true } });
     cards.forEach((card) => {
       ScrollTrigger.create({ trigger: card, start: "top 70%", end: "bottom 70%", toggleClass: "is-live" });
-      gsap.from(card, { x: 40, opacity: 0, duration: 1, ease: EASE, scrollTrigger: { trigger: card, start: "top 90%", once: true } });
+      gsap.from(card, { y: 50, opacity: 0, duration: 1, ease: EASE, scrollTrigger: { trigger: card, start: "top 90%", once: true } });
     });
     return;
   }

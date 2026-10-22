@@ -89,7 +89,13 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: var(--header-h); }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: var(--header-h);
+  /* Vertical reading only: iOS ignores overflow on body alone, so lock the root too */
+  overflow-x: hidden;
+  touch-action: pan-y pinch-zoom;
+}
 @media (prefers-reduced-motion: no-preference) { html:not(.lenis) { scroll-behavior: smooth; } }
 @media (pointer: fine) { html { overscroll-behavior: none; } }
 
@@ -197,6 +203,7 @@ html:not(.motion) .wire-tip { display: none; }
 /* ─── Chapters ─── */
 .chapter {
   position: relative; z-index: 1;
+  overflow-x: clip;
   background: var(--outer, var(--bg-s));
   transition: background-color 0.8s var(--ease);
   padding: clamp(96px, 16vh, 180px) var(--pad-r) clamp(96px, 16vh, 180px) var(--pad-l);
