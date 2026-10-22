@@ -1,12 +1,16 @@
 ---
-import '../styles/main.css';
+import '@fontsource/ibm-plex-sans-thai/300.css';
+import '@fontsource/ibm-plex-sans-thai/400.css';
+import '@fontsource/ibm-plex-sans-thai/500.css';
+import '@fontsource/ibm-plex-sans-thai/700.css';
+import '../styles/site.css';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { 
+const {
   title = "ศตายุ พ้องพาน - วิศวกรไฟฟ้า | Satayu Pongpan - Electrical Engineer",
   description = "ศตายุ พ้องพาน (Satayu Pongpan) วิศวกรไฟฟ้า กว. และผู้ช่วยนักวิจัย มีประสบการณ์ด้านการจัดการฐานข้อมูลวิจัย Data Cleaning และเครื่องมือ AI"
 } = Astro.props;
@@ -16,23 +20,13 @@ const {
 <html lang="th">
   <head>
     <meta charset="UTF-8" />
-
-    <!-- Preconnect for faster font loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
-    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#030305" />
-    <link rel="apple-touch-icon" href="/images/profile.png" />
+    <meta name="theme-color" content="#050608" />
+    <meta name="color-scheme" content="dark" />
 
-    <!-- Primary Meta Tags -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
@@ -43,7 +37,6 @@ const {
     <meta name="author" content="ศตายุ พ้องพาน (Satayu Pongpan)" />
     <meta name="robots" content="index, follow" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://punn.site/" />
     <meta property="og:title" content={title} />
@@ -51,31 +44,26 @@ const {
     <meta property="og:image" content="https://punn.site/images/profile.png" />
     <meta property="og:locale" content="th_TH" />
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://punn.site/" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content="https://punn.site/images/profile.png" />
 
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://punn.site/" />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Kanit:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <!-- Flag motion before first paint so the hero intro never flashes -->
+    <script is:inline>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+    </script>
   </head>
   <body>
     <slot />
 
-    <script src="../scripts/script.js"></script>
+    <script src="../scripts/main.js"></script>
 
-    <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json" is:inline>
       {
         "@context": "https://schema.org",
@@ -96,10 +84,7 @@ const {
             "@type": "EducationalOccupationalCredential",
             "name": "ใบประกอบวิชาชีพวิศวกรรมควบคุม (กว.)",
             "credentialCategory": "Professional License",
-            "recognizedBy": {
-              "@type": "Organization",
-              "name": "สภาวิศวกร"
-            }
+            "recognizedBy": { "@type": "Organization", "name": "สภาวิศวกร" }
           }
         ],
         "knowsAbout": [

@@ -1,36 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Loader from '../components/Loader.astro';
-import Header from '../components/Header.astro';
-import Navigation from '../components/Navigation.astro';
-import Cursor from '../components/Cursor.astro';
-import Lightbox from '../components/Lightbox.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Capabilities from '../components/Capabilities.astro';
-import Chronology from '../components/Chronology.astro';
-import Specifications from '../components/Specifications.astro';
-import Credentials from '../components/Credentials.astro';
-import Contact from '../components/Contact.astro';
-import '../styles/award-refresh.css';
+import Header from '../components/story/Header.astro';
+import Cursor from '../components/story/Cursor.astro';
+import Hero from '../components/story/Hero.astro';
+import About from '../components/story/About.astro';
+import Capabilities from '../components/story/Capabilities.astro';
+import Chronology from '../components/story/Chronology.astro';
+import Projects from '../components/story/Projects.astro';
+import Credentials from '../components/story/Credentials.astro';
+import Contact from '../components/story/Contact.astro';
+import Lightbox from '../components/story/Lightbox.astro';
 ---
 
 <Layout>
-  <Loader />
-  <div class="scroll-progress"><div class="scroll-progress-bar"></div></div>
   <Header />
-  <div class="noise-overlay"></div>
-  <div class="global-grid"><div class="grid-line line-1"></div><div class="grid-line line-2"></div><div class="grid-line line-3"></div><div class="grid-line line-4"></div></div>
-  <Cursor />
-  <Navigation />
-  <div class="container award-refresh" id="main-container" role="main">
+  <div class="backdrop" aria-hidden="true"><div class="backdrop-glow"></div></div>
+  <main id="main" class="story">
+    <svg class="wire" aria-hidden="true" focusable="false">
+      <path class="wire-base" />
+      <path class="wire-live" />
+      <g class="wire-nodes"></g>
+      <circle class="wire-tip" r="4" />
+    </svg>
     <Hero />
     <About />
     <Capabilities />
     <Chronology />
-    <Specifications />
+    <Projects />
     <Credentials />
     <Contact />
-  </div>
+  </main>
+  <Cursor />
   <Lightbox />
 </Layout>

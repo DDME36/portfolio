@@ -1,0 +1,32 @@
+---
+const skills = [
+  { name: 'Excel', desc: 'วิเคราะห์ข้อมูลและรายงาน', level: 'Advanced', value: 90 },
+  { name: 'Word', desc: 'จัดทำเอกสารและรายงาน', level: 'Advanced', value: 90 },
+  { name: 'PowerPoint', desc: 'นำเสนออย่างมืออาชีพ', level: 'Advanced', value: 85 },
+  { name: 'AI Tools', desc: 'ใช้เครื่องมือ AI ช่วยงาน', level: 'Advanced', value: 85 },
+  { name: 'Canva', desc: 'ออกแบบกราฟิกเบื้องต้น', level: 'Proficient', value: 80 },
+  { name: 'AutoCAD', desc: 'ออกแบบทางวิศวกรรม', level: 'Proficient', value: 60 },
+  { name: 'Data Analysis', desc: 'วิเคราะห์ข้อมูลเบื้องต้น', level: 'Intermediate', value: 50 },
+  { name: 'Python', desc: 'กำลังเรียนรู้', level: 'Learning', value: 40 },
+];
+---
+<section class="chapter skills" id="skills" data-chapter="ทักษะ" data-tone="#05080c">
+  <header class="chapter-head">
+    <h2 class="chapter-title" data-node data-lines>ทักษะที่ใช้ทำงานจริง</h2>
+    <p class="chapter-lead" data-lines>
+      การผสานตรรกะเชิงวิศวกรรมเข้ากับการจัดการข้อมูลและเทคโนโลยี AI เพื่อสร้างชุดทักษะประยุกต์ยุคใหม่ ที่พร้อมยกระดับประสิทธิภาพการทำงานในอุตสาหกรรมยุคดิจิทัล
+    </p>
+  </header>
+  <ul class="skill-table">
+    {skills.map((s) => (
+      <li class="skill-row" data-reveal>
+        <span class="skill-name" translate="no">{s.name}</span>
+        <span class="skill-desc">{s.desc}</span>
+        <span class="skill-level">{s.level}</span>
+        <span class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow={s.value} aria-label={`${s.name} ${s.level}`} style={`--value:${s.value / 100}`}>
+          <span class="meter-fill"></span>
+        </span>
+      </li>
+    ))}
+  </ul>
+</section>
