@@ -199,7 +199,7 @@ void main() {
 `;
 
 // ─── Engine ───────────────────────────────────────────
-export function createParticles(canvas, { count }) {
+export function createParticles(canvas, { count, maxPixel = 1.5 }) {
   const gl = canvas.getContext("webgl", { alpha: true, antialias: false, premultipliedAlpha: false, powerPreference: "low-power" });
   if (!gl) return null;
   // Without a real GPU every frame is drawn on the CPU; skip the field there
@@ -260,7 +260,7 @@ export function createParticles(canvas, { count }) {
 
   let pixel = 1;
   const resize = () => {
-    pixel = Math.min(window.devicePixelRatio || 1, 1.75);
+    pixel = Math.min(window.devicePixelRatio || 1, maxPixel);
     canvas.width = Math.round(canvas.clientWidth * pixel);
     canvas.height = Math.round(canvas.clientHeight * pixel);
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -270,6 +270,8 @@ export function createParticles(canvas, { count }) {
   let current = { a: null, b: null };
   return {
     resize,
+    get pixel() { return pixel; },
+    setMaxPixel(value) { maxPixel = value; resize(); },
     // state: { a, b, mix, xa, xb, paper, fade, time, mouse }
     render(s) {
       if (current.a !== s.a) { bind(aA, shapes[s.a]); current.a = s.a; }

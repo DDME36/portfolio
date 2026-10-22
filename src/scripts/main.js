@@ -179,30 +179,24 @@ function initMorph() {
   const slots = [...document.querySelectorAll("[data-morph-slot]")];
   let A, B;
 
+  // Size the layer once at its destination; every frame after is transform-only,
+  // so the browser never re-lays out the page mid-scroll
   const measure = () => {
     const mainRect = main.getBoundingClientRect();
     [A, B] = slots.map((slot) => {
       const r = slot.getBoundingClientRect();
-      const cs = getComputedStyle(slot);
-      const w = slot.offsetWidth;
-      const h = slot.offsetHeight;
-      return {
-        x: r.left - mainRect.left + r.width / 2 - w / 2,
-        y: r.top - mainRect.top + r.height / 2 - h / 2,
-        w, h,
-        rot: parseFloat(cs.rotate) || 0,
-        rad: parseFloat(cs.borderTopLeftRadius) || 0,
-      };
+      return { x: r.left - mainRect.left, y: r.top - mainRect.top, w: r.width, h: r.height };
     });
+    el.style.width = `${B.w}px`;
+    el.style.height = `${B.h}px`;
+    el.style.borderRadius = getComputedStyle(slots[1]).borderRadius;
   };
 
   const render = (p) => {
     const t = gsap.parseEase("power2.inOut")(p);
     const lerp = (a, b) => a + (b - a) * t;
-    el.style.width = `${lerp(A.w, B.w)}px`;
-    el.style.height = `${lerp(A.h, B.h)}px`;
-    el.style.borderRadius = `${lerp(A.rad, B.rad)}px`;
-    el.style.transform = `translate3d(${lerp(A.x, B.x)}px, ${lerp(A.y, B.y)}px, 0) rotate(${lerp(A.rot, B.rot)}deg)`;
+    const scale = lerp(A.w, B.w) / B.w;
+    el.style.transform = `translate3d(${lerp(A.x, B.x)}px, ${lerp(A.y, B.y)}px, 0) scale(${scale})`;
   };
 
   const enable = () => {
@@ -241,12 +235,26 @@ function initField() {
   const phone = () => window.innerWidth < 768;
   let engine;
   try {
-    engine = createParticles(canvas, { count: phone() ? 3500 : 9000 });
+    engine = createParticles(canvas, { count: phone() ? 1800 : 5000, maxPixel: phone() ? 1.25 : 1.5 });
   } catch (e) {
     engine = null;
   }
   if (!engine) { canvas.remove(); return; }
   document.documentElement.classList.add("has-field");
+
+  // World units: the visible height spans 4 units (±2) at the cloud's depth
+  const haloAroundPortrait = () => {
+    const photo = document.querySelector(".hero-photo");
+    const r = photo.getBoundingClientRect();
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const cx = r.left + r.width / 2;
+    const cy = r.top + window.scrollY + r.height / 2;
+    const x = ((cx / vw) * 2 - 1) * (vw / vh) * 2;
+    const y = -((cy / vh) * 2 - 1) * 2;
+    const radius = (Math.max(r.width, r.height) / 2 / (vh / 2)) * 2 * 1.3;
+    const xform = [x, y, radius, 0];
+    return ["sphere", xform, xform, 0, 1];
+  };
 
   let stops = [];
   const measure = () => {
@@ -255,7 +263,7 @@ function initField() {
       const box = section.parentElement.classList.contains("pin-spacer") ? section.parentElement : section;
       const r = box.getBoundingClientRect();
       const focus = r.top + window.scrollY + Math.min(r.height, window.innerHeight * 1.5) / 2 - window.innerHeight / 2;
-      return { at: gsap.utils.clamp(0, max, focus), conf: FIELD[section.id] };
+      return { at: gsap.utils.clamp(0, max, focus), conf: section.id === "intro" ? haloAroundPortrait() : FIELD[section.id] };
     });
   };
   ScrollTrigger.addEventListener("refresh", () => { engine.resize(); measure(); });
@@ -275,7 +283,7 @@ function initField() {
   gsap.to(intro, { v: 1, duration: 2.6, ease: "power3.out", delay: 0.2 });
 
   const pick = (conf) => (phone() ? conf[2] : conf[1]);
-  const total = phone() ? 3500 : 9000;
+  const total = phone() ? 1800 : 5000;
   // Adaptive quality: watch real frame times and shed particles on slow devices
   let limit = total, slow = 0, last = performance.now(), alive = true;
   const tick = (time) => {
@@ -283,11 +291,13 @@ function initField() {
     const now = performance.now();
     const frame = now - last;
     last = now;
-    if (frame > 28 && frame < 500) slow++;
+    // Under ~45fps for a sustained stretch: drop resolution first, then particles
+    if (frame > 22 && frame < 500) slow++;
     else slow = Math.max(0, slow - 1);
-    if (slow > 30) {
+    if (slow > 20) {
       slow = 0;
-      limit = Math.floor(limit * 0.6);
+      if (engine.pixel > 1) engine.setMaxPixel(1);
+      else limit = Math.floor(limit * 0.6);
       if (limit < total * 0.2) {
         alive = false;
         gsap.ticker.remove(tick);
