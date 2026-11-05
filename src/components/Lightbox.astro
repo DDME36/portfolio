@@ -1,33 +1,13 @@
 <!-- Image Lightbox Modal -->
-<div
-  class="image-lightbox"
-  id="imageLightbox"
-  onclick="closeLightbox(event)"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Certificate Image Lightbox"
->
-  <div class="lightbox-content">
-    <button class="lightbox-close" onclick="closeLightbox(event)">
-      <i class="fas fa-times"></i>
-    </button>
-    <button
-      class="lightbox-nav lightbox-prev"
-      onclick="navigateLightbox(-1, event)"
-    >
-      <i class="fas fa-chevron-left"></i>
-    </button>
-    <img
-      src=""
-      alt="Certificate"
-      class="lightbox-image"
-      id="lightboxImage"
-    />
-    <button
-      class="lightbox-nav lightbox-next"
-      onclick="navigateLightbox(1, event)"
-    >
-      <i class="fas fa-chevron-right"></i>
-    </button>
+<dialog class="image-dialog" id="imageLightbox" aria-labelledby="lightboxCaption">
+  <div class="dialog-top">
+    <p id="lightboxCaption">ภาพผลงาน</p>
+    <button type="button" class="dialog-close" data-dialog-close>ปิดภาพ</button>
   </div>
-</div>
+  <img class="dialog-image" id="lightboxImage" alt="" />
+  <div class="dialog-bottom">
+    <button type="button" data-image-prev aria-label="ดูภาพก่อนหน้า">ภาพก่อนหน้า</button>
+    <p id="lightboxCounter" aria-live="polite"></p>
+    <button type="button" data-image-next aria-label="ดูภาพถัดไป">ภาพถัดไป</button>
+  </div>
+</dialog>

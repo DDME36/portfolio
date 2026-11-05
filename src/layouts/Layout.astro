@@ -1,14 +1,22 @@
 ---
-import '../styles/main.css';
+import '../styles/fonts.css';
+import '../styles/portfolio.css';
+import { getImage } from 'astro:assets';
+import heroArtwork from '../assets/power-busbar-v1.png';
+
+const socialImage = await getImage({ src: heroArtwork, width: 1200, format: 'webp' });
+const socialImageUrl = new URL(socialImage.src, 'https://zentyr.online/').href;
 
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
-const { 
+const {
+  noindex = false,
   title = "ศตายุ พ้องพาน - วิศวกรไฟฟ้า | Satayu Pongpan - Electrical Engineer",
-  description = "ศตายุ พ้องพาน (Satayu Pongpan) วิศวกรไฟฟ้า กว. และผู้ช่วยนักวิจัย มีประสบการณ์ด้านการจัดการฐานข้อมูลวิจัย Data Cleaning และเครื่องมือ AI"
+  description = "ศตายุ พ้องพาน (Satayu Pongpan) วิศวกรไฟฟ้ากำลัง มีใบอนุญาต กว. ระดับภาคีวิศวกร พร้อมประสบการณ์อ่านแบบ งานติดตั้งไฟฟ้า และถอดแบบประมาณราคา BOQ"
 } = Astro.props;
 ---
 
@@ -18,9 +26,8 @@ const {
     <meta charset="UTF-8" />
 
     <!-- Preconnect for faster font loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/kanit/kanit-500-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/kanit/kanit-400-thai.woff2" crossorigin />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
@@ -29,7 +36,7 @@ const {
     <link rel="shortcut icon" href="/favicon.png" type="image/png" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#030305" />
+    <meta name="theme-color" content="#0f0f0f" />
     <link rel="apple-touch-icon" href="/images/profile.png" />
 
     <!-- Primary Meta Tags -->
@@ -38,42 +45,34 @@ const {
     <meta name="description" content={description} />
     <meta
       name="keywords"
-      content="ศตายุ พ้องพาน, Satayu Pongpan, วิศวกรไฟฟ้า, ผู้ช่วยนักวิจัย, Research Assistant, Electrical Engineer, กว., Data Analysis, Database, AI, Python, AutoCAD, มหาวิทยาลัยราชมงคลล้านนา, RMUTL"
+      content="ศตายุ พ้องพาน, Satayu Pongpan, วิศวกรไฟฟ้า, วิศวกรรมไฟฟ้ากำลัง, Electrical Engineer, กว., ภาคีวิศวกร, AutoCAD, BOQ, งานติดตั้งไฟฟ้า, RMUTL"
     />
     <meta name="author" content="ศตายุ พ้องพาน (Satayu Pongpan)" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://punn.site/" />
+    <meta property="og:url" content="https://zentyr.online/" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://punn.site/images/profile.png" />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:alt" content="ภาพประกอบจำลองบัสบาร์ทองแดงและอุปกรณ์ตู้ไฟ สำหรับเว็บไซต์ศตายุ พ้องพาน" />
     <meta property="og:locale" content="th_TH" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://punn.site/" />
+    <meta property="twitter:url" content="https://zentyr.online/" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://punn.site/images/profile.png" />
+    <meta property="twitter:image" content={socialImageUrl} />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://punn.site/" />
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Kanit:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    {!noindex && <link rel="canonical" href="https://zentyr.online/" />}
   </head>
   <body>
     <slot />
 
-    <script src="../scripts/script.js"></script>
+    <script src="../scripts/portfolio.js"></script>
 
     <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json" is:inline>
@@ -82,10 +81,9 @@ const {
         "@type": "Person",
         "name": "ศตายุ พ้องพาน",
         "alternateName": "Satayu Pongpan",
-        "url": "https://punn.site",
-        "image": "https://punn.site/images/profile.png",
+        "url": "https://zentyr.online/",
         "jobTitle": "วิศวกรไฟฟ้า (Electrical Engineer)",
-        "description": "วิศวกรไฟฟ้าที่มีใบประกอบวิชาชีพวิศวกรรมควบคุม กำลังเรียนรู้การประยุกต์ใช้ AI และเทคโนโลยีใหม่ๆ",
+        "description": "วิศวกรไฟฟ้ากำลัง มีใบอนุญาต กว. ระดับภาคีวิศวกร มีประสบการณ์อ่านแบบ งานติดตั้งไฟฟ้า และถอดแบบประมาณราคา",
         "alumniOf": {
           "@type": "CollegeOrUniversity",
           "name": "มหาวิทยาลัยราชมงคลล้านนา เชียงใหม่",
@@ -107,11 +105,11 @@ const {
           "Electrical Engineering",
           "AutoCAD",
           "Excel",
-          "Python",
-          "AI Tools",
-          "Data Analysis"
+          "Electrical Power Engineering",
+          "Electrical Installation",
+          "Bill of Quantities"
         ],
-        "sameAs": ["https://punn.site"]
+        "sameAs": ["https://zentyr.online/"]
       }
     </script>
   </body>

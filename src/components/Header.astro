@@ -1,8 +1,11 @@
+---
+import Navigation from './Navigation.astro';
+---
+
 <!-- Fixed Header / Wayfinding -->
-<header class="site-header">
-  <a href="#section1" class="site-logo magnetic-item" data-cursor="INTRO">SP.</a>
-  <div class="site-index">
-    <span class="index-current">01</span>
-    <span class="index-total">/ 07</span>
-  </div>
+
+<header class="site-header page-width">
+  <a href="#section1" class="site-name" aria-label="Satayu Pongpan กลับด้านบน"><span class="site-monogram" aria-hidden="true">S.</span> Satayu Pongpan</a>
+  <Navigation />
+  <a class="header-contact" href="#section7">ติดต่อ</a>
 </header>

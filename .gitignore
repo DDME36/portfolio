@@ -25,3 +25,12 @@ yarn-error.log*
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Local review artifacts and assistant sessions
+.taste-skill/
+.claude/
+
+# Local environment configuration
+.env
+.env.*
+!.env.example
