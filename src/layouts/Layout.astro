@@ -1,6 +1,6 @@
 ---
 import '../styles/fonts.css';
-import '../styles/portfolio.css';
+import '../styles/site.css';
 import { getImage } from 'astro:assets';
 import heroArtwork from '../assets/power-busbar-v1.png';
 
@@ -15,7 +15,7 @@ interface Props {
 
 const {
   noindex = false,
-  title = "ศตายุ พ้องพาน - วิศวกรไฟฟ้า | Satayu Pongpan - Electrical Engineer",
+  title = "ศตายุ พ้องพาน | วิศวกรไฟฟ้า",
   description = "ศตายุ พ้องพาน (Satayu Pongpan) วิศวกรไฟฟ้ากำลัง มีใบอนุญาต กว. ระดับภาคีวิศวกร พร้อมประสบการณ์อ่านแบบ งานติดตั้งไฟฟ้า และถอดแบบประมาณราคา BOQ"
 } = Astro.props;
 ---
@@ -24,10 +24,11 @@ const {
 <html lang="th">
   <head>
     <meta charset="UTF-8" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
 
     <!-- Preconnect for faster font loading -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/kanit/kanit-500-latin.woff2" crossorigin />
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/kanit/kanit-400-thai.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/kanit/kanit-500-thai.woff2" crossorigin />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
@@ -36,7 +37,7 @@ const {
     <link rel="shortcut icon" href="/favicon.png" type="image/png" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0f0f0f" />
+    <meta name="theme-color" content="#f4f3ef" />
     <link rel="apple-touch-icon" href="/images/profile.png" />
 
     <!-- Primary Meta Tags -->
@@ -72,7 +73,7 @@ const {
   <body>
     <slot />
 
-    <script src="../scripts/portfolio.js"></script>
+    <script src="../scripts/site.js"></script>
 
     <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json" is:inline>

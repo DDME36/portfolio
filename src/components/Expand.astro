@@ -1,0 +1,13 @@
+---
+import { Image } from 'astro:assets';
+import busbar from '../assets/power-busbar-v1.png';
+---
+
+<div class="expand" data-expand>
+  <div class="expand-sticky">
+    <div class="expand-frame">
+      <Image src={busbar} alt="ภาพประกอบจำลองบัสบาร์ทองแดงและอุปกรณ์ในตู้ไฟ" widths={[800, 1200, 1800]} sizes="100vw" format="webp" quality={80} loading="lazy" decoding="async" />
+      <p class="expand-cap">ภาพประกอบจำลอง บัสบาร์ทองแดงในตู้ไฟ ไม่ใช่ภาพถ่ายงานจริง</p>
+    </div>
+  </div>
+</div>

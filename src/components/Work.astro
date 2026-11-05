@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import zentyrCover from '../assets/zentyr-cover-v1.png';
+import teslaConcept from '../assets/hfsstc-concept-v4.png';
+import fridgeConcept from '../assets/mobile-fridge-concept-v5.png';
+---
+
+<section class="section" id="work" aria-labelledby="work-title">
+  <div class="sec-head">
+    <h2 class="sec-title rise" id="work-title"><span>งานที่ลงมือทำ</span></h2>
+    <p class="sec-note" data-reveal>โครงงานที่ทำเองตั้งแต่ ปวช. จนถึงปริญญาตรี</p>
+  </div>
+
+  <div class="work-list">
+    <article class="work">
+      <a class="work-media" href={teslaConcept.src} data-lightbox data-gallery="projects" data-cursor="ขยาย" data-caption="ขดลวดเทสลา: ภาพจำลองแนวคิด ไม่ใช่ภาพชิ้นงานจริงหรือแบบสำหรับสร้าง" aria-label="ดูภาพจำลองแนวคิดขดลวดเทสลาขนาดใหญ่">
+        <Image src={teslaConcept} alt="ภาพจำลองจากภาพอ้างอิง แสดงขดลวดแดงบนบอร์ดวงจร ฮีตซิงก์ พัดลม และเปลวพลาสมาที่ปลายหัวทดลองแยก" widths={[480, 800, 1200, 1536]} sizes="(max-width: 900px) 100vw, 58vw" format="webp" quality={85} loading="eager" decoding="async" data-parallax />
+      </a>
+      <div class="work-copy" data-reveal>
+        <p class="work-no">01 /</p>
+        <h3>ขดลวดเทสลา</h3>
+        <p class="work-ctx">โครงงานปริญญาตรี (HFSSTC)</p>
+        <p>ศึกษาวงจรความถี่สูงและคำนวณค่าที่ใช้ จากนั้นทดลองเปลี่ยนขดลวดเหนี่ยวนำและหัวอิเล็กโทรดหลายแบบ เพื่อดูว่าพลาสมาที่ได้ต่างกันอย่างไร แล้วสรุปผล</p>
+        <p class="work-note">ภาพประกอบจำลอง ไม่ใช่ภาพถ่ายชิ้นงานจริง</p>
+      </div>
+    </article>
+
+    <article class="work">
+      <a class="work-media" href={fridgeConcept.src} data-lightbox data-gallery="projects" data-cursor="ขยาย" data-caption="ตู้เย็นเคลื่อนที่: ภาพจำลองจากรูปเดิมและรายละเอียดชิ้นงาน ไม่ใช่ภาพถ่ายจริง" aria-label="ดูภาพจำลองตู้เย็นเคลื่อนที่ขนาดใหญ่">
+        <Image src={fridgeConcept} alt="ภาพจำลองมุมด้านหน้าเฉียงขวาของถังแช่สีน้ำเงินบนรถเข็น เห็นตัวล็อกฝาด้านหน้า กล่องควบคุมสีขาวด้านขวา และด้ามเข็นเอนไปด้านหลัง โดยชุดทำความเย็นอยู่หลังตู้" widths={[480, 800, 1200, 1536]} sizes="(max-width: 900px) 100vw, 58vw" format="webp" quality={85} loading="eager" decoding="async" data-parallax />
+      </a>
+      <div class="work-copy" data-reveal>
+        <p class="work-no">02 /</p>
+        <h3>ตู้เย็นเคลื่อนที่</h3>
+        <p class="work-ctx">สิ่งประดิษฐ์สมัยเรียน ปวช.</p>
+        <p>ติดตั้งระบบทำความเย็นเข้ากับถังแช่บนรถเข็น ให้ตู้เย็นย้ายไปใช้ที่ไหนก็ได้ ผมดัดแปลงรถเข็นให้รับน้ำหนักถังแช่ วางชุดทำความเย็นไว้ด้านหลังใกล้บานพับฝา ส่วนตู้ควบคุมไฟฟ้าและอุณหภูมิอยู่ที่มุมหลังด้านขวา และเดินสายทั้งหมดไว้ในตู้</p>
+        <p class="work-note">ภาพประกอบจำลองจากรูปชิ้นงานจริง</p>
+      </div>
+    </article>
+
+    <article class="work">
+      <div class="work-media">
+        <Image src={zentyrCover} alt="ภาพปก Zentyr.online Creative Tech Lab พร้อม ZenSend, ZenLoad และ ZenBot" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 50vw" format="webp" quality={82} loading="eager" decoding="async" data-parallax />
+      </div>
+      <div class="work-copy" data-reveal>
+        <p class="work-no">03 /</p>
+        <h3>เว็บไซต์ส่วนตัว</h3>
+        <p class="work-ctx">งานนอกเวลา</p>
+        <p>งานนอกเวลาที่ผมทำเอง รวมเว็บแอปและเครื่องมือเล็ก ๆ พร้อมบันทึกเบื้องหลังการพัฒนา</p>
+        <a class="link-line" href="https://zentyr.online/" target="_blank" rel="noopener noreferrer">เยี่ยมชม Zentyr.online</a>
+      </div>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+const services = [
+  { no: 'A /', title: 'อ่านแบบ', text: 'ทำความเข้าใจแบบไฟฟ้าให้ชัดก่อนลงมือ ตรวจรายละเอียดให้ครบ และคุยกับทีมให้เข้าใจตรงกัน', tags: ['AutoCAD', 'แบบไฟฟ้า'] },
+  { no: 'B /', title: 'ควบคุมงานติดตั้ง', text: 'ดูงานติดตั้งระบบไฟฟ้าที่หน้างานในฐานะ Site Engineer ฝึกงานกับผู้รับเหมาไฟฟ้า', tags: ['Site Engineer', 'ระบบไฟฟ้า'] },
+  { no: 'C /', title: 'ถอดแบบ BOQ', text: 'ถอดแบบประมาณราคาและเตรียมข้อมูลสำหรับเสนอราคาโครงการ', tags: ['BOQ', 'Excel'] },
+  { no: 'D /', title: 'เอกสารและข้อมูล', text: 'จัดทำเอกสาร สไลด์นำเสนอ และจัดการข้อมูล ทั้งงานจัดซื้อจัดจ้าง งบประมาณ และข้อมูลงานวิจัย', tags: ['Word', 'PowerPoint', 'Excel', 'SAP', 'Python (กำลังเรียนรู้)'] },
+];
+---
+
+<section class="section" id="services" aria-labelledby="services-title">
+  <div class="sec-head">
+    <h2 class="sec-title rise" id="services-title" data-reveal-line><span>สิ่งที่ผมทำ</span></h2>
+    <p class="sec-note" data-reveal>จากสายช่างไฟฟ้าสู่วิศวกรรมไฟฟ้ากำลัง งานที่ทำได้ตอนนี้แบ่งเป็นสี่ด้าน</p>
+  </div>
+  <ol class="services">
+    {services.map(({ no, title, text, tags }, i) => (
+      <li class="service" data-reveal style={`--d:${i}`}>
+        <span class="service-no">{no}</span>
+        <h3>{title}</h3>
+        <div class="service-body">
+          <p>{text}</p>
+          <ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>

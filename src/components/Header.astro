@@ -1,11 +1,26 @@
 ---
-import Navigation from './Navigation.astro';
+const links = [
+  ['#services', 'สิ่งที่ผมทำ'],
+  ['#work', 'ผลงาน'],
+  ['#experience', 'ประสบการณ์'],
+  ['#credentials', 'ใบรับรอง'],
+  ['#contact', 'ติดต่อ'],
+];
 ---
 
-<!-- Fixed Header / Wayfinding -->
-
-<header class="site-header page-width">
-  <a href="#section1" class="site-name" aria-label="Satayu Pongpan กลับด้านบน"><span class="site-monogram" aria-hidden="true">S.</span> Satayu Pongpan</a>
-  <Navigation />
-  <a class="header-contact" href="#section7">ติดต่อ</a>
+<header class="site-header">
+  <a class="site-name" href="#top" aria-label="Satayu Pongpan กลับด้านบน">Satayu®</a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle data-magnet><span data-menu-label>Menu</span><i aria-hidden="true"></i></button>
 </header>
+
+<nav class="menu" id="menu" aria-label="เมนูหลัก" inert>
+  <ol>
+    {links.map(([href, label], i) => (
+      <li><a class="menu-link" href={href} style={`--i:${i}`} data-menu-link><span>{label}</span></a></li>
+    ))}
+  </ol>
+  <div class="menu-foot">
+    <a href="mailto:satayu.pongpan@gmail.com">satayu.pongpan@gmail.com</a>
+    <span>วิศวกรไฟฟ้ากำลัง · ภาคีวิศวกร</span>
+  </div>
+</nav>

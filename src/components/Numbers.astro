@@ -1,0 +1,19 @@
+---
+const stats = [
+  { value: '3', label: 'โครงงานและงานที่ลงมือทำเอง' },
+  { value: '3', label: 'ที่ฝึกงานและทำงานจริง' },
+  { value: '1', label: 'ใบอนุญาต กว. ภาคีวิศวกร' },
+  { value: '560', label: 'คะแนน TOEIC' },
+];
+---
+
+<section class="section" style="padding-top:0" aria-label="ตัวเลขสรุป">
+  <div class="numbers" data-numbers>
+    {stats.map(({ value, label }, i) => (
+      <div class="num" data-reveal style={`--d:${i}`}>
+        <p class="num-fig" data-value={value} aria-label={value}>{value}</p>
+        <p>{label}</p>
+      </div>
+    ))}
+  </div>
+</section>

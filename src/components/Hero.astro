@@ -1,40 +1,16 @@
 ---
-import { Picture } from 'astro:assets';
-import heroArtwork from '../assets/power-busbar-v1.png';
+const name = 'SATAYU'.split('');
 ---
 
-<!-- Section 1: Hero -->
-<!-- Left: Big Typography & Text Details -->
-<!-- Right: Sleek spinning cyber-grid wireframe & live stat boxes -->
-<section class="hero" id="section1" aria-labelledby="hero-title">
-  <div class="hero-scene">
-    <div class="hero-film" aria-hidden="true">
-      <div class="hero-media">
-        <div class="hero-depth">
-          <Picture src={heroArtwork} alt="" widths={[480, 800, 1122]} sizes="(max-width: 900px) 100vw, 50vw" formats={['avif']} fallbackFormat="webp" quality={55} loading="eager" fetchpriority="high" decoding="async" />
-        </div>
-      </div>
-    </div>
-    <div class="page-width hero-stage">
-      <div class="hero-editorial">
-        <h1 class="hero-statement" id="hero-title"><span class="hero-line"><span class="hero-word">จากแบบ</span></span><span class="hero-line"><span class="hero-word">สู่หน้างาน</span></span></h1>
-        <div class="hero-summary">
-          <div class="hero-profession">
-            <p class="hero-name">ศตายุ พ้องพาน <span lang="en">Satayu Pongpan</span></p>
-            <p>วิศวกรไฟฟ้ากำลัง · ภาคีวิศวกร</p>
-          </div>
-          <p class="hero-intro">อ่านแบบ ควบคุมงานติดตั้งระบบไฟฟ้า<br />และถอดแบบประมาณราคา (BOQ)</p>
-          <div class="hero-actions">
-            <a href="#section5" class="button">ดูผลงานที่ทำ <span aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6" /></svg></span></a>
-            <a href="#section7" class="hero-contact">ติดต่อ</a>
-          </div>
-          <ul class="hero-proof">
-            <li>ใบอนุญาต กว. ภาคีวิศวกร</li>
-            <li>ฝึกงาน Site Engineer กับผู้รับเหมาไฟฟ้า</li>
-            <li>เคยทำงานที่การไฟฟ้าส่วนภูมิภาค</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero-top">
+    <p class="hero-intro"><strong>Satayu Pongpan®</strong> — <span>วิศวกรไฟฟ้ากำลัง</span> <span>ภาคีวิศวกร</span> <span>อ่านแบบ</span> <span>ควบคุมงานติดตั้งระบบไฟฟ้า</span> <span>และถอดแบบประมาณราคา (BOQ)</span> <span>จากแบบบนกระดาษ</span> <span>สู่งานจริงที่หน้างาน</span></p>
+    <p class="hero-meta">© 2026<small>วิศวกรไฟฟ้ากำลัง<br />ภาคีวิศวกร (กว.)</small></p>
+  </div>
+
+  <div class="hero-bottom">
+    <h1 class="hero-name" id="hero-title" aria-label="Satayu">
+      <span aria-hidden="true">{name.map((c, i) => <span class="ch"><span style={`--i:${i}`}>{c}</span></span>)}<span class="reg">®</span></span>
+    </h1>
   </div>
 </section>

@@ -1,52 +1,39 @@
-<!-- Section 4: Education & Work -->
-<section class="experience-section section-space page-width" id="section4" aria-labelledby="experience-title">
-  <h2 class="reveal" id="experience-title">ประสบการณ์และการศึกษา</h2>
-  <div class="experience-layout">
-    <div class="work-history" role="region" aria-labelledby="work-history-title">
-      <h3 class="reveal" id="work-history-title">ประสบการณ์ทำงาน</h3>
-      <article class="history-entry reveal-row">
-        <p class="history-date">2567–2568</p>
-        <div>
-          <h4>บริษัทรับเหมาไฟฟ้า</h4>
-          <p class="history-role">นักศึกษาฝึกงาน (Site Engineer)</p>
-          <p>อ่านแบบและควบคุมงานติดตั้งระบบไฟฟ้าที่หน้างาน ถอดแบบประมาณราคา (BOQ) และเตรียมข้อมูลสำหรับเสนอราคาโครงการ</p>
-        </div>
-      </article>
-      <article class="history-entry reveal-row">
-        <p class="history-date">เม.ย.–ธ.ค. 2567</p>
-        <div>
-          <h4>การไฟฟ้าส่วนภูมิภาค</h4>
-          <p class="history-role">ลูกจ้างผ่านบริษัท สยามราชธานี จำกัด (มหาชน)</p>
-          <p>ดูแลเอกสารจัดซื้อจัดจ้างและพัสดุ ติดตามงบประมาณของแผนก ทำข้อมูลนำเสนอ และประสานงานกับแผนกอื่น</p>
-        </div>
-      </article>
-      <article class="history-entry reveal-row">
-        <p class="history-date">2562</p>
-        <div>
-          <h4>โรงพยาบาลแพร่</h4>
-          <p class="history-role">นักศึกษาฝึกงาน ระดับ ปวช.</p>
-          <p>ซ่อมบำรุงระบบไฟฟ้าและเครื่องใช้ไฟฟ้า ติดตั้งไฟแสงสว่างและพัดลม และซ่อมระบบโทรศัพท์ภายใน</p>
-        </div>
-      </article>
-      <div class="current-work reveal">
-        <h4>งานปัจจุบัน</h4>
-        <p>ผู้ช่วยนักวิจัย ตั้งแต่ ม.ค. 2568 ดูแลการลงรหัส ตรวจสอบ และทำความสะอาดข้อมูลสำหรับงานวิจัย</p>
-      </div>
-    </div>
-    <div class="education-history" role="region" aria-labelledby="education-history-title">
-      <h3 class="reveal" id="education-history-title">การศึกษา</h3>
-      <article class="education-entry reveal-row">
-        <h4>ราชมงคลล้านนา เชียงใหม่</h4>
-        <p class="history-date">2563–2567</p>
-        <p>วิศวกรรมศาสตรบัณฑิต<br />สาขาวิศวกรรมไฟฟ้า (ไฟฟ้ากำลัง)</p>
-        <p>ศึกษาเรื่องระบบส่งจ่ายไฟฟ้า โครงข่ายอัจฉริยะ ยานยนต์ไฟฟ้า และพลังงานหมุนเวียน พร้อมทำโครงงาน HFSSTC</p>
-      </article>
-      <article class="education-entry reveal-row">
-        <h4>วิทยาลัยเทคนิคแพร่</h4>
-        <p class="history-date">2560–2563</p>
-        <p>ประกาศนียบัตรวิชาชีพ<br />สาขาไฟฟ้ากำลัง</p>
-        <p>เรียนงานติดตั้งไฟฟ้า การควบคุมมอเตอร์ ระบบควบคุม และหม้อแปลงไฟฟ้า พร้อมทำโครงงานตู้เย็นเคลื่อนที่</p>
-      </article>
-    </div>
+---
+const work = [
+  { date: '2567–2568', org: 'บริษัทรับเหมาไฟฟ้า', role: 'นักศึกษาฝึกงาน (Site Engineer)', text: 'อ่านแบบและควบคุมงานติดตั้งระบบไฟฟ้าที่หน้างาน ถอดแบบประมาณราคา (BOQ) และเตรียมข้อมูลสำหรับเสนอราคาโครงการ' },
+  { date: 'ม.ค. 2568 – ปัจจุบัน', org: 'งานวิจัย', role: 'ผู้ช่วยนักวิจัย', text: 'ดูแลการลงรหัส ตรวจสอบ และทำความสะอาดข้อมูลสำหรับงานวิจัย' },
+  { date: 'เม.ย.–ธ.ค. 2567', org: 'การไฟฟ้าส่วนภูมิภาค', role: 'ลูกจ้างผ่านบริษัท สยามราชธานี จำกัด (มหาชน)', text: 'ดูแลเอกสารจัดซื้อจัดจ้างและพัสดุ ติดตามงบประมาณของแผนก ทำข้อมูลนำเสนอ และประสานงานกับแผนกอื่น' },
+  { date: '2562', org: 'โรงพยาบาลแพร่', role: 'นักศึกษาฝึกงาน ระดับ ปวช.', text: 'ซ่อมบำรุงระบบไฟฟ้าและเครื่องใช้ไฟฟ้า ติดตั้งไฟแสงสว่างและพัดลม และซ่อมระบบโทรศัพท์ภายใน' },
+];
+const edu = [
+  { date: '2563–2567', org: 'ราชมงคลล้านนา เชียงใหม่', role: 'วิศวกรรมศาสตรบัณฑิต สาขาวิศวกรรมไฟฟ้า (ไฟฟ้ากำลัง)', text: 'ศึกษาเรื่องระบบส่งจ่ายไฟฟ้า โครงข่ายอัจฉริยะ ยานยนต์ไฟฟ้า และพลังงานหมุนเวียน พร้อมทำโครงงาน HFSSTC' },
+  { date: '2560–2563', org: 'วิทยาลัยเทคนิคแพร่', role: 'ประกาศนียบัตรวิชาชีพ สาขาไฟฟ้ากำลัง', text: 'เรียนงานติดตั้งไฟฟ้า การควบคุมมอเตอร์ ระบบควบคุม และหม้อแปลงไฟฟ้า พร้อมทำโครงงานตู้เย็นเคลื่อนที่' },
+];
+const groups = [
+  { id: 'work-history-title', title: 'ประสบการณ์ทำงาน', items: work },
+  { id: 'education-history-title', title: 'การศึกษา', items: edu },
+];
+---
+
+<section class="section" id="experience" aria-labelledby="experience-title">
+  <div class="sec-head">
+    <h2 class="sec-title rise" id="experience-title"><span>ประสบการณ์<br />และการศึกษา</span></h2>
   </div>
+  {groups.map(({ id, title, items }) => (
+    <div class="group" role="region" aria-labelledby={id}>
+      <h3 class="group-title" id={id} data-reveal>{title}</h3>
+      <ol>
+        {items.map(({ date, org, role, text }, i) => (
+          <li class="row" data-reveal style={`--d:${i}`}>
+            <p class="row-date">{date}</p>
+            <div>
+              <h4>{org}</h4>
+              <p class="row-role">{role}</p>
+            </div>
+            <p class="row-desc">{text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  ))}
 </section>

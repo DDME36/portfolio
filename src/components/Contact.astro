@@ -1,21 +1,21 @@
-<section class="contact-section section-space" id="section7" aria-labelledby="contact-title">
-  <div class="page-width">
-    <div class="contact-heading">
-      <h2 class="reveal" id="contact-title">คุยเรื่องงานกันครับ</h2>
-      <p class="reveal">หากกำลังมองหาวิศวกรไฟฟ้า หรืออยากสอบถามรายละเอียดผลงาน ส่งอีเมลมาคุยกันได้ครับ</p>
+---
+const letters = 'SATAYU'.split('');
+---
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <h2 class="contact-title rise" id="contact-title"><span>คุยเรื่องงาน<br />กันครับ</span></h2>
+  <p class="contact-lead" data-reveal>หากกำลังมองหาวิศวกรไฟฟ้า หรืออยากสอบถามรายละเอียดผลงาน ส่งอีเมลมาคุยกันได้ครับ</p>
+  <a class="contact-email" href="mailto:satayu.pongpan@gmail.com" data-reveal data-magnet>satayu.pongpan@gmail.com</a>
+  <nav class="contact-links" aria-label="ช่องทางติดต่อเพิ่มเติม" data-reveal>
+    <a href="https://www.facebook.com/satayu.pongpan.2024" target="_blank" rel="noopener noreferrer" data-roll>Facebook</a>
+    <a href="https://www.instagram.com/ddme36?igsh=YjltNTY3M29yZzFl&utm_source=qr" target="_blank" rel="noopener noreferrer" data-roll>Instagram</a>
+    <a href="https://line.me/ti/p/FY_E24MWyp" target="_blank" rel="noopener noreferrer" data-roll>Line</a>
+  </nav>
+  <footer>
+    <p class="foot-name" aria-hidden="true">{letters.map((c, i) => <span class="fl" style={`--i:${i}`}>{c}</span>)}<span class="fl reg" style="--i:6">®</span></p>
+    <div class="foot-bottom">
+      <p>© 2026 Satayu Pongpan</p>
+      <a href="#top" data-roll>กลับด้านบน ↑</a>
     </div>
-    <a class="contact-email reveal" href="mailto:satayu.pongpan@gmail.com">satayu.pongpan@gmail.com</a>
-    <nav class="contact-links reveal" aria-label="ช่องทางติดต่อเพิ่มเติม">
-      <a href="https://www.facebook.com/satayu.pongpan.2024" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a href="https://www.instagram.com/ddme36?igsh=YjltNTY3M29yZzFl&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://line.me/ti/p/FY_E24MWyp" target="_blank" rel="noopener noreferrer">Line</a>
-    </nav>
-    <footer class="contact-footer">
-      <p class="footer-name" aria-hidden="true">SATAYU</p>
-      <div class="footer-bottom">
-        <p>© 2026 Satayu Pongpan</p>
-        <a href="#section1">กลับด้านบน</a>
-      </div>
-    </footer>
-  </div>
+  </footer>
 </section>
